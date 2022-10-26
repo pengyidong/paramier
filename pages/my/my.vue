@@ -1,5 +1,5 @@
 <template>
-	<view :style="'margin-top:'+statusBarHeight+'px'">
+	<view :style="'margin-top:'+statusBarHeight+'px'" class="mb88">
 		<view class="bglg pr" :style="'height:'+bglgH+'px'">
 			<view class="pa m-0-24 bg-FFFFFF borderRadius boxShadow calcW">
 				<view class="p-45-35 pr">

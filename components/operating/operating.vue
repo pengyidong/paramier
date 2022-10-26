@@ -1,5 +1,5 @@
 <template>
-	<view class="m-0-24">
+	<view class="m-0-24 mb88">
 		<u-scroll-list :indicator="false">
 			<view class="bg-FFFFFF borderRadius mr30 hidden" :style="'min-width:'+itemW+'rpx'">
 				<view class="d-c hh100 bglg1">

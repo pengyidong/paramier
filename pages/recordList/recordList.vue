@@ -1,5 +1,5 @@
 <template>
-	<view class="mb150">
+	<view class="mb88">
 		<!-- <u-navbar title="治疗档案列表" :autoBack="true" :placeholder='true'></u-navbar> -->
 		<view class="mt30 m-0-24 bg-FFFFFF boxShadow borderRadius co-333333 f28" v-for="(item, index) in list"
 			:key="index" @click="gotoDetail(item)">

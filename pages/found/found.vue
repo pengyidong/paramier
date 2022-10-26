@@ -1,5 +1,5 @@
 <template>
-	<view :style="'padding-top:'+navBarH+'px'">
+	<view :style="'padding-top:'+navBarH+'px'" class="mb88">
 		<view :style="'height:'+navBarHeight+'px;padding-top:'+statusBarHeight+'px'" class="navBar co-333333 f36 fb500">
 			发现
 		</view>
