@@ -78,7 +78,7 @@
 						cond: [{
 							field: "agency_name",
 							method: "eq",
-							value: '机构全称'
+							value: '四川米兰柏羽医学美容医院有限公司'
 						}]
 					}
 				}
