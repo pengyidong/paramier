@@ -2,7 +2,7 @@
 	<view class="mt30">
 		<title title="资料完善度"></title>
 		<view class="m24 bg-FFFFFF  borderRadius p24 w100 flex">
-			<canvas canvas-id="pMxURTExxMIDAJTgnxpIlreZFDKBLfSk" id="pMxURTExxMIDAJTgnxpIlreZFDKBLfSk" type="2d"
+			<canvas canvas-id="XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv" id="XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv"
 				class="charts mr20" @touchend="tap" />
 			<view class="f26 co-333333 flex-1 ">
 				<view class="flex mb15">
@@ -47,9 +47,8 @@
 		},
 		data() {
 			return {
-				cWidth: 750,
-				cHeight: 500,
-				pixelRatio: 2,
+				cWidth: 180,
+				cHeight: 180
 			};
 		},
 		props: {
@@ -59,11 +58,10 @@
 			}
 		},
 		onReady() {
-			//这里的 750 对应 css .charts 的 width
-			this.cWidth = uni.upx2px(750);
-			//这里的 500 对应 css .charts 的 height
-			this.cHeight = uni.upx2px(500);
-			this.pixelRatio = uni.getSystemInfoSync().pixelRatio;
+			//这里的 180 对应 css .charts 的 width
+			this.cWidth = uni.upx2px(180);
+			//这里的 180 对应 css .charts 的 height
+			this.cHeight = uni.upx2px(180);
 			this.getServerData();
 		},
 		methods: {
@@ -78,58 +76,44 @@
 							data: 0.8
 						}]
 					};
-					this.drawCharts('pMxURTExxMIDAJTgnxpIlreZFDKBLfSk', res);
-				}, 500);
+					this.drawCharts('XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv', res);
+				}, 180);
 			},
 			drawCharts(id, data) {
-				const query = uni.createSelectorQuery().in(this);
-				query.select('#' + id).fields({
-					node: true,
-					size: true
-				}).exec(res => {
-					if (res[0]) {
-						const canvas = res[0].node;
-						const ctx = canvas.getContext('2d');
-						canvas.width = res[0].width * this.pixelRatio;
-						canvas.height = res[0].height * this.pixelRatio;
-						uChartsInstance[id] = new uCharts({
-							type: "arcbar",
-							context: ctx,
-							width: this.cWidth * this.pixelRatio,
-							height: this.cHeight * this.pixelRatio,
-							series: data.series,
-							pixelRatio: this.pixelRatio,
-							animation: true,
-							background: "#FFFFFF",
-							color: ["#1890FF", "#91CB74", "#FAC858", "#EE6666", "#73C0DE", "#3CA272",
-								"#FC8452", "#9A60B4", "#ea7ccc"
-							],
-							padding: undefined,
-							title: {
-								name: "80%",
-								fontSize: 35,
-								color: "#2fc25b"
-							},
-							subtitle: {
-								name: "正确率",
-								fontSize: 25,
-								color: "#666666"
-							},
-							extra: {
-								arcbar: {
-									type: "default",
-									width: 12,
-									backgroundColor: "#E9E9E9",
-									startAngle: 0.75,
-									endAngle: 0.25,
-									gap: 2,
-									linearType: "custom",
-									customColor: ["#A9B8D5", "#D2C7D8"]
-								}
-							}
-						});
-					} else {
-						console.error("[uCharts]: 未获取到 context");
+				const ctx = uni.createCanvasContext(id, this);
+				uChartsInstance[id] = new uCharts({
+					type: "arcbar",
+					context: ctx,
+					width: this.cWidth,
+					height: this.cHeight,
+					series: data.series,
+					animation: true,
+					background: "#FFFFFF",
+					color: ["#1890FF", "#91CB74", "#FAC858", "#EE6666", "#73C0DE", "#3CA272", "#FC8452", "#9A60B4",
+						"#ea7ccc"
+					],
+					padding: undefined,
+					title: {
+						name: `${this.detail.progress * 100}%`,
+						fontSize: 18,
+						color: "#2fc25b"
+					},
+					// subtitle: {
+					// 	name: "正确率",
+					// 	fontSize: 12,
+					// 	color: "#666666"
+					// },
+					extra: {
+						arcbar: {
+							type: "default",
+							width: 10,
+							backgroundColor: "#E9E9E9",
+							startAngle: 0.75,
+							endAngle: 0.25,
+							gap: 2,
+							linearType: "custom",
+							customColor: ["#A9B8D5", "#D2C7D8"]
+						}
 					}
 				});
 			},
