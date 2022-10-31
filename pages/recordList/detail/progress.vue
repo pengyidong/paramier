@@ -1,7 +1,7 @@
 <template>
-	<view class="mt30">
+	<view class="mt30 w100">
 		<title title="资料完善度"></title>
-		<view class="m24 bg-FFFFFF  borderRadius p24 w100 flex">
+		<view class="m24 bg-FFFFFF  borderRadius p24 flex">
 			<canvas canvas-id="XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv" id="XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv"
 				class="charts mr20" @touchend="tap" />
 			<view class="f26 co-333333 flex-1 ">
@@ -111,8 +111,7 @@
 							startAngle: 0.75,
 							endAngle: 0.25,
 							gap: 2,
-							linearType: "custom",
-							customColor: ["#A9B8D5", "#D2C7D8"]
+							linearType: "custom"
 						}
 					}
 				});
