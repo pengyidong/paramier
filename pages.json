@@ -58,6 +58,13 @@
 				"navigationBarTitleText": "治疗档案详情",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/recordList/editRecord",
+			"style": {
+				"navigationBarTitleText": "编辑治疗档案",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

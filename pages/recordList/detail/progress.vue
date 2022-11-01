@@ -6,26 +6,30 @@
 				class="charts mr20" @touchend="tap" />
 			<view class="f26 co-333333 flex-1 ">
 				<view class="flex mb15">
-					<view class="flex-1 ">
-						项目信息：2/2
+					<view class="flex-1 d-s-c  mr15">
+						<view>项目信息：{{projectNum}}/2</view>
+						<u-icon v-if="projectNum === 2" name="checkbox-mark" color="#5d9efe" size="24"></u-icon>
 					</view>
-					<view class="flex-1 ">
-						客户信息：2/2
+					<view class="flex-1 d-s-c">
+						<view>客户信息：{{cistpmerNum}}/5</view>
+						<u-icon v-if="cistpmerNum === 5" name="checkbox-mark" color="#5d9efe" size="24"></u-icon>
 					</view>
 				</view>
 				<view class="flex mb15">
-					<view class="flex-1 ">
-						医生信息：2/2
+					<view class="flex-1 d-s-c mr15">
+						<view>医生信息：{{doctorNum}}/1</view>
+						<u-icon v-if="doctorNum === 1" name="checkbox-mark" color="#5d9efe" size="24"></u-icon>
 					</view>
-					<view class="flex-1 ">
-						效果图片：2/2
+					<view class="flex-1 d-s-c">
+						<view>效果图片：{{effectNum}}/2</view>
+						<u-icon v-if="effectNum === 2" name="checkbox-mark" color="#5d9efe" size="24"></u-icon>
 					</view>
 				</view>
 				<view class="flex">
 					<view class="flex-1">
 					</view>
 					<view class="flex-1">
-						<view class="btn co-FFFFFF f26 fb">
+						<view class="btn co-FFFFFF f26 fb" @click="goto">
 							立即完善
 						</view>
 					</view>
@@ -48,7 +52,11 @@
 		data() {
 			return {
 				cWidth: 180,
-				cHeight: 180
+				cHeight: 180,
+				projectNum: 0,
+				cistpmerNum: 0,
+				doctorNum: 0,
+				effectNum: 0
 			};
 		},
 		props: {
@@ -57,27 +65,73 @@
 				default: {}
 			}
 		},
-		onReady() {
-			//这里的 180 对应 css .charts 的 width
+		watch: {
+			detail(val) {
+				this.getServerData();
+				this.getInfo();
+			}
+		},
+		mounted() {
 			this.cWidth = uni.upx2px(180);
-			//这里的 180 对应 css .charts 的 height
 			this.cHeight = uni.upx2px(180);
-			this.getServerData();
 		},
 		methods: {
+			goto() {
+				let url = `/pages/recordList/editRecord?record_id=${this.detail._id}`
+				uni.navigateTo({
+					url
+				})
+			},
+			getInfo() {
+				let _projectNum = this.projectNum
+				let _cistpmerNum = this.cistpmerNum
+				let _doctorNum = this.doctorNum
+				let _effectNum = this.effectNum
+				if (this.detail.project) {
+					_projectNum++;
+				}
+				if (this.detail.parts) {
+					_projectNum++;
+				}
+				if (this.detail.customer_name) {
+					_cistpmerNum++;
+				}
+				if (this.detail.contact) {
+					_cistpmerNum++;
+				}
+				if (this.detail.gender) {
+					_cistpmerNum++;
+				}
+				if (this.detail.wechat) {
+					_cistpmerNum++;
+				}
+				if (this.detail.symptoms) {
+					_cistpmerNum++;
+				}
+				if (this.detail.doctor_name) {
+					_doctorNum++;
+				}
+
+				if (this.detail.before[0].url) {
+					_effectNum++;
+				}
+				if (this.detail.after[0].url) {
+					_effectNum++;
+				}
+
+				this.projectNum = _projectNum
+				this.cistpmerNum = _cistpmerNum
+				this.doctorNum = _doctorNum
+				this.effectNum = _effectNum
+			},
 			getServerData() {
-				//模拟从服务器获取数据时的延时
-				setTimeout(() => {
-					//模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
-					let res = {
-						series: [{
-							name: "正确率",
-							color: "#2fc25b",
-							data: 0.8
-						}]
-					};
-					this.drawCharts('XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv', res);
-				}, 180);
+				let res = {
+					series: [{
+						color: "#2fc25b",
+						data: this.detail.progress
+					}]
+				};
+				this.drawCharts('XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv', res);
 			},
 			drawCharts(id, data) {
 				const ctx = uni.createCanvasContext(id, this);
@@ -98,11 +152,6 @@
 						fontSize: 18,
 						color: "#2fc25b"
 					},
-					// subtitle: {
-					// 	name: "正确率",
-					// 	fontSize: 12,
-					// 	color: "#666666"
-					// },
 					extra: {
 						arcbar: {
 							type: "default",
