@@ -35,7 +35,7 @@
 				<view>职称：{{detail.doctor_title}}</view>
 				<view>编号：{{detail.doctor_number}}</view>
 			</view>
-			<view class="btn co-FFFFFF f26 fb">选择医生</view>
+			<view class="btn btnlt co-FFFFFF f26 fb">选择医生</view>
 		</view>
 		<title title="效果图片"></title>
 		<view class="card d-s-c">
@@ -59,10 +59,10 @@
 
 		<view class="d-s-c">
 			<view class="flex-1 d-c-c">
-				<view>取消</view>
+				<view class="btn co-FFFFFF f26">取 消</view>
 			</view>
 			<view class="flex-1 d-c-c">
-				<view>编辑</view>
+				<view class="btn co-FFFFFF f26">编 辑</view>
 			</view>
 		</view>
 	</view>
@@ -71,7 +71,8 @@
 <script>
 	import title from '@/components/title/title.vue';
 	import {
-		recordDetail
+		recordDetail,
+		recordEdit
 	} from '@/common/api.js'
 	export default {
 		components: {
@@ -105,7 +106,9 @@
 				if (res.statusCode == 200) {
 					this.detail = res.data.data[0]
 				}
-
+			},
+			edit(){
+				let obj = {}
 			}
 		}
 	}
@@ -131,6 +134,9 @@
 		position: relative;
 		max-width: 120rpx;
 		height: 30rpx;
+	}
+	
+	.btnlt{
 		margin-left: auto;
 		margin-top: auto;
 	}
