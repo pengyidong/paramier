@@ -6,31 +6,13 @@
 			<image class="w100"
 				src="https://bianm.jinxiongsj.com/file/uploads/20221010/ae77dc315efd4bf4d60197d434a469cb.png"
 				mode="widthFix"></image>
-			<view class="p24 ">
-				<view class="flex">
-					<view class="flex-1">
-						ID：{{item.record_id}}
-					</view>
-					<view class="flex-1">
-						机构：{{item.agency_name}}
-					</view>
-				</view>
-				<view class="flex">
-					<view class="flex-1">
-						项目：{{item.parts}}
-					</view>
-					<view class="flex-1">
-						部位：{{item.project}}
-					</view>
-				</view>
-				<view class="flex">
-					<view class="flex-1">
-						资料完善度：{{item.progress * 100 }}%
-					</view>
-					<view class="flex-1">
-						创建时间：{{item.creation_time | transformTime}}
-					</view>
-				</view>
+			<view class="">
+				<view class="list-item">ID：{{item.record_id}}</view>
+				<view class="list-item">机构：{{item.agency_name}}</view>
+				<view class="list-item">项目：{{item.parts}}</view>
+				<view class="list-item">部位：{{item.project}}</view>
+				<view class="list-item">资料完善度：{{item.progress * 100 }}%</view>
+				<view class="list-item">创建时间：{{item.creation_time | transformTime}}</view>
 			</view>
 		</view>
 		<tabbar></tabbar>
@@ -92,5 +74,13 @@
 </script>
 
 <style lang="scss" scoped>
+	.list-item {
+		padding: 30rpx;
+		color: #666666;
+		font-size: 26rpx;
+	}
 
+	.list-item:not(:last-child) {
+		border-bottom: 1rpx rgba(153, 153, 153, 0.2) solid;
+	}
 </style>
