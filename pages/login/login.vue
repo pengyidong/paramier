@@ -1,7 +1,7 @@
 <template>
 	<view class="pr" :style="'height:'+pageHeight+'px;'">
 		<image class="w100"
-			src="https://bianm.jinxiongsj.com/file/uploads/20221018/ac5b68bfb74a4f32902a45421d7a1910.png"
+			src="https://bianm.jinxiongsj.com/file/uploads/20221108/722ded66dfec57846155f74d0069fbb6.jpg"
 			mode="widthFix"></image>
 		<view class="pr">
 			<view class="m-0-24 bg-FFFFFF p-30-25 borderRadius boxShadow pa top">
@@ -90,8 +90,8 @@
 	.loginBtn:before {
 		content: '';
 		position: absolute;
-		width: 532rpx;
-		height: 80rpx;
+		width: calc(100% - 8rpx);
+		height: calc(100% - 8rpx);
 		background: transparent;
 		border: 2rpx solid #FFFFFF;
 		border-radius: 12rpx;

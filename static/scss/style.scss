@@ -81,8 +81,8 @@
 }
 
 // 字体颜色和背景颜色
-$color-list:#FFFFFF #F8F8F8 #333333 #666666 #999999 #DDDDDD #539DF9 #EBEBEB;
-$color-name-list : FFFFFF F8F8F8 333333 666666 999999 DDDDDD 539DF9 EBEBEB;
+$color-list:#FFFFFF #F8F8F8 #333333 #666666 #999999 #DDDDDD #539DF9 #EBEBEB #5D9AFF;
+$color-name-list : FFFFFF F8F8F8 333333 666666 999999 DDDDDD 539DF9 EBEBEB 5D9AFF;
 @each $name in $color-name-list {
   $i: index($color-name-list, $name);
 

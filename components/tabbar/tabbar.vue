@@ -7,9 +7,8 @@
 				</image>
 			</template>
 			<template v-else>
-				<image class="slotItemCenter" mode='aspectFit' slot="active-icon" :src="item.active"></image>
-				<image class="slotItemCenter" mode='aspectFit' slot="inactive-icon" :src="item.inactive">
-				</image>
+				<image class="slotItemCenter" slot="active-icon" mode='aspectFit' :src="item.active"></image>
+				<image class="slotItemCenter" slot="inactive-icon" mode='aspectFit' :src="item.inactive"></image>
 			</template>
 		</u-tabbar-item>
 	</u-tabbar>
@@ -31,8 +30,8 @@
 						linkUrl: 'pages/found/found'
 					},
 					{
-						active: 'https://bianm.jinxiongsj.com/file/uploads/20221021/0b147ceb252683dadc7b3c42266e75d2.png',
-						inactive: 'https://bianm.jinxiongsj.com/file/uploads/20221021/97c4a63f9ee902d0864f6ad0d2c76ae6.png',
+						active: 'https://bianm.jinxiongsj.com/file/uploads/20221108/e206b24f5c3db69cebdc5bfb563ca175.png',
+						inactive: 'https://bianm.jinxiongsj.com/file/uploads/20221108/a2289de50844bae04d5b035012b6be27.png',
 						linkUrl: 'pages/recordList/recordList'
 					}, {
 						active: 'https://bianm.jinxiongsj.com/file/uploads/20221009/b91536fbd2531575959df72936d96c3a.png',
@@ -70,14 +69,22 @@
 <style lang="scss" scoped>
 	.slotItem {
 		width: 50rpx;
-		height: 86rpx;
+		height: 87rpx;
 	}
-	.slotItemCenter{
-		width: 100rpx;
-		height: 100rpx;
-		margin-bottom: 60rpx;
-		border: 24rpx solid #FFFFFF;
-		border-radius: 50%;
+
+	.slotItemCenter {
+		width: 80rpx;
+		height: 110rpx;
 		display: block;
+		background: #FFFFFF;
+		margin-bottom: 24rpx;
+	}
+
+	.activeText {
+		background: linear-gradient(0deg, #DAB1C1, #9AAECF);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		text-shadow: 0px 2px 2px 0px #4e2a03;
 	}
 </style>

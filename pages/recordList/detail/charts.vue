@@ -11,7 +11,7 @@
 	export default {
 		data() {
 			return {
-				cWidth: 750,
+				cWidth: (uni.getSystemInfoSync().windowWidth * 2) - 48,
 				cHeight: 500
 			};
 		},
@@ -19,7 +19,7 @@
 			let w = (uni.getSystemInfoSync().windowWidth * 2) - 48
 			//这里的 750 对应 css .charts 的 width
 			this.cWidth = uni.upx2px(w);
-			//这里的 500 对应 css .charts 的 height
+			//这里的 800 对应 css .charts 的 height
 			this.cHeight = uni.upx2px(500);
 			this.getServerData();
 		},
@@ -78,4 +78,8 @@
 </script>
 
 <style scoped>
+	.charts{
+		width: calc(100% - 48rpx);
+		height: 500rpx;
+	}
 </style>

@@ -13,8 +13,8 @@
 							mode=""></image>
 						<text class="fb f30 co-333333">北京丽格机构</text>
 					</view>
-					<image class="pa rfm" style="width: 140rpx;"
-						src="https://bianm.jinxiongsj.com/file/uploads/20221012/dee748afa0c03d61afe4f978e813ee6a.png"
+					<image class="pa rfm" style="width: 120rpx;"
+						src="https://bianm.jinxiongsj.com/file/uploads/20221108/21a69a0de3ca4cfbaf8839a89fa8ffd3.png"
 						mode="widthFix"></image>
 				</view>
 				<view class="p35 d-s-c">
@@ -126,7 +126,7 @@
 
 	.rfm {
 		right: 30rpx;
-		top: -50rpx;
+		top: -85rpx;
 	}
 
 	.p-25-30 {

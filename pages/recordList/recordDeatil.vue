@@ -99,10 +99,12 @@
 					}
 				}
 				const res = await recordRun(obj)
+				console.log(res.statusCode);
 				if (res.statusCode == 200) {
 					this.lineList = res.data.data
-					this.model = this.lineList[0].model
-					this.current_number = this.lineList[0].current_number
+					console.log(this.lineList);
+					this.model = res?.data?.data[0]?.model || ''
+					this.current_number = res?.data?.data[0]?.current_number
 				}
 			},
 			// 项目详情

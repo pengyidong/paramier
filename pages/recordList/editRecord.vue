@@ -25,7 +25,7 @@
 			<view class="co-333333 f26 fb m-15-0">症状问题</view>
 			<u--textarea placeholder="请输入内容" autoHeight :value='detail.symptoms'></u--textarea>
 		</view>
-		<title title="医生信息"></title> 
+		<title title="医生信息"></title>
 		<view class="card flex">
 			<view class="mr30">
 				<image class="doctorPhoto" :src="detail.doctor_photo[0].url" mode="widthFix"></image>
@@ -43,26 +43,22 @@
 				<view class="mb15">
 					治疗前
 				</view>
-				<view>
-					<image style="width: 95%;" class="borderRadius" :src="detail.before[0].url" mode="widthFix"></image>
-				</view>
+				<u-album class="borderRadius" borderRadius='12rpx' :urls="urls1" keyName="src1"></u-album>
 			</view>
 			<view class="flex-1">
 				<view class="mb15">
 					治疗后
 				</view>
-				<view>
-					<image style="width: 95%;" class="borderRadius" :src="detail.after[0].url" mode="widthFix"></image>
-				</view>
+				<u-album class="borderRadius" borderRadius='12rpx' :urls="urls2" keyName="src2"></u-album>
 			</view>
 		</view>
 
 		<view class="d-s-c">
 			<view class="flex-1 d-c-c">
-				<view class="btn co-FFFFFF f26">取 消</view>
+				<view class="btn co-FFFFFF f26" @click="back">取 消</view>
 			</view>
 			<view class="flex-1 d-c-c">
-				<view class="btn co-FFFFFF f26">编 辑</view>
+				<view class="btn co-FFFFFF f26" @click="edit">编 辑</view>
 			</view>
 		</view>
 	</view>
@@ -81,14 +77,32 @@
 		data() {
 			return {
 				detail: {},
-				record_id: ''
+				record_id: '',
+				urls1: [],
+				urls2: [],
 			}
 		},
 		onLoad(options) {
 			this.record_id = decodeURIComponent(options.record_id);
 			this.getListData()
 		},
+		watch:{
+			detail(val){
+				this.urls1 = [{
+					src1: val.before[0].url,
+				}]
+				this.urls2 =  [{
+					src2: val.after[0].url,
+				}]
+			}
+		},
 		methods: {
+			back(){
+				uni.navigateBack()
+			},
+			edit(){
+				uni.navigateBack()
+			},
 			// 项目详情
 			async getListData() {
 				let obj = {
@@ -107,7 +121,7 @@
 					this.detail = res.data.data[0]
 				}
 			},
-			edit(){
+			edit() {
 				let obj = {}
 			}
 		}
@@ -116,11 +130,11 @@
 
 <style lang="scss" scoped>
 	.doctorPhoto {
-		width: 120rpx;
-		height: 120rpx;
-		min-width: 120rpx;
-		min-height: 120rpx;
-		border-radius: 120rpx;
+		width: 160rpx;
+		height: 160rpx;
+		min-width: 160rpx;
+		min-height: 160rpx;
+		border-radius: 160rpx;
 	}
 
 	.btn {
@@ -135,8 +149,8 @@
 		max-width: 120rpx;
 		height: 30rpx;
 	}
-	
-	.btnlt{
+
+	.btnlt {
 		margin-left: auto;
 		margin-top: auto;
 	}
