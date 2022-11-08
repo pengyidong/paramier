@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="m24 bg-FFFFFF borderRadius">
 		<canvas canvas-id="ARChXLxJXFJXrGGYgiCpdianGranriPH" id="ARChXLxJXFJXrGGYgiCpdianGranriPH" class="charts"
 			@touchend="tap" />
 	</view>
@@ -16,8 +16,9 @@
 			};
 		},
 		onReady() {
+			let w = (uni.getSystemInfoSync().windowWidth * 2) - 48
 			//这里的 750 对应 css .charts 的 width
-			this.cWidth = uni.upx2px(750);
+			this.cWidth = uni.upx2px(w);
 			//这里的 500 对应 css .charts 的 height
 			this.cHeight = uni.upx2px(500);
 			this.getServerData();
@@ -30,10 +31,9 @@
 					let res = {
 						categories: ["10min", "20min", "30min", "40min", "50min", "60min"],
 						series: [{
-								name: "温度",
-								data: [35, 28, 25, 37, 32, 20]
-							}
-						]
+							name: "温度",
+							data: [35, 28, 25, 37, 32, 20]
+						}]
 					};
 					this.drawCharts('ARChXLxJXFJXrGGYgiCpdianGranriPH', res);
 				}, 500);
@@ -78,8 +78,4 @@
 </script>
 
 <style scoped>
-	.charts {
-		width: 750rpx;
-		height: 500rpx;
-	}
 </style>

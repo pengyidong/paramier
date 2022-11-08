@@ -42,6 +42,10 @@
 
 <style lang="scss" scoped>
 	.hashbtn {
-		text-decoration: underline;
+		padding: 5rpx 15rpx;
+		color: #FFFFFF;
+		background: #5D9AFF;
+		border-radius: 12rpx;
+		font-size: 26rpx;
 	}
 </style>

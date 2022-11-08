@@ -29,10 +29,10 @@
 
 <style lang="scss" scoped>
 	.doctorPhoto {
-		width: 120rpx;
-		height: 120rpx;
-		min-width: 120rpx;
-		min-height: 120rpx;
-		border-radius: 120rpx;
+		width: 160rpx;
+		height: 160rpx;
+		min-width: 160rpx;
+		min-height: 160rpx;
+		border-radius: 160rpx;
 	}
 </style>

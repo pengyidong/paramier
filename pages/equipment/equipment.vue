@@ -2,7 +2,7 @@
 	<view :style="'margin-top:'+statusBarHeight+'px'" class="mb88">
 		<view class="m-0-24 mb50">
 			<image style="width: 100%;"
-				src="https://bianm.jinxiongsj.com/file/uploads/20221010/ae77dc315efd4bf4d60197d434a469cb.png"
+				src="https://bianm.jinxiongsj.com/file/uploads/20221108/54d8ba4e8ecb331fba5ba813206d3639.jpg"
 				mode="widthFix">
 			</image>
 		</view>

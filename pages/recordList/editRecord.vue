@@ -25,7 +25,7 @@
 			<view class="co-333333 f26 fb m-15-0">症状问题</view>
 			<u--textarea placeholder="请输入内容" autoHeight :value='detail.symptoms'></u--textarea>
 		</view>
-		<title title="医生信息"></title>
+		<title title="医生信息"></title> 
 		<view class="card flex">
 			<view class="mr30">
 				<image class="doctorPhoto" :src="detail.doctor_photo[0].url" mode="widthFix"></image>

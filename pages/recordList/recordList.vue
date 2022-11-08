@@ -4,7 +4,7 @@
 		<view class="mt30 m-0-24 bg-FFFFFF boxShadow borderRadius co-333333 f28" v-for="(item, index) in list"
 			:key="index" @click="gotoDetail(item)">
 			<image class="w100"
-				src="https://bianm.jinxiongsj.com/file/uploads/20221010/ae77dc315efd4bf4d60197d434a469cb.png"
+				src="https://bianm.jinxiongsj.com/file/uploads/20221108/54d8ba4e8ecb331fba5ba813206d3639.jpg"
 				mode="widthFix"></image>
 			<view class="">
 				<view class="list-item">ID：{{item.record_id}}</view>
@@ -74,13 +74,5 @@
 </script>
 
 <style lang="scss" scoped>
-	.list-item {
-		padding: 30rpx;
-		color: #666666;
-		font-size: 26rpx;
-	}
 
-	.list-item:not(:last-child) {
-		border-bottom: 1rpx rgba(153, 153, 153, 0.2) solid;
-	}
 </style>

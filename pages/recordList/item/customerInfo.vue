@@ -1,15 +1,10 @@
 <template>
-	<view class="card">
-		<view class="flex mb15">
-			<view class="flex-1">姓名：{{detail.customer_name}}</view>
-			<view class="flex-1">联系方式：{{detail.contact}}</view>
-		</view>
-		<view class="flex mb15">
-			<view class="flex-1">性别：{{detail.gender}}</view>
-			<view class="flex-1">微信号：{{detail.wechat}}</view>
-		</view>
-		<view>症状和问题</view>
-		<view class="tj">{{detail.symptoms}}</view>
+	<view class="cardt">
+		<view class="list-item">姓名：{{detail.customer_name}}</view>
+		<view class="list-item">联系方式：{{detail.contact}}</view>
+		<view class="list-item">性别：{{detail.gender}}</view>
+		<view class="list-item">微信号：{{detail.wechat}}</view>
+		<view class="list-item">症状和问题：<span class="tj"></span>{{detail.symptoms}}</view>
 	</view>
 </template>
 

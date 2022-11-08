@@ -4,9 +4,9 @@
 		<charts></charts>
 		<basicInfo :detail='detailData' :model='model' :currentnumber='current_number'></basicInfo>
 		<progress :detail='detailData'></progress>
-		<view class="bg-FFFFFF pb30">
-			<u-tabs @change='tabsChange' :current='index' :scrollable='false' :list="list" lineColor="#5AA1F9"
-				:activeStyle="{
+		<view class="bg-FFFFFF pb30 m-0-24 bb-999999-2">
+			<u-tabs @change='tabsChange' :current='index' :scrollable='false' itemStyle="height: 30px;" :list="list"
+				:lineWidth='60' :lineHeight='2' lineColor="#5AA1F9" :activeStyle="{
 			    color: '#5AA1F9'
 			}"></u-tabs>
 		</view>
@@ -16,7 +16,7 @@
 		<doctor v-if="index === 2" :detail='detailData'></doctor>
 		<effect v-if="index === 3" :detail='detailData'></effect>
 
-		<hash :detail='detailData'></hash> 
+		<hash :detail='detailData'></hash>
 
 	</view>
 </template>

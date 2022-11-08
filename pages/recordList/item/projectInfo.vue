@@ -1,7 +1,7 @@
 <template>
-	<view class="card">
-		<view class="mb15">项目名称：{{detail.project}}</view>
-		<view>项目部位：{{detail.parts}}</view>
+	<view class="cardt">
+		<view class="list-item">项目名称：{{detail.project}}</view>
+		<view class="list-item">项目部位：{{detail.parts}}</view>
 	</view>
 </template>
 

@@ -1,34 +1,29 @@
 <template>
-	<view class="mt50">
+	<view class="mt30">
 		<view class="flex bg-FFFFFF m-0-24 borderRadius p24 mb30">
 			<view>
-				<image :src="modelList[model]" style="width: 120rpx;height: 120rpx">
+				<image :src="modelList[model]" style="width:130rpx;height:130rpx">
 				</image>
 			</view>
-			<view class="f26 co-333333 ml30 d-f-s">
-				<view>模式：{{model}}</view>
-				<view>治疗时长：1小时20分</view>
-				<view>剩余发数：{{currentnumber}}</view>
+			<view class="f26 co-333333 ml30 flex flex-1">
+				<view class="flex-1 d-f-a">
+					<view>模式：{{model}}</view>
+					<view>时长：1小时20分</view>
+				</view>
+				<view class="flex-1 d-f-a">
+					<view>总发数：12000</view>
+					<view>剩余发数：{{currentnumber}}</view>
+				</view>
+
+
 			</view>
 		</view>
 		<title title="基础信息"></title>
-		<view class="m-0-24 bg-FFFFFF borderRadius p24 co-333333 f26">
-			<view class="flex mb15">
-				<view class="flex-1">
-					档案ID：{{detail.record_id || '' }}
-				</view>
-				<view class="flex-1">
-					创建时间：{{detail.creation_time | transformTime}}
-				</view>
-			</view>
-			<view class="flex">
-				<view class="flex-1">
-					开始时间：{{detail.start_time | transformTime}}
-				</view>
-				<view class="flex-1">
-					结束时间：{{detail.end_time | transformTime}}
-				</view>
-			</view>
+		<view class="m-0-24 bg-FFFFFF borderRadius co-333333 f26">
+			<view class="list-item d-s-c"><span>档案ID</span><span>{{detail.record_id || '' }}</span></view>
+			<view class="list-item d-s-c"><span>创建时间</span><span>{{detail.creation_time | transformTime}}</span></view>
+			<view class="list-item d-s-c"><span>开始时间</span><span>{{detail.start_time | transformTime}}</span></view>
+			<view class="list-item d-s-c"><span>结束时间</span><span>{{detail.end_time | transformTime}}</span></view>
 		</view>
 	</view>
 </template>
