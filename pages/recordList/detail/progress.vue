@@ -132,15 +132,6 @@
 				};
 				this.drawCharts('htHonoZKKNFWzzuEOuxdODGymcQHvAwY', res);
 			},
-			getServerData() {
-				let res = {
-					series: [{
-						color: "#5D9AFF",
-						data: this.detail.progress
-					}]
-				};
-				this.drawCharts('XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv', res);
-			},
 			drawCharts(id, data) {
 				const ctx = uni.createCanvasContext(id, this);
 				uChartsInstance[id] = new uCharts({

@@ -37,6 +37,9 @@
 		created() {
 			this.getData()
 		},
+		onPullDownRefresh() {
+			this.getData()
+		},
 		methods: {
 			gotoDetail(item) {
 				let url = `/pages/recordList/recordDeatil?agency_name=${item.agency_name}&record_id=${item.record_id}`
