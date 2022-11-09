@@ -70,6 +70,8 @@
 		onLoad(options) {
 			this.agency_name = decodeURIComponent(options.agency_name);
 			this.record_id = decodeURIComponent(options.record_id);
+		},
+		onShow() {
 			this.getDeatilData()
 			this.getListData()
 		},

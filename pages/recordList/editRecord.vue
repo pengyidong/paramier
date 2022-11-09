@@ -4,26 +4,31 @@
 		<title title="项目信息"></title>
 		<view class="card">
 			<view class="co-333333 f26 fb mb15">项目部位</view>
-			<u--input placeholder="请输入内容" border="surround" :value='detail.parts'></u--input>
+			<u--input placeholder="请输入内容" border="surround" :value='detail.parts' @change="change($event,0)"></u--input>
 			<view class="co-333333 f26 fb m-15-0">项目名称</view>
-			<u--input placeholder="请输入内容" border="surround" :value='detail.project'></u--input>
+			<u--input placeholder="请输入内容" border="surround" :value='detail.project' @change="change($event,1)">
+			</u--input>
 		</view>
 
 		<title title="客户信息"></title>
 		<view class="card">
 			<view class="co-333333 f26 fb mb15">姓名</view>
-			<u--input placeholder="请输入内容" border="surround" :value='detail.customer_name'></u--input>
+			<u--input placeholder="请输入内容" border="surround" :value='detail.customer_name' @change="change($event,2)">
+			</u--input>
 			<view class="co-333333 f26 fb m-15-0">性别</view>
 			<u-radio-group v-model="detail.gender" placement="row">
 				<u-radio label="男" name='男' :customStyle="{marginRight: '16px'}"></u-radio>
 				<u-radio label="女" name='女'></u-radio>
 			</u-radio-group>
 			<view class="co-333333 f26 fb m-15-0">联系方式</view>
-			<u--input placeholder="请输入内容" border="surround" :value='detail.contact'></u--input>
+			<u--input placeholder="请输入内容" border="surround" :value='detail.contact' @change="change($event,3)">
+			</u--input>
 			<view class="co-333333 f26 fb m-15-0">微信号</view>
-			<u--input placeholder="请输入内容" border="surround" :value='detail.wechat'></u--input>
+			<u--input placeholder="请输入内容" border="surround" :value='detail.wechat' @change="change($event,4)">
+			</u--input>
 			<view class="co-333333 f26 fb m-15-0">症状问题</view>
-			<u--textarea placeholder="请输入内容" autoHeight :value='detail.symptoms'></u--textarea>
+			<u--textarea placeholder="请输入内容" autoHeight :value='detail.symptoms' @input="change($event,5)">
+			</u--textarea>
 		</view>
 		<title title="医生信息"></title>
 		<view class="card flex">
@@ -68,7 +73,7 @@
 	import title from '@/components/title/title.vue';
 	import {
 		recordDetail,
-		recordEdit
+		recordUpdate
 	} from '@/common/api.js'
 	export default {
 		components: {
@@ -80,28 +85,112 @@
 				record_id: '',
 				urls1: [],
 				urls2: [],
+				details: {
+					parts: '',
+					project: '',
+					customer_name: '',
+					contact: '',
+					wechat: '',
+					symptoms: '',
+					gender: '',
+					doctor_photo: '',
+					doctor_name: '',
+					doctor_title: '',
+					doctor_number: '',
+					src1: '',
+					src2: ''
+				}
 			}
 		},
 		onLoad(options) {
 			this.record_id = decodeURIComponent(options.record_id);
 			this.getListData()
 		},
-		watch:{
-			detail(val){
-				this.urls1 = [{
-					src1: val.before[0].url,
-				}]
-				this.urls2 =  [{
-					src2: val.after[0].url,
-				}]
-			}
-		},
 		methods: {
-			back(){
+			change(value, index) {
+				switch (index) {
+					case 0:
+						this.details.parts = value;
+						break;
+					case 1:
+						this.details.project = value;
+						break;
+					case 2:
+						this.details.customer_name = value;
+						break;
+					case 3:
+						this.details.contact = value;
+						break;
+					case 4:
+						this.details.wechat = value;
+						break;
+					case 5:
+						this.details.symptoms = value;
+						break;
+				}
+				console.log("this._detail: ", this.details);
+			},
+			back() {
 				uni.navigateBack()
 			},
-			edit(){
-				uni.navigateBack()
+			edit() {
+				this.update()
+			},
+			async update() {
+				let obj = {
+					data_id: this.detail._id,
+					data: {
+						parts: {
+							value: this.details.parts
+						},
+						project: {
+							value: this.details.project
+						},
+						customer_name: {
+							value: this.details.customer_name
+						},
+						contact: {
+							value: this.details.contact
+						},
+						wechat: {
+							value: this.details.wechat
+						},
+						gender: {
+							value: this.details.gender
+						},
+						symptoms: {
+							value: this.details.symptoms
+						},
+						doctor_number: {
+							value: this.details.doctor_number
+						},
+						doctor_name: {
+							value: this.details.doctor_name
+						},
+						doctor_title: {
+							value: this.details.doctor_title
+						},
+						doctor_photo: {
+							value: [
+								this.details.doctor_photo
+							]
+						},
+						before: {
+							value: [
+								this.details.src1
+							]
+						},
+						after: {
+							value: [
+								this.details.src2
+							]
+						}
+					}
+				}
+				const res = await recordUpdate(obj)
+				if (res.statusCode === 200) {
+					this.back()
+				}
 			},
 			// 项目详情
 			async getListData() {
@@ -119,10 +208,26 @@
 				const res = await recordDetail(obj)
 				if (res.statusCode == 200) {
 					this.detail = res.data.data[0]
+					this.details.parts = res.data.data[0].parts
+					this.details.project = res.data.data[0].project
+					this.details.customer_name = res.data.data[0].customer_name
+					this.details.contact = res.data.data[0].contact
+					this.details.wechat = res.data.data[0].wechat
+					this.details.symptoms = res.data.data[0].symptoms
+					this.details.gender = res.data.data[0].gender
+					this.details.doctor_photo = res.data.data[0]?.doctor_photo[0]?.url
+					this.details.doctor_title = res.data.data[0].doctor_title
+					this.details.doctor_name = res.data.data[0].doctor_name
+					this.details.doctor_number = res.data.data[0].doctor_number
+					this.details.src1 = res.data.data[0]?.before[0]?.url
+					this.details.src2 = res.data.data[0]?.after[0]?.url
+					this.urls1 = [{
+						src1: res.data.data[0]?.before[0]?.url,
+					}]
+					this.urls2 = [{
+						src2: res.data.data[0]?.after[0]?.url,
+					}]
 				}
-			},
-			edit() {
-				let obj = {}
 			}
 		}
 	}

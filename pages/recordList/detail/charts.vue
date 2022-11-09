@@ -70,8 +70,8 @@
 				});
 			},
 			tap(e) {
-				uChartsInstance[e.target.id].touchLegend(e);
-				uChartsInstance[e.target.id].showToolTip(e);
+				// uChartsInstance[e.target.id].touchLegend(e);
+				// uChartsInstance[e.target.id].showToolTip(e);
 			}
 		}
 	};

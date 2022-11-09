@@ -31,8 +31,8 @@ export const recordRun = (data) => request({
 	data
 })
 
-// 设备运行数据 
-export const recordEdit = (data) => request({
+// 编辑治疗档案
+export const recordUpdate = (data) => request({
 	url: '/63413e3366ceda0008b4e512/entry/634e763952cb33000a45e252/data_update',
 	method: 'post',
 	data

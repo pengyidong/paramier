@@ -111,10 +111,10 @@
 					_doctorNum++;
 				}
 
-				if (this.detail.before[0].url) {
+				if (this.detail?.before[0]?.url) {
 					_effectNum++;
 				}
-				if (this.detail.after[0].url) {
+				if (this.detail?.after[0]?.url) {
 					_effectNum++;
 				}
 
@@ -127,10 +127,10 @@
 				let res = {
 					series: [{
 						color: "#5D9AFF",
-						data: this.detail.progress
+						data: this.detail.progress || 0
 					}]
 				};
-				this.drawCharts('htHonoZKKNFWzzuEOuxdODGymcQHvAwY', res);
+				this.drawCharts('XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv', res);
 			},
 			drawCharts(id, data) {
 				const ctx = uni.createCanvasContext(id, this);
@@ -143,7 +143,7 @@
 					animation: true,
 					background: "#FFFFFF",
 					title: {
-						name: `${this.detail.progress * 100}%`,
+						name: `${this.detail.progress * 100}%` || 0,
 						fontSize: 18,
 						color: "#5D9AFF"
 					},
