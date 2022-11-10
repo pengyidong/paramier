@@ -16,7 +16,7 @@
 			<u--input placeholder="请输入内容" border="surround" :value='detail.customer_name' @change="change($event,2)">
 			</u--input>
 			<view class="co-333333 f26 fb m-15-0">性别</view>
-			<u-radio-group v-model="detail.gender" placement="row">
+			<u-radio-group v-model="details.gender" placement="row">
 				<u-radio label="男" name='男' :customStyle="{marginRight: '16px'}"></u-radio>
 				<u-radio label="女" name='女'></u-radio>
 			</u-radio-group>
@@ -43,18 +43,25 @@
 			<view class="btn btnlt co-FFFFFF f26 fb">选择医生</view>
 		</view>
 		<title title="效果图片"></title>
-		<view class="card d-s-c">
-			<view class="flex-1">
+		<view class="card d-s">
+			<view class="flex-1 album">
 				<view class="mb15">
 					治疗前
 				</view>
-				<u-album class="borderRadius" borderRadius='12rpx' :urls="urls1" keyName="src1"></u-album>
+				<u-album borderRadius='12rpx' albumSize='90%' :singleSize='130' singleMode='widthFix' :urls="urls1"
+					keyName="src1">
+				</u-album>
+				<view class="btn co-FFFFFF f26 mt15" @click='upload(0)'>上传图片</view>
+
 			</view>
-			<view class="flex-1">
+			<view class="flex-1 album">
 				<view class="mb15">
 					治疗后
 				</view>
-				<u-album class="borderRadius" borderRadius='12rpx' :urls="urls2" keyName="src2"></u-album>
+				<u-album borderRadius='12rpx' albumSize='90%' :singleSize='130' singleMode='widthFix' :urls="urls2"
+					keyName="src2">
+				</u-album>
+				<view class="btn co-FFFFFF f26 mt15" @click='upload(1)'>上传图片</view>
 			</view>
 		</view>
 
@@ -73,7 +80,8 @@
 	import title from '@/components/title/title.vue';
 	import {
 		recordDetail,
-		recordUpdate
+		recordUpdate,
+		getUploadToken
 	} from '@/common/api.js'
 	export default {
 		components: {
@@ -82,6 +90,7 @@
 		data() {
 			return {
 				detail: {},
+				token_and_url_list: [],
 				record_id: '',
 				urls1: [],
 				urls2: [],
@@ -105,8 +114,63 @@
 		onLoad(options) {
 			this.record_id = decodeURIComponent(options.record_id);
 			this.getListData()
+			this.getToken()
 		},
 		methods: {
+			async getToken() {
+				const res = await getUploadToken()
+				console.log("res: ", res);
+				if (res.statusCode === 200) {
+					this.token_and_url_list = res.data.token_and_url_list
+				}
+			},
+			upload(index) {
+				uni.chooseImage({
+					count: 1,
+					sizeType: ['original'],
+					sourceType: ['album', 'camera'],
+					success: (chooseImageRes) => {
+						console.log("chooseImageRes: ", chooseImageRes);
+						uni.showLoading({
+							title: '图片上传中'
+						});
+						uni.uploadFile({
+							url: this.token_and_url_list[0].url, //接口地址
+							header: {
+								'Authorization': 'Bearer SMlLFl0qf3setN6OWJl7henCSwnwfLaX'
+							}, //请求token
+							filePath: chooseImageRes.tempFilePaths[0],
+							formData: {
+								"token": this.token_and_url_list[0].token,
+							},
+							name: 'file',
+							success: (uploadFileRes) => {
+								let key = JSON.parse(uploadFileRes.data).key
+								console.log("chooseImageRes.tempFilePaths[0]: ", chooseImageRes
+									.tempFilePaths[0]);
+								this.token_and_url_list.shift();
+
+								if (index === 0) {
+									this.details.src1 = key
+									this.urls1 = [{
+										src1: chooseImageRes.tempFilePaths[0],
+									}]
+									console.log(this.urls1);
+								}
+								if (index === 1) {
+									this.details.src2 = key
+									this.urls2 = [{
+										src2: chooseImageRes.tempFilePaths[0],
+									}]
+								}
+							},
+							complete: () => {
+								uni.hideLoading();
+							}
+						});
+					}
+				});
+			},
 			change(value, index) {
 				switch (index) {
 					case 0:
@@ -139,6 +203,7 @@
 			async update() {
 				let obj = {
 					data_id: this.detail._id,
+					transaction_id: "pengyidong-13257079395",
 					data: {
 						parts: {
 							value: this.details.parts
@@ -187,6 +252,7 @@
 						}
 					}
 				}
+				console.log("obj: ", obj);
 				const res = await recordUpdate(obj)
 				if (res.statusCode === 200) {
 					this.back()
@@ -221,12 +287,19 @@
 					this.details.doctor_number = res.data.data[0].doctor_number
 					this.details.src1 = res.data.data[0]?.before[0]?.url
 					this.details.src2 = res.data.data[0]?.after[0]?.url
-					this.urls1 = [{
-						src1: res.data.data[0]?.before[0]?.url,
-					}]
-					this.urls2 = [{
-						src2: res.data.data[0]?.after[0]?.url,
-					}]
+					if (res.data.data[0].before && res.data.data[0].before[0] && res.data.data[0].before[0].url) {
+						this.urls1 = [{
+							src1: res.data.data[0]?.before[0]?.url || '',
+						}]
+					}
+
+					if (res.data.data[0].after && res.data.data[0].after[0] && res.data.data[0].after[0].url) {
+						this.urls2 = [{
+							src2: res.data.data[0]?.after[0]?.url || '',
+						}]
+					}
+
+
 				}
 			}
 		}
@@ -270,5 +343,9 @@
 		border-radius: 12rpx;
 		top: 2rpx;
 		left: 2rpx;
+	}
+
+	.album {
+		min-width: 45%;
 	}
 </style>

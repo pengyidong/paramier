@@ -1,85 +1,79 @@
 <template>
 	<view class="m24 bg-FFFFFF borderRadius">
-		<canvas canvas-id="ARChXLxJXFJXrGGYgiCpdianGranriPH" id="ARChXLxJXFJXrGGYgiCpdianGranriPH" class="charts"
-			@touchend="tap" />
+
+		<view class="uni-margin-wrap">
+			<swiper class="swiper" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
+				:duration="duration">
+				<swiper-item>
+					<tempCharts />
+				</swiper-item>
+				<swiper-item>
+					<tempCharts />
+				</swiper-item>
+				<swiper-item>
+					<tempCharts />
+				</swiper-item>
+			</swiper>
+		</view>
 	</view>
 </template>
 
 <script>
-	import uCharts from '@/static/utils/u-charts.js';
+	import tempCharts from "./tempCharts.vue"
 	var uChartsInstance = {};
 	export default {
+		components: {
+			tempCharts
+		},
 		data() {
 			return {
-				cWidth: (uni.getSystemInfoSync().windowWidth * 2) - 48,
-				cHeight: 500
+				indicatorDots: false,
+				autoplay: true,
+				interval: 3000,
+				duration: 750
 			};
 		},
-		onReady() {
-			let w = (uni.getSystemInfoSync().windowWidth * 2) - 48
-			//这里的 750 对应 css .charts 的 width
-			this.cWidth = uni.upx2px(w);
-			//这里的 800 对应 css .charts 的 height
-			this.cHeight = uni.upx2px(500);
-			this.getServerData();
-		},
+		onReady() {},
 		methods: {
-			getServerData() {
-				//模拟从服务器获取数据时的延时
-				setTimeout(() => {
-					//模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
-					let res = {
-						categories: ["10min", "20min", "30min", "40min", "50min", "60min"],
-						series: [{
-							name: "温度",
-							data: [35, 28, 25, 37, 32, 20]
-						}]
-					};
-					this.drawCharts('ARChXLxJXFJXrGGYgiCpdianGranriPH', res);
-				}, 500);
-			},
-			drawCharts(id, data) {
-				const ctx = uni.createCanvasContext(id, this);
-				uChartsInstance[id] = new uCharts({
-					type: "line",
-					context: ctx,
-					width: this.cWidth,
-					height: this.cHeight,
-					categories: data.categories,
-					series: data.series,
-					animation: true,
-					background: "#FFFFFF",
-					color: ["#1890FF", "#91CB74", "#FAC858", "#EE6666", "#73C0DE", "#3CA272", "#FC8452", "#9A60B4",
-						"#ea7ccc"
-					],
-					padding: [15, 10, 0, 15],
-					legend: {},
-					xAxis: {
-						disableGrid: true
-					},
-					yAxis: {
-						gridType: "dash",
-						dashLength: 2
-					},
-					extra: {
-						line: {
-							type: "curve",
-							width: 2
-						}
-					}
-				});
-			},
-			tap(e) {
-				// uChartsInstance[e.target.id].touchLegend(e);
-				// uChartsInstance[e.target.id].showToolTip(e);
-			}
+
 		}
 	};
 </script>
 
 <style scoped>
-	.charts{
-		width: calc(100% - 48rpx);
+	.uni-margin-wrap {
+		width: 690rpx;
+		width: 100%;
+	}
+
+	.swiper {
 		height: 500rpx;
+	}
+
+	.swiper-item {
+		display: block;
+		height: 300rpx;
+		line-height: 300rpx;
+		text-align: center;
+	}
+
+	.swiper-list {
+		margin-top: 40rpx;
+		margin-bottom: 0;
+	}
+
+	.uni-common-mt {
+		margin-top: 60rpx;
+		position: relative;
+	}
+
+	.info {
+		position: absolute;
+		right: 20rpx;
+	}
+
+	.uni-padding-wrap {
+		width: 550rpx;
+		padding: 0 100rpx;
 	}
 </style>

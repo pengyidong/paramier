@@ -1,14 +1,9 @@
-// 正式
-// let isTest = false
-// 测试
-let isTest = true
-
-export const baseURL = isTest ? 'https://api.jiandaoyun.com/api/v4/app' : 'https://newshop.jinxiongsj.com/api/v4/app'
+export const baseURL = 'https://api.jiandaoyun.com/api/'
 
 export const request = (options) => {
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url: baseURL + options.url,
+			url: `${baseURL}${options.isUpload ? 'v1' : 'v4'}/app/63413e3366ceda0008b4e512/entry/${options.url}`,
 			method: options.method || 'POST',
 			data: options.data || {},
 			header: {

@@ -4,13 +4,17 @@
 			<view class="mb15 f30">
 				治疗前
 			</view>
-			<u-album class="borderRadius" borderRadius='12rpx' :urls="urls1" keyName="src1"></u-album>
+			<u-album borderRadius='12rpx' albumSize='90%' :singleSize='130' singleMode='widthFix' :urls="urls1"
+				keyName="src1">
+			</u-album>
 		</view>
 		<view class="flex-1">
 			<view class="mb15 f30">
 				治疗后
 			</view>
-			<u-album class="borderRadius" borderRadius='12rpx' :urls="urls2" keyName="src2"></u-album>
+			<u-album borderRadius='12rpx' albumSize='90%' :singleSize='130' singleMode='widthFix' :urls="urls2"
+				keyName="src2">
+			</u-album>
 		</view>
 
 	</view>
