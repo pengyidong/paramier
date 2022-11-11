@@ -307,3 +307,28 @@ $List:5 8 12 14 15 20 24 30 35 40 44 50 88 150;
 .bb-999999-2 {
 	border-bottom: 1rpx rgba(153, 153, 153, 0.2) solid;
 }
+
+	.mainBtn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 10rpx 25rpx;
+		border: 1rpx solid #8B91C4;
+		background: linear-gradient(94deg, #A9B8D5, #D2C7D8);
+		border-radius: 12rpx;
+		position: relative;
+		color: #FFFFFF;
+		font-size: 24rpx;
+	}
+
+	.mainBtn:before {
+		content: '';
+		position: absolute;
+		width: calc(100% - 8rpx);
+		height: calc(100% - 8rpx);
+		background: transparent;
+		border: 1rpx solid #FFFFFF;
+		border-radius: 12rpx;
+		top: 2rpx;
+		left: 2rpx;
+	}

@@ -1,5 +1,5 @@
 <template>
-	<view class="mb88">
+	<view class="pb88">
 		<u-navbar title="编辑档案" :autoBack="true" :placeholder='true'></u-navbar>
 		<title title="项目信息"></title>
 		<view class="card">
@@ -33,14 +33,14 @@
 		<title title="医生信息"></title>
 		<view class="card flex">
 			<view class="mr30">
-				<image class="doctorPhoto" :src="detail.doctor_photo[0].url" mode="widthFix"></image>
+				<u-avatar :src="detail.doctor_photo[0].url" size='80'></u-avatar>
 			</view>
 			<view class="d-f-s">
-				<view>姓名：{{detail.doctor_name}}</view>
-				<view>职称：{{detail.doctor_title}}</view>
-				<view>编号：{{detail.doctor_number}}</view>
+				<view>姓名：{{detail.doctor_name || ''}}</view>
+				<view>职称：{{detail.doctor_title || ''}}</view>
+				<view>编号：{{detail.doctor_number || ''}}</view>
 			</view>
-			<view class="btn btnlt co-FFFFFF f26 fb">选择医生</view>
+			<view class="btn btnlt co-FFFFFF f26 fb" @click="gotoDoctor">选择医生</view>
 		</view>
 		<title title="效果图片"></title>
 		<view class="card d-s">
@@ -73,11 +73,13 @@
 				<view class="btn co-FFFFFF f26" @click="edit">编 辑</view>
 			</view>
 		</view>
+		<selectDoctor :show='show' @close='close' @select='select'></selectDoctor>
 	</view>
 </template>
 
 <script>
 	import title from '@/components/title/title.vue';
+	import selectDoctor from './item/selectDoctor.vue';
 	import {
 		recordDetail,
 		recordUpdate,
@@ -85,7 +87,8 @@
 	} from '@/common/api.js'
 	export default {
 		components: {
-			title
+			title,
+			selectDoctor
 		},
 		data() {
 			return {
@@ -108,7 +111,8 @@
 					doctor_number: '',
 					src1: '',
 					src2: ''
-				}
+				},
+				show: false
 			}
 		},
 		onLoad(options) {
@@ -117,6 +121,21 @@
 			this.getToken()
 		},
 		methods: {
+			select(e) {
+				this.detail.doctor_name = e.doctor_name
+				this.detail.doctor_title = e.doctor_title
+				this.detail.doctor_number = e.doctor_id
+
+				this.details.doctor_name = e.doctor_name
+				this.details.doctor_number = e.doctor_id
+				this.details.doctor_title = e.doctor_title
+			},
+			close() {
+				this.show = !this.show
+			},
+			gotoDoctor() {
+				this.show = !this.show
+			},
 			async getToken() {
 				const res = await getUploadToken()
 				console.log("res: ", res);
@@ -235,11 +254,11 @@
 						doctor_title: {
 							value: this.details.doctor_title
 						},
-						doctor_photo: {
-							value: [
-								this.details.doctor_photo
-							]
-						},
+						// doctor_photo: {
+						// 	value: [
+						// 		this.details.doctor_photo
+						// 	]
+						// },
 						before: {
 							value: [
 								this.details.src1

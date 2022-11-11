@@ -41,7 +41,7 @@
 		</view>
 
 		<view class="m-0-24 bg-FFFFFF borderRadius p-25-30 d-s-c" v-for="(item, index) in list" :key="index">
-			<view class="d-c">
+			<view class="d-c" @click="goto(index)">
 				<image style="width: 95rpx;height: 95rpx;" :src="item.icon" mode=""></image>
 				<view class="f36 fb co-333333 ml15">
 					{{item.name}}
@@ -89,6 +89,15 @@
 				return (windowWidth * 410) / 750
 			}
 		},
+		methods:{
+			goto(index){
+				if(index === 0){
+					uni.navigateTo({
+						url: '/pages/doctor/doctor?edit=0'
+					})
+				}
+			}
+		}
 	}
 </script>
 

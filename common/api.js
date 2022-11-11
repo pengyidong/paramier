@@ -52,3 +52,11 @@ export const getUploadToken = () => request({
 	},
 	isUpload: true
 })
+
+// 获取认证医生
+export const getDoctor = (data) => request({
+	url: '634e619d3f89ef000acfe68f/data',
+	method: 'post',
+	data,
+	isUpload: false
+})

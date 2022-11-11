@@ -66,6 +66,13 @@
 				"navigationBarTitleText": "编辑治疗档案",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/doctor/doctor",
+			"style": {
+				"navigationBarTitleText": "认证医生",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {
