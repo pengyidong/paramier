@@ -1,7 +1,6 @@
 <template>
-	<view class="bg-FFFFFF borderRadius">
-		<canvas canvas-id="ARChXLxJXFJXrGGYgiCpdianGranriPH" id="ARChXLxJXFJXrGGYgiCpdianGranriPH" class="charts"
-			@touchend="tap" />
+	<view class="bg-FFFFFF borderRadius" id="pulseWidthContainer">
+		<canvas canvas-id="pulseWidthCharts" id="pulseWidthCharts" class="charts" @touchend="tap" />
 	</view>
 </template>
 
@@ -10,47 +9,55 @@
 	var uChartsInstance = {};
 	export default {
 		data() {
-			return {
-				cWidth: (uni.getSystemInfoSync().windowWidth * 2) - 48,
-				cHeight: 500
-			};
+			return {};
 		},
-		onReady() {
-			let w = (uni.getSystemInfoSync().windowWidth * 2) - 48
-			//这里的 750 对应 css .charts 的 width
-			this.cWidth = uni.upx2px(w);
-			//这里的 800 对应 css .charts 的 height
-			this.cHeight = uni.upx2px(500);
-			this.getServerData();
+		props: {
+			pulseWidthAxis: {
+				value: Array,
+				default: {}
+			},
+			timeAxis: {
+				value: Array,
+				default: {}
+			}
+		},
+		watch: {
+			pulseWidthAxis(val) {
+				if (val.length === 0) return
+				this.getServerData();
+			}
 		},
 		methods: {
 			getServerData() {
-				//模拟从服务器获取数据时的延时
-				setTimeout(() => {
-					//模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
-					let res = {
-						categories: ["10min", "20min", "30min", "40min", "50min", "60min"],
-						series: [{
-							name: "温度",
-							data: [35, 28, 25, 37, 32, 20]
-						}]
-					};
-					this.drawCharts('ARChXLxJXFJXrGGYgiCpdianGranriPH', res);
-				}, 500);
+				let res = {
+					categories: this.timeAxis,
+					series: [{
+						name: "脉宽",
+						data: this.pulseWidthAxis
+					}]
+				};
+				let container = uni.createSelectorQuery().in(this).select("#pulseWidthContainer");
+				container.boundingClientRect(data => {
+					this.drawCharts('pulseWidthCharts', res, data.width, data.height);
+				}).exec(function(res) {
+					// 注意：exec方法必须执行，即便什么也不做，否则不会获取到任何数据
+				})
+
 			},
-			drawCharts(id, data) {
+			drawCharts(id, data, width, height) {
 				const ctx = uni.createCanvasContext(id, this);
 				uChartsInstance[id] = new uCharts({
 					type: "line",
 					context: ctx,
-					width: this.cWidth,
-					height: this.cHeight,
+					width,
+					height,
 					categories: data.categories,
 					series: data.series,
 					animation: true,
 					background: "#FFFFFF",
-					color: ["#91CB74"],
-					padding: [15, 10, 0, 15],
+					color: ["#9278ae"],
+					fontSize: '12',
+					padding: [20, 10, 0, 10],
 					legend: {},
 					xAxis: {
 						disableGrid: true
@@ -77,7 +84,7 @@
 
 <style scoped>
 	.charts {
-		width: calc(100% - 48rpx);
+		width: 100%;
 		height: 500rpx;
 	}
 </style>
