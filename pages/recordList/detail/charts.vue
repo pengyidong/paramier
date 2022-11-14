@@ -25,13 +25,27 @@
 		components: {
 			tempCharts
 		},
+		props: {
+			lineList: {
+				value: Array,
+				default: {}
+			}
+		},
 		data() {
 			return {
 				indicatorDots: false,
 				autoplay: true,
 				interval: 3000,
-				duration: 750
+				duration: 750,
+				timeAxis: [],
+				tempAxis: [],
+				pulseWidthAxis: []
 			};
+		},
+		watch: {
+			lineList(value) {
+				console.log(value);
+			}
 		},
 		onReady() {},
 		methods: {

@@ -8,7 +8,7 @@
 			<view class="f26 co-333333 ml30 flex flex-1">
 				<view class="flex-1 d-f-a">
 					<view>模式：{{model}}</view>
-					<view>时长：1小时20分</view>
+					<view>时长：{{durationTime}}</view>
 				</view>
 				<view class="flex-1 d-f-a">
 					<view>总发数：12000</view>
@@ -46,6 +46,26 @@
 			currentnumber: {
 				value: String,
 				default: ''
+			},
+			lineList: {
+				value: Array,
+				default: ''
+			}
+		},
+		computed: {
+			durationTime() {
+				if (!this.lineList[0]) return ''
+				let time = parseInt((Date.parse(this.lineList[this.lineList.length - 1].createTime) - Date.parse(this
+					.lineList[0].createTime)) / 1000)
+				let res
+				let h = Math.floor(time / 3600)
+				let hh = h < 10 ? h > 0 ? `0${h}时` : '' : `${h}时`
+				let m = Math.floor((time / 60) % 60)
+				let mm = m < 10 ? m > 0 ? `0${m}分` : '' : `${m}分`
+				let s = Math.floor(time % 60)
+				let ss = s < 10 ? s > 0 ? `0${s}秒` : '' : `${s}秒`
+				res = `${hh}${mm}${ss}`
+				return res
 			}
 		},
 		data() {
@@ -58,7 +78,9 @@
 				}
 			}
 		},
-		methods: {}
+		methods: {
+
+		}
 	}
 </script>
 

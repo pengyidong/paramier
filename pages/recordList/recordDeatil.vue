@@ -1,8 +1,8 @@
 <template>
 	<view>
 		<u-navbar title="治疗档案详情" :autoBack="true" :placeholder='true'></u-navbar>
-		<charts></charts>
-		<basicInfo :detail='detailData' :model='model' :currentnumber='current_number'></basicInfo>
+		<charts :lineList='lineList'></charts>
+		<basicInfo :detail='detailData' :model='model' :currentnumber='current_number' :lineList='lineList'></basicInfo>
 		<progress :detail='detailData'></progress>
 		<view class="bg-FFFFFF pb30 m-0-24 bb-999999-2">
 			<u-tabs @change='tabsChange' :current='index' :scrollable='false' itemStyle="height: 30px;" :list="list"
@@ -101,10 +101,8 @@
 					}
 				}
 				const res = await recordRun(obj)
-				console.log(res.statusCode);
 				if (res.statusCode == 200) {
 					this.lineList = res.data.data
-					console.log(this.lineList);
 					this.model = res?.data?.data[0]?.model || ''
 					this.current_number = res?.data?.data[0]?.current_number
 				}
