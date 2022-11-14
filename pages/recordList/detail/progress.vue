@@ -3,7 +3,7 @@
 		<title title="资料完善度"></title>
 		<view class="m24 bg-FFFFFF  borderRadius p24 ">
 			<view class="flex">
-				<canvas canvas-id="XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv" id="XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv"
+				<canvas canvas-id="progress" id="progress"
 					class="charts mr20" @touchend="tap" />
 				<view class="f26 co-333333 flex-1 d-f-a">
 					<view class="flex mb15">
@@ -50,8 +50,6 @@
 		},
 		data() {
 			return {
-				cWidth: 180,
-				cHeight: 180,
 				projectNum: 0,
 				cistpmerNum: 0,
 				doctorNum: 0,
@@ -69,10 +67,6 @@
 				this.getServerData();
 				this.getInfo();
 			}
-		},
-		mounted() {
-			this.cWidth = uni.upx2px(180);
-			this.cHeight = uni.upx2px(180);
 		},
 		methods: {
 			goto() {
@@ -130,15 +124,15 @@
 						data: this.detail.progress || 0
 					}]
 				};
-				this.drawCharts('XPmcBCVTPCHfvNBuATYzpSVpEphsLVxv', res);
+				this.drawCharts('progress', res);
 			},
 			drawCharts(id, data) {
 				const ctx = uni.createCanvasContext(id, this);
 				uChartsInstance[id] = new uCharts({
 					type: "arcbar",
 					context: ctx,
-					width: this.cWidth,
-					height: this.cHeight,
+					width: 90,
+					height: 90,
 					series: data.series,
 					animation: true,
 					background: "#FFFFFF",
