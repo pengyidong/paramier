@@ -1,7 +1,8 @@
 <template>
 	<view>
 		<u-navbar title="治疗档案详情" :autoBack="true" :placeholder='true'></u-navbar>
-		<charts :lineList='lineList'></charts>
+		<charts :timeAxis='timeAxis' :tempAxis='tempAxis' :pulseWidthAxis='pulseWidthAxis'
+			@tempPopupShow='tempPopupShow'></charts>
 		<basicInfo :detail='detailData' :model='model' :currentnumber='current_number' :lineList='lineList'></basicInfo>
 		<progress :detail='detailData'></progress>
 		<view class="bg-FFFFFF pb30 m-0-24 bb-999999-2">
@@ -17,12 +18,13 @@
 		<effect v-if="index === 3" :detail='detailData'></effect>
 
 		<hash :detail='detailData'></hash>
-
+		<tempChartsPopup :show='show' @tempPopupShow='tempPopupShow' :timeAxis='timeAxis' :tempAxis='tempAxis'>
+		</tempChartsPopup>
 	</view>
 </template>
 
 <script>
-	import charts from "./detail/charts.vue"
+	import charts from "./charts/charts.vue"
 	import basicInfo from "./detail/basicInfo.vue"
 	import progress from "./detail/progress.vue"
 	import project from "./item/projectInfo.vue"
@@ -30,6 +32,7 @@
 	import doctor from "./item/doctor.vue"
 	import effect from "./item/effect.vue"
 	import hash from "./item/hash.vue"
+	import tempChartsPopup from "./charts/tempChartsPopup.vue"
 	import {
 		recordDetail,
 		recordRun
@@ -43,19 +46,22 @@
 			customer,
 			doctor,
 			effect,
-			hash
+			hash,
+			tempChartsPopup
 		},
 		data() {
 			return {
+				show: false,
 				index: 0,
 				agency_name: '',
 				record_id: '',
 				model: '',
 				current_number: '',
 				lineList: [],
-				detailData: {
-
-				},
+				timeAxis: [],
+				tempAxis: [],
+				pulseWidthAxis: [],
+				detailData: {},
 				list: [{
 					name: '项目信息',
 				}, {
@@ -67,6 +73,23 @@
 				}],
 			}
 		},
+		watch: {
+			lineList(val) {
+				let _timeAxis = []
+				let _tempAxis = []
+				let _pulseWidthAxis = []
+				val.forEach((item, index) => {
+					// this.timeAxis.push(this.initTime(Date.parse(val[0].createTime), Date.parse(item
+					// 	.createTime)))
+					_timeAxis.push(index)
+					_tempAxis.push(parseFloat(item.temperature.toFixed(1)))
+					_pulseWidthAxis.push(item.pulse_width)
+				})
+				this.timeAxis = _timeAxis
+				this.tempAxis = _tempAxis
+				this.pulseWidthAxis = _pulseWidthAxis
+			}
+		},
 		onLoad(options) {
 			this.agency_name = decodeURIComponent(options.agency_name);
 			this.record_id = decodeURIComponent(options.record_id);
@@ -76,6 +99,22 @@
 			this.getListData()
 		},
 		methods: {
+			initTime(current, next) {
+				let time = parseInt((next - current) / 1000)
+				console.log('time', time);
+				let res
+				let h = Math.floor(time / 3600)
+				let hh = h < 10 ? h > 0 ? `0${h}h` : '' : `${h}h`
+				let m = Math.floor((time / 60) % 60)
+				let mm = m < 10 ? m > 0 ? `0${m}m` : '' : `${m}m`
+				let s = Math.floor(time % 60)
+				let ss = s < 10 ? s > 0 ? `0${s}s` : '0s' : `${s}s`
+				res = `${hh}${mm}${ss}`
+				return res
+			},
+			tempPopupShow(e) {
+				this.show = e
+			},
 			tabsChange(e) {
 				this.index = e.index
 			},

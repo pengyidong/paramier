@@ -3,8 +3,7 @@
 		<title title="资料完善度"></title>
 		<view class="m24 bg-FFFFFF  borderRadius p24 ">
 			<view class="flex">
-				<canvas canvas-id="progress" id="progress"
-					class="charts mr20" @touchend="tap" />
+				<canvas canvas-id="progress" id="progress" type="2d" class="charts mr20" @touchend="tap" />
 				<view class="f26 co-333333 flex-1 d-f-a">
 					<view class="flex mb15">
 						<view class="flex-1 d-s-c  mr15">
@@ -53,7 +52,8 @@
 				projectNum: 0,
 				cistpmerNum: 0,
 				doctorNum: 0,
-				effectNum: 0
+				effectNum: 0,
+				pixelRatio: 2,
 			};
 		},
 		props: {
@@ -118,6 +118,7 @@
 				this.effectNum = _effectNum
 			},
 			getServerData() {
+				this.pixelRatio = uni.getSystemInfoSync().pixelRatio;
 				let res = {
 					series: [{
 						color: "#5D9AFF",
@@ -127,29 +128,48 @@
 				this.drawCharts('progress', res);
 			},
 			drawCharts(id, data) {
-				const ctx = uni.createCanvasContext(id, this);
-				uChartsInstance[id] = new uCharts({
-					type: "arcbar",
-					context: ctx,
-					width: 90,
-					height: 90,
-					series: data.series,
-					animation: true,
-					background: "#FFFFFF",
-					title: {
-						name: `${this.detail.progress * 100}%` || 0,
-						fontSize: 18,
-						color: "#5D9AFF"
-					},
-					extra: {
-						arcbar: {
-							type: "default",
-							width: 10,
-							backgroundColor: "#E9E9E9",
-							startAngle: 0.75,
-							endAngle: 0.25,
-							gap: 2,
-						}
+				const query = uni.createSelectorQuery().in(this);
+				query.select('#' + id).fields({
+					node: true,
+					size: true
+				}).exec(res => {
+					if (res[0]) {
+						const canvas = res[0].node;
+						const ctx = canvas.getContext('2d');
+						canvas.width = 90 * this.pixelRatio;
+						canvas.height = 90 * this.pixelRatio;
+						uChartsInstance[id] = new uCharts({
+							type: "arcbar",
+							context: ctx,
+							width: 90 * this.pixelRatio,
+							height: 90 * this.pixelRatio,
+							series: data.series,
+							pixelRatio: this.pixelRatio,
+							animation: true,
+							background: "#FFFFFF",
+							color: ["#1890FF", "#91CB74", "#FAC858", "#EE6666", "#73C0DE", "#3CA272",
+								"#FC8452", "#9A60B4", "#ea7ccc"
+							],
+							padding: undefined,
+							title: {
+								name: `${this.detail.progress * 100}%` || 0,
+								fontSize: 18,
+								color: "#5D9AFF"
+							},
+
+							extra: {
+								arcbar: {
+									type: "default",
+									width: 10,
+									backgroundColor: "#E9E9E9",
+									startAngle: 0.75,
+									endAngle: 0.25,
+									gap: 2,
+								}
+							}
+						});
+					} else {
+						console.error("[uCharts]: 未获取到 context");
 					}
 				});
 			},
@@ -165,6 +185,7 @@
 	.charts {
 		width: 180rpx;
 		height: 180rpx;
+		z-index: 100;
 	}
 
 	.btn {

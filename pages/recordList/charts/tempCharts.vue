@@ -1,7 +1,6 @@
 <template>
 	<view class="bg-FFFFFF borderRadius" id="tempContainer">
-		<canvas canvas-id="tempCharts" id="tempCharts" class="charts"
-			@touchend="tap" />
+		<canvas canvas-id="tempCharts" id="tempCharts" class="charts" @tap="tap" />
 	</view>
 </template>
 
@@ -10,8 +9,7 @@
 	var uChartsInstance = {};
 	export default {
 		data() {
-			return {
-			};
+			return {};
 		},
 		props: {
 			tempAxis: {
@@ -76,8 +74,7 @@
 				});
 			},
 			tap(e) {
-				// uChartsInstance[e.target.id].touchLegend(e);
-				// uChartsInstance[e.target.id].showToolTip(e);
+				this.$emit('tempPopupShow', true)
 			}
 		}
 	};
@@ -87,5 +84,6 @@
 	.charts {
 		width: 100%;
 		height: 500rpx;
+		z-index: 100;
 	}
 </style>
