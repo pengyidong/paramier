@@ -73,6 +73,13 @@
 				"navigationBarTitleText": "认证医生",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/recordList/dataDetail",
+			"style": {
+				"navigationBarTitleText": "图表",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

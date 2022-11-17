@@ -1,8 +1,8 @@
 <template>
-	<view>
+	<view :class="show ? 'popupShow' :''">
 		<u-navbar title="治疗档案详情" :autoBack="true" :placeholder='true'></u-navbar>
-		<charts :timeAxis='timeAxis' :tempAxis='tempAxis' :pulseWidthAxis='pulseWidthAxis'
-			@tempPopupShow='tempPopupShow'></charts>
+		<charts :numAxis='numAxis' :tempAxis='tempAxis' :pulseWidthAxis='pulseWidthAxis'
+			:pulsesNumberAxis='pulsesNumberAxis' :energyAxis='energyAxis' :recordId='record_id' :model='model'></charts>
 		<basicInfo :detail='detailData' :model='model' :currentnumber='current_number' :lineList='lineList'></basicInfo>
 		<progress :detail='detailData'></progress>
 		<view class="bg-FFFFFF pb30 m-0-24 bb-999999-2">
@@ -18,8 +18,6 @@
 		<effect v-if="index === 3" :detail='detailData'></effect>
 
 		<hash :detail='detailData'></hash>
-		<tempChartsPopup :show='show' @tempPopupShow='tempPopupShow' :timeAxis='timeAxis' :tempAxis='tempAxis'>
-		</tempChartsPopup>
 	</view>
 </template>
 
@@ -32,7 +30,6 @@
 	import doctor from "./item/doctor.vue"
 	import effect from "./item/effect.vue"
 	import hash from "./item/hash.vue"
-	import tempChartsPopup from "./charts/tempChartsPopup.vue"
 	import {
 		recordDetail,
 		recordRun
@@ -46,21 +43,23 @@
 			customer,
 			doctor,
 			effect,
-			hash,
-			tempChartsPopup
+			hash
 		},
 		data() {
 			return {
 				show: false,
 				index: 0,
+				itemIndex: 0,
 				agency_name: '',
 				record_id: '',
 				model: '',
 				current_number: '',
 				lineList: [],
-				timeAxis: [],
+				numAxis: [],
 				tempAxis: [],
 				pulseWidthAxis: [],
+				pulsesNumberAxis: [],
+				energyAxis: [],
 				detailData: {},
 				list: [{
 					name: '项目信息',
@@ -75,19 +74,25 @@
 		},
 		watch: {
 			lineList(val) {
-				let _timeAxis = []
+				let _numAxis = []
 				let _tempAxis = []
 				let _pulseWidthAxis = []
+				let _energyAxis = []
+				let _pulsesNumberAxis = []
 				val.forEach((item, index) => {
-					// this.timeAxis.push(this.initTime(Date.parse(val[0].createTime), Date.parse(item
+					// this.numAxis.push(this.initTime(Date.parse(val[0].createTime), Date.parse(item
 					// 	.createTime)))
-					_timeAxis.push(index)
+					_numAxis.push(index)
 					_tempAxis.push(parseFloat(item.temperature.toFixed(1)))
 					_pulseWidthAxis.push(item.pulse_width)
+					_energyAxis.push(item.energy)
+					_pulsesNumberAxis.push(item.pulses_number)
 				})
-				this.timeAxis = _timeAxis
+				this.numAxis = _numAxis
 				this.tempAxis = _tempAxis
 				this.pulseWidthAxis = _pulseWidthAxis
+				this.energyAxis = _energyAxis
+				this.pulsesNumberAxis = _pulsesNumberAxis
 			}
 		},
 		onLoad(options) {
@@ -101,7 +106,6 @@
 		methods: {
 			initTime(current, next) {
 				let time = parseInt((next - current) / 1000)
-				console.log('time', time);
 				let res
 				let h = Math.floor(time / 3600)
 				let hh = h < 10 ? h > 0 ? `0${h}h` : '' : `${h}h`
@@ -111,9 +115,6 @@
 				let ss = s < 10 ? s > 0 ? `0${s}s` : '0s' : `${s}s`
 				res = `${hh}${mm}${ss}`
 				return res
-			},
-			tempPopupShow(e) {
-				this.show = e
 			},
 			tabsChange(e) {
 				this.index = e.index
@@ -170,5 +171,8 @@
 </script>
 
 <style lang="scss" scoped>
-
+	.popupShow {
+		overflow: hidden;
+		position: fixed;
+	}
 </style>

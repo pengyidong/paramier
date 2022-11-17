@@ -5,10 +5,17 @@
 			<swiper class="swiper" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
 				:duration="duration">
 				<swiper-item>
-					<tempCharts @tempPopupShow='tempPopupShow' :tempAxis='tempAxis' :timeAxis='timeAxis' />
+					<itemCharts :yAxis='tempAxis' :xAxis='numAxis' :index='0' :recordId='recordId' :model='model' />
 				</swiper-item>
 				<swiper-item>
-					<pulseWidthCharts :pulseWidthAxis='pulseWidthAxis' :timeAxis='timeAxis' />
+					<itemCharts :yAxis='tempAxis' :xAxis='numAxis' :index='1' :recordId='recordId' :model='model' />
+				</swiper-item>
+				<swiper-item>
+					<itemCharts :yAxis='pulsesNumberAxis' :xAxis='numAxis' :index='2' :recordId='recordId'
+						:model='model' />
+				</swiper-item>
+				<swiper-item>
+					<itemCharts :yAxis='energyAxis' :xAxis='numAxis' :index='3' :recordId='recordId' :model='model' />
 				</swiper-item>
 			</swiper>
 		</view>
@@ -16,16 +23,14 @@
 </template>
 
 <script>
-	import tempCharts from "./tempCharts.vue"
-	import pulseWidthCharts from "./pulseWidthCharts.vue"
+	import itemCharts from "./itemCharts.vue"
 	var uChartsInstance = {};
 	export default {
 		components: {
-			tempCharts,
-			pulseWidthCharts
+			itemCharts
 		},
 		props: {
-			timeAxis: {
+			numAxis: {
 				value: Array,
 				default: {}
 			},
@@ -37,6 +42,22 @@
 				value: Array,
 				default: {}
 			},
+			pulsesNumberAxis: {
+				value: Array,
+				default: {}
+			},
+			energyAxis: {
+				value: Array,
+				default: {}
+			},
+			model: {
+				value: String,
+				default: ''
+			},
+			recordId: {
+				value: String,
+				default: ''
+			}
 		},
 		data() {
 			return {
@@ -58,11 +79,7 @@
 			}
 		},
 		onReady() {},
-		methods: {
-			tempPopupShow(e) {
-				this.$emit('tempPopupShow', e)
-			},
-		}
+		methods: {}
 	};
 </script>
 

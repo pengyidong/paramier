@@ -1,0 +1,197 @@
+<template>
+	<view class="d-f" :style="'height: '+ pageH +'px'">
+		<u-navbar :title="list[index].name" :autoBack="true" :placeholder='true'></u-navbar>
+		<view class="bg-FFFFFF m24 borderRadius pr flex-1" id="tempContainer">
+			<canvas canvas-id="itemPopup" id="itemPopup" class="charts" @touchstart="touchstart" @touchmove="touchmove"
+				@touchend="touchend" />
+		</view>
+	</view>
+
+</template>
+
+<script>
+	import {
+		recordRun
+	} from '@/common/api.js'
+	import uCharts from '@/static/utils/u-charts.js';
+	var uChartsInstance = {};
+	export default {
+		data() {
+			return {
+				numAxis: [],
+				pageH: '',
+				index: null,
+				record_id: null,
+				model: null,
+				cStyle: {
+					width: '100%',
+					height: '100%'
+				},
+				list: [{
+						name: '温度',
+						unitMeasure: "℃",
+						color: '#5AA1F9',
+						data: []
+					},
+					{
+						name: '脉宽',
+						unitMeasure: "℃",
+						color: '#91CB74',
+						data: []
+					},
+
+					{
+						name: '脉冲个数',
+						unitMeasure: "℃",
+						color: '#FAC858',
+						data: []
+					},
+					{
+						name: '能量大小',
+						unitMeasure: "℃",
+						color: '#EE6666',
+						data: []
+					}
+				],
+			};
+		},
+		onLoad(options) {
+			this.pageH = uni.getSystemInfoSync().windowHeight
+			this.index = decodeURIComponent(options.index);
+			this.model = decodeURIComponent(options.model);
+			this.record_id = decodeURIComponent(options.record_id);
+			this.getData()
+		},
+		methods: {
+			async getData() {
+				let obj = {
+					limit: 100,
+					filter: {
+						rel: "and",
+						cond: [{
+							field: "record_id",
+							method: "eq",
+							value: `${this.record_id}`
+						}, {
+							field: "equipment_status",
+							method: "eq",
+							value: `运行中`
+						}, {
+							field: "model",
+							method: "eq",
+							model: `${this.model}`
+						}, ]
+					}
+				}
+				const res = await recordRun(obj)
+				if (res.statusCode == 200) {
+					let _numAxis = []
+					let _tempAxis = []
+					let _pulseWidthAxis = []
+					let _energyAxis = []
+					let _pulsesNumberAxis = []
+					console.log("res: ", res);
+					res.data.data.forEach((item, index) => {
+						// this.numAxis.push(this.initTime(Date.parse(val[0].createTime), Date.parse(item
+						// 	.createTime)))
+						_numAxis.push(index)
+						_tempAxis.push(parseFloat(item.temperature.toFixed(1)))
+						_pulseWidthAxis.push(item.pulse_width)
+						_energyAxis.push(item.energy)
+						_pulsesNumberAxis.push(item.pulses_number)
+					})
+					this.numAxis = _numAxis
+					this.list[0].data = _tempAxis
+					this.list[1].data = _pulseWidthAxis
+					this.list[2].data = _energyAxis
+					this.list[3].data = _pulsesNumberAxis
+					this.getServerData()
+				}
+			},
+			getServerData() {
+				console.log("this.numAxis: ", this.numAxis);
+				let res = {
+					categories: this.numAxis,
+					series: [{
+						name: this.list[this.index].name,
+						data: this.list[this.index].data
+					}],
+					enableScroll: true,
+					xAxis: {
+						disableGrid: true,
+						scrollShow: true,
+						itemCount: 12
+					}
+				};
+				if (this.numAxis.length < 15) {
+					res.enableScroll = false
+					res.xAxis = {
+						disableGrid: true
+					}
+				}
+				console.log("res: ", res);
+				const query = uni.createSelectorQuery().in(this);
+				query.select("#tempContainer").boundingClientRect(data => {
+					this.drawCharts('itemPopup', res, data.width, data.height, );
+				}).exec(res => {})
+			},
+			drawCharts(id, data, width, height) {
+				const ctx = uni.createCanvasContext(id, this);
+				let opts = {
+					type: "line",
+					context: ctx,
+					width,
+					height,
+					categories: data.categories,
+					series: data.series,
+					animation: true,
+					background: "#FFFFFF",
+					color: [this.list[this.index].color],
+					fontSize: '12',
+					padding: [20, 10, 10, 10],
+					enableScroll: data.enableScroll,
+					legend: {},
+					rotate: true,
+					xAxis: data.xAxis,
+					yAxis: {
+						gridType: "dash",
+						dashLength: 2,
+						showTitle: true,
+						data: [{
+							fontSize: 12,
+							title: this.list[this.index].unitMeasure,
+							titleFontSize: 12,
+							tofix: 1,
+						}]
+					},
+					extra: {
+						line: {
+							type: "curve",
+							width: 2
+						}
+					}
+				}
+				uChartsInstance[id] = new uCharts(opts);
+			},
+			touchstart(e) {
+				uChartsInstance[e.target.id].scrollStart(e);
+			},
+			touchmove(e) {
+				uChartsInstance[e.target.id].scroll(e);
+			},
+			touchend(e) {
+				uChartsInstance[e.target.id].scrollEnd(e);
+				uChartsInstance[e.target.id].touchLegend(e);
+				// uChartsInstance[e.target.id].showToolTip(e);
+			},
+		}
+	};
+</script>
+
+<style scoped>
+	.charts {
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+	}
+</style>
