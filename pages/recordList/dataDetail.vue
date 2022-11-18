@@ -35,20 +35,20 @@
 					},
 					{
 						name: '脉宽',
-						unitMeasure: "℃",
+						unitMeasure: "ms",
 						color: '#91CB74',
 						data: []
 					},
 
 					{
 						name: '脉冲个数',
-						unitMeasure: "℃",
+						unitMeasure: "个",
 						color: '#FAC858',
 						data: []
 					},
 					{
 						name: '能量大小',
-						unitMeasure: "℃",
+						unitMeasure: "J",
 						color: '#EE6666',
 						data: []
 					}
@@ -90,7 +90,6 @@
 					let _pulseWidthAxis = []
 					let _energyAxis = []
 					let _pulsesNumberAxis = []
-					console.log("res: ", res);
 					res.data.data.forEach((item, index) => {
 						// this.numAxis.push(this.initTime(Date.parse(val[0].createTime), Date.parse(item
 						// 	.createTime)))
@@ -109,7 +108,6 @@
 				}
 			},
 			getServerData() {
-				console.log("this.numAxis: ", this.numAxis);
 				let res = {
 					categories: this.numAxis,
 					series: [{
@@ -129,7 +127,6 @@
 						disableGrid: true
 					}
 				}
-				console.log("res: ", res);
 				const query = uni.createSelectorQuery().in(this);
 				query.select("#tempContainer").boundingClientRect(data => {
 					this.drawCharts('itemPopup', res, data.width, data.height, );
@@ -153,6 +150,7 @@
 					legend: {},
 					rotate: true,
 					xAxis: data.xAxis,
+					enableMarkLine: this.list[this.index].name === '温度',
 					yAxis: {
 						gridType: "dash",
 						dashLength: 2,
@@ -168,7 +166,17 @@
 						line: {
 							type: "curve",
 							width: 2
+						},
+						markLine: {
+							data: [{
+								value: 38,
+								showLabel: true,
+								labelText: '警戒',
+								labelFontColor: '#FFFFFF',
+								labelBgColor: '#DE4A42'
+							}]
 						}
+
 					}
 				}
 				uChartsInstance[id] = new uCharts(opts);

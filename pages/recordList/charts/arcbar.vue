@@ -1,6 +1,6 @@
 <template>
 	<view class="charts-box">
-		<canvas canvas-id="arcbarCharts" id="arcbarCharts" type="2d" class="charts" @tap="tap" />
+		<canvas canvas-id="arcbarCharts" id="arcbarCharts" class="charts" @tap="tap" />
 	</view>
 </template>
 
@@ -10,7 +10,6 @@
 	export default {
 		data() {
 			return {
-				pixelRatio: 2,
 				cWidth: 180,
 				cHeight: 180,
 			};
@@ -21,11 +20,7 @@
 				default: {}
 			},
 		},
-		onReady() {
-			this.cWidth = uni.upx2px(180);
-			this.cHeight = uni.upx2px(180);
-			this.pixelRatio = uni.getSystemInfoSync().pixelRatio;
-		},
+		onReady() {},
 		watch: {
 			progress(val) {
 				if (!val) return
@@ -43,63 +38,36 @@
 				this.drawCharts('arcbarCharts', res);
 			},
 			drawCharts(id, data) {
-				const query = uni.createSelectorQuery().in(this);
-				query.select('#' + id).fields({
-					node: true,
-					size: true
-				}).exec(res => {
-					if (res[0]) {
-						const canvas = res[0].node;
-						const ctx = canvas.getContext('2d');
-						canvas.width = res[0].width * this.pixelRatio;
-						canvas.height = res[0].height * this.pixelRatio;
-						uChartsInstance[id] = new uCharts({
-							type: "arcbar",
-							context: ctx,
-							width: this.cWidth * this.pixelRatio,
-							height: this.cHeight * this.pixelRatio,
-							series: data.series,
-							animation: true,
-							background: "#FFFFFF",
-							color: ["#1890FF", "#91CB74", "#FAC858", "#EE6666", "#73C0DE", "#3CA272",
-								"#FC8452", "#9A60B4", "#ea7ccc"
-							],
-							padding: undefined,
-							title: {
-								name: `${this.progress * 100}%` || 0,
-								fontSize: 36,
-								color: "#5D9AFF"
-							},
-							extra: {
-								arcbar: {
-									type: "default",
-									width: 16,
-									backgroundColor: "#E9E9E9",
-									startAngle: 0.75,
-									endAngle: 0.25,
-									gap: 2,
-								}
-							}
-						});
-					} else {
-						console.error("[uCharts]: 未获取到 context");
+				const ctx = uni.createCanvasContext(id, this);
+				uChartsInstance[id] = new uCharts({
+					type: "arcbar",
+					context: ctx,
+					width: 90,
+					height: 90,
+					series: data.series,
+					animation: true,
+					background: "#FFFFFF",
+					color: ["#1890FF", "#91CB74", "#FAC858", "#EE6666", "#73C0DE", "#3CA272",
+						"#FC8452", "#9A60B4", "#ea7ccc"
+					],
+					padding: undefined,
+					title: {
+						name: `${this.progress * 100}%` || 0,
+						fontSize: 18,
+						color: "#5D9AFF"
+					},
+					extra: {
+						arcbar: {
+							type: "default",
+							width: 8,
+							backgroundColor: "#E9E9E9",
+							startAngle: 0.75,
+							endAngle: 0.25,
+							gap: 2,
+						}
 					}
-				});
+				})
 			}
-		},
-		getServerData() {
-			//模拟从服务器获取数据时的延时
-			setTimeout(() => {
-				//模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
-				let res = {
-					series: [{
-						name: "正确率",
-						color: "#2fc25b",
-						data: 0.8
-					}]
-				};
-
-			}, 500);
 		}
 	}
 </script>

@@ -76,10 +76,10 @@
 				})
 			},
 			getInfo() {
-				let _projectNum = this.projectNum
-				let _cistpmerNum = this.cistpmerNum
-				let _doctorNum = this.doctorNum
-				let _effectNum = this.effectNum
+				let _projectNum = 0
+				let _cistpmerNum = 0
+				let _doctorNum = 0
+				let _effectNum = 0
 				if (this.detail.project) {
 					_projectNum++;
 				}
