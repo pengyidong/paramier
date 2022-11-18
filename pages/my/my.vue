@@ -11,7 +11,7 @@
 						<image style="width:40rpx;height:40rpx" class="mr5"
 							src="https://bianm.jinxiongsj.com/file/uploads/20221012/1cf616d6c5c693714f228b8822fae6fb.png"
 							mode=""></image>
-						<text class="fb f30 co-333333">北京丽格机构</text>
+						<text class="fb f30 co-333333">变美日记广州体验中心</text>
 					</view>
 					<image class="pa rfm" style="width: 120rpx;"
 						src="https://bianm.jinxiongsj.com/file/uploads/20221108/21a69a0de3ca4cfbaf8839a89fa8ffd3.png"

@@ -169,7 +169,7 @@
 						},
 						markLine: {
 							data: [{
-								value: 38,
+								value: 50,
 								showLabel: true,
 								labelText: '警戒',
 								labelFontColor: '#FFFFFF',

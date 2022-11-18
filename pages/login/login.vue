@@ -1,5 +1,5 @@
 <template>
-	<view class="pr" :style="'height:'+pageHeight+'px;'">
+	<view class="pr" :style="'height:'+(pageHeight - statusBarHeight)+'px;margin-top: '+ statusBarHeight +'px'">
 		<image class="w100"
 			src="https://bianm.jinxiongsj.com/file/uploads/20221108/722ded66dfec57846155f74d0069fbb6.jpg"
 			mode="widthFix"></image>
@@ -37,7 +37,8 @@
 		data() {
 			return {
 				agreement: html,
-				pageHeight: uni.getSystemInfoSync().windowHeight
+				pageHeight: uni.getSystemInfoSync().windowHeight,
+				statusBarHeight: uni.getStorageSync('statusBarHeight'),
 			}
 		},
 		methods: {

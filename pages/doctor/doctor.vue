@@ -44,7 +44,7 @@
 						cond: [{
 							field: "agency_name",
 							method: "eq",
-							value: '四川米兰柏羽医学美容医院有限公司'
+							value: '变美日记广州体验中心'
 						}, ]
 					}
 				}
