@@ -87,6 +87,13 @@
 				"navigationBarTitleText": "积分明细",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/integral/list",
+			"style": {
+				"navigationBarTitleText": "任务列表",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

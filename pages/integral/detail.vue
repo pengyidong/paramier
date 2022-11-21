@@ -27,7 +27,7 @@
 							{{item.date}}
 						</view>
 					</view>
-					<view class="fb " :class="index === 0 ? 'co-539DF9':'co-F9AE3D'">
+					<view class="fb" :class="index === 0 ? 'co-539DF9':'co-F9AE3D'">
 						{{item.change}}
 					</view>
 				</view>

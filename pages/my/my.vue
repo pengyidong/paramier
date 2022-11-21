@@ -26,7 +26,7 @@
 						<text class="fb f30 activeText mr5">112312</text>
 						<u-icon name="arrow-right" color="#333333" size="13"></u-icon>
 					</view>
-					<view class="useIntegralBtn borderRadius co-FFFFFF f30 ">
+					<view class="useIntegralBtn borderRadius co-FFFFFF f30 "  @click="goto('/pages/integral/list')">
 						使用积分
 					</view>
 				</view>
@@ -78,7 +78,7 @@
 					name: '任务列表',
 					linkUrl: '',
 					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221121/f893bf9f146a36e3667c9abbbc330ad3.png',
-					url: '/pages/doctor/doctor',
+					url: '/pages/integral/list',
 					bgColor: 'rgba(254, 195, 146, 0.1)'
 				}]
 			}
