@@ -8,7 +8,7 @@
 					<itemCharts :yAxis='tempAxis' :xAxis='numAxis' :index='0' :recordId='recordId' :model='model' />
 				</swiper-item>
 				<swiper-item>
-					<itemCharts :yAxis='tempAxis' :xAxis='numAxis' :index='1' :recordId='recordId' :model='model' />
+					<itemCharts :yAxis='pulseWidthAxis' :xAxis='numAxis' :index='1' :recordId='recordId' :model='model' />
 				</swiper-item>
 				<swiper-item>
 					<itemCharts :yAxis='pulsesNumberAxis' :xAxis='numAxis' :index='2' :recordId='recordId'

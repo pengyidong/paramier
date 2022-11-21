@@ -80,6 +80,13 @@
 				"navigationBarTitleText": "图表",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/integral/detail",
+			"style": {
+				"navigationBarTitleText": "积分明细",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

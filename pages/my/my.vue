@@ -18,7 +18,7 @@
 						mode="widthFix"></image>
 				</view>
 				<view class="p35 d-s-c">
-					<view class="d-c">
+					<view class="d-c"  @click="goto('/pages/integral/detail')">
 						<image style="width:40rpx;height:40rpx" class="mr5"
 							src="https://bianm.jinxiongsj.com/file/uploads/20221012/de25cb71c28e4b050c8d76b782e5a95f.png"
 							mode=""></image>
@@ -34,21 +34,25 @@
 			</view>
 		</view>
 
-		<view class="m-0-24 mt150 mb30">
-			<image class="w100"
-				src="https://bianm.jinxiongsj.com/file/uploads/20221012/cb5cdff8edfc451181165338f24b5cc5.png"
-				mode="widthFix"></image>
+		<view class="m-0-24 mt150 mb30 bglg buy borderRadius d-c pr">
+			<image src="https://bianm.jinxiongsj.com/file/uploads/20221121/0b2922f09c4d0638803dbbcf112d8f2e.png" mode="widthFix" style="width: 140rpx;height: 140rpx;"></image>
+			<text class="fb co-FFFFFF f48 ml30 pa">耗材采购</text>
+			<view class="buybtn d-c-c">立即采购</view>
 		</view>
 
-		<view class="m-0-24 bg-FFFFFF borderRadius p-25-30 d-s-c" v-for="(item, index) in list" :key="index">
-			<view class="d-c" @click="goto(index)">
-				<image style="width: 95rpx;height: 95rpx;" :src="item.icon" mode=""></image>
-				<view class="f36 fb co-333333 ml15">
-					{{item.name}}
+		<view class="d-s-c">
+			<view class="itemH m-0-24 bg-FFFFFF borderRadius p-25-30 d-s-c bgImg"
+				:style="'background-image:url('+ item.icon+');background-color:'+item.bgColor+';'"
+				v-for="(item, index) in list" :key="index" @click="goto(item.url)">
+				<view class="d-c">
+					<view class="f36 fb co-333333 ml15">
+						{{item.name}}
+					</view>
 				</view>
+				<u-icon name="arrow-right" color="#333333" size="16"></u-icon>
 			</view>
-			<u-icon name="arrow-right" color="#333333" size="16"></u-icon>
 		</view>
+
 
 		<tabbar></tabbar>
 	</view>
@@ -67,19 +71,15 @@
 				list: [{
 					name: '认证医生',
 					linkUrl: '',
-					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221012/78c4226064f1d7cbf54165ae59e3225f.png'
-				}, {
-					name: '仪器信息',
-					linkUrl: '',
-					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221012/57f97d121e0bb9417c5a9fee1cac7ca7.png'
-				}, {
-					name: '案例记录',
-					linkUrl: '',
-					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221012/7df8233e1dcc8b40e4b195688d05ecbf.png'
+					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221121/75680b296b8fe2564b8703405a795f80.png',
+					url: '/pages/doctor/doctor',
+					bgColor: 'rgba(217, 195, 255, 0.1)'
 				}, {
 					name: '任务列表',
 					linkUrl: '',
-					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221012/d85d4a63240c2eab561fc96a474544d9.png'
+					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221121/f893bf9f146a36e3667c9abbbc330ad3.png',
+					url: '/pages/doctor/doctor',
+					bgColor: 'rgba(254, 195, 146, 0.1)'
 				}]
 			}
 		},
@@ -89,13 +89,11 @@
 				return (windowWidth * 410) / 750
 			}
 		},
-		methods:{
-			goto(index){
-				if(index === 0){
-					uni.navigateTo({
-						url: '/pages/doctor/doctor?edit=0'
-					})
-				}
+		methods: {
+			goto(url) {
+				uni.navigateTo({
+					url
+				})
 			}
 		}
 	}
@@ -141,5 +139,35 @@
 	.p-25-30 {
 		padding: 25rpx 30rpx;
 		margin-bottom: 15rpx;
+	}
+
+	.itemH {
+		height: 170rpx;
+		width: 90%;
+	}
+
+	.bgImg {
+		background-repeat: no-repeat;
+		background-size: 120rpx 120rpx;
+		background-position: left 20rpx top 20rpx;
+	}
+	
+	.buy{
+		height: 140rpx;
+		width: calc(100% - 48rpx);
+		background: linear-gradient(76deg, #DAB1C1, #9AAECF);
+	}
+	
+	.buybtn{
+		font-size: 30rpx;
+		font-weight: bold;
+		color: #CFB0C3;
+		width: 152rpx;
+		height: 48rpx;
+		background: #FEFEFE;
+		box-shadow: 0rpx 5rpx 10rpx 0rpx rgba(167,175,204,0.35);
+		border-radius: 12rpx;
+		margin-left: auto;
+		margin-right: 35rpx;
 	}
 </style>
