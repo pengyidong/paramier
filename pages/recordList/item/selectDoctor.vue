@@ -44,6 +44,11 @@
 		created() {
 			this.getData()
 		},
+		watch:{
+			show(val){
+				console.log("val: ",val);
+			}
+		},
 		methods: {
 			open() {
 				// console.log('open');
@@ -68,7 +73,6 @@
 					}
 				}
 				const res = await getDoctor(obj)
-				console.log(res.data);
 				if (res.statusCode === 200) {
 					this.list = res.data.data
 				}

@@ -28,14 +28,38 @@
 				default: {}
 			}
 		},
+		watch: {
+			detail: {
+				handler(newName, oldName) {
+					if (newName) {
+						if (newName.before) {
+							this.urls1 = [{
+								src1: newName?.before[0]?.url,
+							}]
+							console.log("this.urls1: ", this.urls1);
+						}
+						if (newName.after) {
+							this.urls2 = [{
+								src2: newName?.after[0]?.url,
+							}]
+							console.log("this.urls2: ", this.urls2);
+						}
+					}
+
+
+				},
+				immediate: true,
+				deep: true
+			}
+		},
 		data() {
 			return {
 				urls1: [{
-					src1: this.detail.before[0].url,
+					src1: this.detail?.before[0]?.url || '',
 				}],
 				urls2: [{
-					src2: this.detail.after[0].url,
-				}],
+					src2: this.detail?.after[0]?.url || '',
+				}]
 			}
 		},
 		methods: {}

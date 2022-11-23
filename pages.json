@@ -94,6 +94,20 @@
 				"navigationBarTitleText": "任务列表",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/integral/exchange",
+			"style": {
+				"navigationBarTitleText": "积分兑换",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/buy/buy",
+			"style": {
+				"navigationBarTitleText": "耗材采购",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

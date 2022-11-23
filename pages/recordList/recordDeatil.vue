@@ -2,7 +2,8 @@
 	<view :class="show ? 'popupShow' :''">
 		<u-navbar title="治疗档案详情" :autoBack="true" :placeholder='true'></u-navbar>
 		<charts :numAxis='numAxis' :tempAxis='tempAxis' :pulseWidthAxis='pulseWidthAxis'
-			:pulsesNumberAxis='pulsesNumberAxis' :energyAxis='energyAxis' :recordId='record_id' :model='model'></charts>
+			:pulsesNumberAxis='pulsesNumberAxis' :energyAxis='energyAxis' :recordId='record_id' :model='model'
+			:loadingtext='loadingtext' :currentnumber='current_number' :lineList='lineList'></charts>
 		<basicInfo :detail='detailData' :model='model' :currentnumber='current_number' :lineList='lineList'></basicInfo>
 		<progress :detail='detailData'></progress>
 		<view class="bg-FFFFFF pb30 m-0-24 bb-999999-2">
@@ -70,6 +71,7 @@
 				}, {
 					name: '效果图片'
 				}],
+				loadingtext: '数据加载中',
 			}
 		},
 		watch: {
@@ -129,22 +131,24 @@
 							field: "record_id",
 							method: "eq",
 							value: `${this.record_id}`
-						}, {
-							field: "equipment_status",
-							method: "eq",
-							value: `运行中`
-						}, {
-							field: "model",
-							method: "eq",
-							model: `${this.model}`
-						}, ]
+						}, 
+						// {
+						// 	field: "model",
+						// 	method: "eq",
+						// 	model: `${this.model}`
+						// },
+						 ]
 					}
 				}
 				const res = await recordRun(obj)
+				console.log("res: ", res);
 				if (res.statusCode == 200) {
 					this.lineList = res.data.data
 					this.model = res?.data?.data[0]?.model || ''
 					this.current_number = res?.data?.data[0]?.current_number
+					this.loadingtext = '暂无数据'
+				} else {
+					this.loadingtext = '暂无数据'
 				}
 			},
 			// 项目详情

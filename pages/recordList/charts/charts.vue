@@ -1,25 +1,48 @@
 <template>
-	<view class="m24 bg-FFFFFF borderRadius">
+	<view class="mt30">
+		<view class="flex bg-FFFFFF m-0-24 borderRadius p24 mb30">
+			<view>
+				<image :src="modelList[model]" style="width:130rpx;height:130rpx">
+				</image>
+			</view>
+			<view class="f26 co-333333 ml30 flex flex-1">
+				<view class="flex-1 d-f-a">
+					<view>模式：{{model || '-'}}</view>
+					<view>时长：{{durationTime || '-'}}</view>
+				</view>
+				<view class="flex-1 d-f-a">
+					<view>总发数：12000</view>
+					<view>剩余发数：{{currentnumber || '-'}}</view>
+				</view>
 
-		<view class="uni-margin-wrap">
-			<swiper class="swiper" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
-				:duration="duration">
-				<swiper-item>
-					<itemCharts :yAxis='tempAxis' :xAxis='numAxis' :index='0' :recordId='recordId' :model='model' />
-				</swiper-item>
-				<swiper-item>
-					<itemCharts :yAxis='pulseWidthAxis' :xAxis='numAxis' :index='1' :recordId='recordId' :model='model' />
-				</swiper-item>
-				<swiper-item>
-					<itemCharts :yAxis='pulsesNumberAxis' :xAxis='numAxis' :index='2' :recordId='recordId'
-						:model='model' />
-				</swiper-item>
-				<swiper-item>
-					<itemCharts :yAxis='energyAxis' :xAxis='numAxis' :index='3' :recordId='recordId' :model='model' />
-				</swiper-item>
-			</swiper>
+
+			</view>
+		</view>
+		<view class="m24 bg-FFFFFF borderRadius">
+			<view class="uni-margin-wrap">
+				<swiper class="swiper" circular :indicator-dots="indicatorDots" :autoplay="autoplay"
+					:interval="interval" :duration="duration">
+					<swiper-item>
+						<itemCharts :loadingtext='loadingtext' :yAxis='tempAxis' :xAxis='numAxis' :index='0'
+							:recordId='recordId' :model='model' />
+					</swiper-item>
+					<swiper-item>
+						<itemCharts :loadingtext='loadingtext' :yAxis='pulseWidthAxis' :xAxis='numAxis' :index='1'
+							:recordId='recordId' :model='model' />
+					</swiper-item>
+					<swiper-item>
+						<itemCharts :loadingtext='loadingtext' :yAxis='pulsesNumberAxis' :xAxis='numAxis' :index='2'
+							:recordId='recordId' :model='model' />
+					</swiper-item>
+					<swiper-item>
+						<itemCharts :loadingtext='loadingtext' :yAxis='energyAxis' :xAxis='numAxis' :index='3'
+							:recordId='recordId' :model='model' />
+					</swiper-item>
+				</swiper>
+			</view>
 		</view>
 	</view>
+
 </template>
 
 <script>
@@ -54,28 +77,65 @@
 				value: String,
 				default: ''
 			},
+			currentnumber: {
+				value: String,
+				default: ''
+			},
 			recordId: {
 				value: String,
 				default: ''
+			},
+			loadingtext: {
+				value: String,
+				default: ''
+			},
+			lineList: {
+				value: Array,
+				default: ''
+			}
+		},
+		computed: {
+			durationTime() {
+				if (!this.lineList[0]) return ''
+				let time = parseInt((Date.parse(this.lineList[this.lineList.length - 1].createTime) - Date.parse(this
+					.lineList[0].createTime)) / 1000)
+				let res
+				let h = Math.floor(time / 3600)
+				let hh = h < 10 ? h > 0 ? `0${h}时` : '' : `${h}时`
+				let m = Math.floor((time / 60) % 60)
+				let mm = m < 10 ? m > 0 ? `0${m}分` : '' : `${m}分`
+				let s = Math.floor(time % 60)
+				let ss = s < 10 ? s > 0 ? `0${s}秒` : '' : `${s}秒`
+				res = `${hh}${mm}${ss}`
+				return res
 			}
 		},
 		data() {
 			return {
 				indicatorDots: false,
 				autoplay: true,
-				interval: 3000,
+				interval: 5000,
 				duration: 750,
+				modelList: {
+					'脱毛': 'https://bianm.jinxiongsj.com/file/uploads/20221010/b5e4211be37f8978aff4e1355ba014e4.png',
+					'嫩肤': 'https://bianm.jinxiongsj.com/file/uploads/20221010/863ed068b4e9e313d85aef2e6f9d76d5.png',
+					'祛斑': 'https://bianm.jinxiongsj.com/file/uploads/20221010/ef72d557e552161ab29d821ca83bba80.png',
+					'毛细血管扩张': 'https://bianm.jinxiongsj.com/file/uploads/20221010/44bc9166ed4af0364319e4ad95cb9ae2.png',
+				}
 			};
 		},
 		watch: {
-			lineList(val) {
-				val.forEach((item, index) => {
-					// this.timeAxis.push(this.initTime(Date.parse(val[0].createTime), Date.parse(item
-					// 	.createTime)))
-					this.timeAxis.push(index)
-					this.tempAxis.push(parseFloat(item.temperature.toFixed(1)))
-					this.pulseWidthAxis.push(item.pulse_width)
-				})
+			// lineList(val) {
+			// 	val.forEach((item, index) => {
+			// 		// this.timeAxis.push(this.initTime(Date.parse(val[0].createTime), Date.parse(item
+			// 		// 	.createTime)))
+			// 		this.timeAxis.push(index)
+			// 		this.tempAxis.push(parseFloat(item.temperature.toFixed(1)))
+			// 		this.pulseWidthAxis.push(item.pulse_width)
+			// 	})
+			// },
+			loadingtext(val) {
+				console.log("val: ", val);
 			}
 		},
 		onReady() {},

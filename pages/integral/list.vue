@@ -1,5 +1,5 @@
 <template>
-	<view :style="'margin-top:'+statusBarHeight+'px'" class="mb88">
+	<view :style="'margin-top:'+statusBarHeight+'px'" class="pb88">
 		<u-navbar title="任务列表" :autoBack="true" :placeholder='true'></u-navbar>
 
 		<view class="borderRadius bg-FFFFFF m-0-24 d-c mb30 pr d-c">

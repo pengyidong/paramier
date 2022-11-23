@@ -26,7 +26,7 @@
 						<text class="fb f30 activeText mr5">112312</text>
 						<u-icon name="arrow-right" color="#333333" size="13"></u-icon>
 					</view>
-					<view class="useIntegralBtn borderRadius co-FFFFFF f30 "  @click="goto('/pages/integral/list')">
+					<view class="useIntegralBtn borderRadius co-FFFFFF f30 "  @click="goto('/pages/integral/exchange')">
 						使用积分
 					</view>
 				</view>
@@ -34,9 +34,9 @@
 			</view>
 		</view>
 
-		<view class="m-0-24 mt150 mb30 bglg buy borderRadius d-c pr">
+		<view class="m-0-24 mt150 mb30 bglg buy borderRadius d-c pr"  @click="goto('/pages/buy/buy')">
 			<image src="https://bianm.jinxiongsj.com/file/uploads/20221121/0b2922f09c4d0638803dbbcf112d8f2e.png" mode="widthFix" style="width: 140rpx;height: 140rpx;"></image>
-			<text class="fb co-FFFFFF f48 ml30 pa">耗材采购</text>
+			<text class="fb co-FFFFFF f48 ml30 pa" goto>耗材采购</text>
 			<view class="buybtn d-c-c">立即采购</view>
 		</view>
 

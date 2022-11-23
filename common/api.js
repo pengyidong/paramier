@@ -48,7 +48,7 @@ export const getUploadToken = () => request({
 	url: '634e763952cb33000a45e252/file/get_upload_token',
 	method: 'post',
 	data: {
-		transaction_id: "pengyidong-13257079395"
+		transaction_id: "bmrj8888"
 	},
 	isUpload: true
 })

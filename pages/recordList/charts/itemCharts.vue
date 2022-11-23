@@ -1,6 +1,9 @@
 <template>
-	<view class="bg-FFFFFF borderRadius" id="tempContainer">
-		<canvas :canvas-id="list[index].id" :id="list[index].id" class="charts" @tap="tap" />
+	<view class="bg-FFFFFF borderRadius h100" id="tempContainer">
+		<canvas v-if="yAxis.length !== 0" :canvas-id="list[index].id" :id="list[index].id" class="charts" @tap="tap" />
+		<view class="h100 w100 d-c-c f48 co-999999" v-else>
+			{{loadingtext}}
+		</view>
 	</view>
 </template>
 
@@ -58,13 +61,17 @@
 			recordId: {
 				value: String,
 				default: ''
+			},
+			loadingtext: {
+				value: String,
+				default: ''
 			}
 		},
 		watch: {
 			yAxis(val) {
 				if (val.length === 0) return
 				this.getServerData();
-			}
+			},
 		},
 		onReady() {
 			this.pixelRatio = uni.getSystemInfoSync().pixelRatio;

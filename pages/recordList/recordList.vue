@@ -1,5 +1,5 @@
 <template>
-	<view class="mb88" :style="'margin-top: '+ statusBarHeight +'px'">
+	<view class="pb120" :style="'margin-top: '+ statusBarHeight +'px'">
 		<!-- <u-navbar title="治疗档案列表" :autoBack="true" :placeholder='true'></u-navbar> -->
 		<view class="m32 bg-FFFFFF boxShadow borderRadius co-333333 f28 pr" v-for="(item, index) in list"
 			:key="index" @click="gotoDetail(item)">
@@ -70,7 +70,7 @@
 				}
 				const res = await record(obj)
 				if (res.statusCode == 200) {
-					this.list = res.data.data
+					this.list = res.data.data.reverse()
 				}
 			}
 		}

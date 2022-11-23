@@ -4,9 +4,9 @@
 			<u-avatar :src="detail.doctor_photo[0].url" size='80'></u-avatar>
 		</view>
 		<view class="d-f-s">
-			<view>姓名：{{detail.doctor_name}}</view>
-			<view>职称：{{detail.doctor_title}}</view>
-			<view>编号：{{detail.doctor_number}}</view>
+			<view>姓名：{{detail.doctor_name || '-'}}</view>
+			<view>职称：{{detail.doctor_title || '-'}}</view>
+			<view>编号：{{detail.doctor_number || '-'}}</view>
 		</view>
 	</view>
 </template>

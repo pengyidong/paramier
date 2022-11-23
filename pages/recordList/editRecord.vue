@@ -65,12 +65,9 @@
 			</view>
 		</view>
 
-		<view class="d-s-c">
+		<view class="d-c-c">
 			<view class="flex-1 d-c-c">
-				<view class="btn co-FFFFFF f26" @click="back">取 消</view>
-			</view>
-			<view class="flex-1 d-c-c">
-				<view class="btn co-FFFFFF f26" @click="edit">编 辑</view>
+				<view class="btn bcbtn co-FFFFFF f36" @click="edit">保 存</view>
 			</view>
 		</view>
 		<selectDoctor :show='show' @close='close' @select='select'></selectDoctor>
@@ -97,6 +94,8 @@
 				record_id: '',
 				urls1: [],
 				urls2: [],
+				isup1: false,
+				isup2: false,
 				details: {
 					parts: '',
 					project: '',
@@ -105,7 +104,7 @@
 					wechat: '',
 					symptoms: '',
 					gender: '',
-					doctor_photo: '',
+					doctor_photo: [],
 					doctor_name: '',
 					doctor_title: '',
 					doctor_number: '',
@@ -125,10 +124,13 @@
 				this.detail.doctor_name = e.doctor_name
 				this.detail.doctor_title = e.doctor_title
 				this.detail.doctor_number = e.doctor_id
+				this.detail.doctor_photo = e.picture
+
 
 				this.details.doctor_name = e.doctor_name
 				this.details.doctor_number = e.doctor_id
 				this.details.doctor_title = e.doctor_title
+				this.details.doctor_photo = e.picture
 			},
 			close() {
 				this.show = !this.show
@@ -138,7 +140,6 @@
 			},
 			async getToken() {
 				const res = await getUploadToken()
-				console.log("res: ", res);
 				if (res.statusCode === 200) {
 					this.token_and_url_list = res.data.token_and_url_list
 				}
@@ -149,7 +150,6 @@
 					sizeType: ['original'],
 					sourceType: ['album', 'camera'],
 					success: (chooseImageRes) => {
-						console.log("chooseImageRes: ", chooseImageRes);
 						uni.showLoading({
 							title: '图片上传中'
 						});
@@ -165,8 +165,6 @@
 							name: 'file',
 							success: (uploadFileRes) => {
 								let key = JSON.parse(uploadFileRes.data).key
-								console.log("chooseImageRes.tempFilePaths[0]: ", chooseImageRes
-									.tempFilePaths[0]);
 								this.token_and_url_list.shift();
 
 								if (index === 0) {
@@ -174,13 +172,14 @@
 									this.urls1 = [{
 										src1: chooseImageRes.tempFilePaths[0],
 									}]
-									console.log(this.urls1);
+									this.isup1 = true
 								}
 								if (index === 1) {
 									this.details.src2 = key
 									this.urls2 = [{
 										src2: chooseImageRes.tempFilePaths[0],
 									}]
+									this.isup2 = true
 								}
 							},
 							complete: () => {
@@ -211,7 +210,6 @@
 						this.details.symptoms = value;
 						break;
 				}
-				console.log("this._detail: ", this.details);
 			},
 			back() {
 				uni.navigateBack()
@@ -222,7 +220,9 @@
 			async update() {
 				let obj = {
 					data_id: this.detail._id,
-					transaction_id: "pengyidong-13257079395",
+					transaction_id: "bmrj8888",
+					app_id: '63413e3366ceda0008b4e512',
+					entry_id: '634e763952cb33000a45e252',
 					data: {
 						parts: {
 							value: this.details.parts
@@ -254,24 +254,27 @@
 						doctor_title: {
 							value: this.details.doctor_title
 						},
-						// doctor_photo: {
-						// 	value: [
-						// 		this.details.doctor_photo
-						// 	]
-						// },
-						before: {
+						doctor_photo: {
 							value: [
-								this.details.src1
+								this.details.doctor_photo[0].url
 							]
 						},
-						after: {
-							value: [
-								this.details.src2
-							]
-						}
 					}
 				}
-				console.log("obj: ", obj);
+				if (this.isup1) {
+					obj.data.before = {
+						value: [
+							this.details.src1
+						]
+					}
+				}
+				if (this.isup2) {
+					obj.data.after = {
+						value: [
+							this.details.src2
+						]
+					}
+				}
 				const res = await recordUpdate(obj)
 				if (res.statusCode === 200) {
 					this.back()
@@ -293,7 +296,7 @@
 				const res = await recordDetail(obj)
 				if (res.statusCode == 200) {
 					this.detail = res.data.data[0]
-					this.details.parts = res.data.data[0].parts
+					this.details.parts = res.data.data[0]?.parts
 					this.details.project = res.data.data[0].project
 					this.details.customer_name = res.data.data[0].customer_name
 					this.details.contact = res.data.data[0].contact
@@ -343,8 +346,13 @@
 		background: linear-gradient(94deg, #A9B8D5, #D2C7D8);
 		border-radius: 12rpx;
 		position: relative;
-		max-width: 120rpx;
+		max-width: 200rpx;
 		height: 30rpx;
+	}
+
+	.bcbtn {
+		min-width: 200rpx;
+		height: 40rpx;
 	}
 
 	.btnlt {
