@@ -34,7 +34,7 @@
 			</view>
 		</view>
 
-		<view class="m-0-24 mt150 mb30 bglg buy borderRadius d-c pr"  @click="goto('/pages/buy/buy')">
+		<view class="m-0-24 mt150 mb30 bglg buy borderRadius d-c pr"  @click="goto('///pages/buy/buy')">
 			<image src="https://bianm.jinxiongsj.com/file/uploads/20221121/0b2922f09c4d0638803dbbcf112d8f2e.png" mode="widthFix" style="width: 140rpx;height: 140rpx;"></image>
 			<text class="fb co-FFFFFF f48 ml30 pa" goto>耗材采购</text>
 			<view class="buybtn d-c-c">立即采购</view>

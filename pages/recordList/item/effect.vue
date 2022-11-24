@@ -1,5 +1,5 @@
 <template>
-	<view class="card d-s-c">
+	<view class="card d-s">
 		<view class="flex-1">
 			<view class="mb15 f30">
 				治疗前

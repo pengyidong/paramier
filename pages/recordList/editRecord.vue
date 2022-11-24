@@ -48,9 +48,11 @@
 				<view class="mb15">
 					治疗前
 				</view>
-				<u-album borderRadius='12rpx' albumSize='90%' :singleSize='130' singleMode='widthFix' :urls="urls1"
-					keyName="src1">
-				</u-album>
+				<view style='min-height:280rpx'>
+					<u-album borderRadius='12rpx' albumSize='90%' :singleSize='130' singleMode='scaleToFill'
+						:urls="urls1" keyName="src1">
+					</u-album>
+				</view>
 				<view class="btn co-FFFFFF f26 mt15" @click='upload(0)'>上传图片</view>
 
 			</view>
@@ -58,9 +60,11 @@
 				<view class="mb15">
 					治疗后
 				</view>
-				<u-album borderRadius='12rpx' albumSize='90%' :singleSize='130' singleMode='widthFix' :urls="urls2"
-					keyName="src2">
-				</u-album>
+				<view style='min-height:280rpx'>
+					<u-album borderRadius='12rpx' albumSize='90%' :singleSize='130' singleMode='scaleToFill'
+						:urls="urls2" keyName="src2">
+					</u-album>
+				</view>
 				<view class="btn co-FFFFFF f26 mt15" @click='upload(1)'>上传图片</view>
 			</view>
 		</view>
@@ -96,6 +100,7 @@
 				urls2: [],
 				isup1: false,
 				isup2: false,
+				isup3: false,
 				details: {
 					parts: '',
 					project: '',
@@ -104,7 +109,7 @@
 					wechat: '',
 					symptoms: '',
 					gender: '',
-					doctor_photo: [],
+					doctor_photo: '',
 					doctor_name: '',
 					doctor_title: '',
 					doctor_number: '',
@@ -124,13 +129,41 @@
 				this.detail.doctor_name = e.doctor_name
 				this.detail.doctor_title = e.doctor_title
 				this.detail.doctor_number = e.doctor_id
-				this.detail.doctor_photo = e.picture
-
 
 				this.details.doctor_name = e.doctor_name
 				this.details.doctor_number = e.doctor_id
 				this.details.doctor_title = e.doctor_title
-				this.details.doctor_photo = e.picture
+				this.getSelectImg(e.picture[0].url)
+			},
+			getSelectImg(url) {
+				this.detail.doctor_photo = [{
+					url
+				}]
+				uni.downloadFile({
+					url,
+					success: (res) => {
+						if (res.statusCode === 200) {
+							uni.uploadFile({
+								url: this.token_and_url_list[0].url, //接口地址
+								header: {
+									'Authorization': 'Bearer SMlLFl0qf3setN6OWJl7henCSwnwfLaX'
+								}, //请求token
+								filePath: res.tempFilePath,
+								formData: {
+									"token": this.token_and_url_list[0].token,
+								},
+								name: 'file',
+								success: (uploadFileRes) => {
+									let key = JSON.parse(uploadFileRes.data).key
+									this.token_and_url_list.shift();
+									this.details.doctor_photo = key
+									this.isup3 = true
+								}
+							});
+						}
+					}
+				})
+
 			},
 			close() {
 				this.show = !this.show
@@ -254,11 +287,7 @@
 						doctor_title: {
 							value: this.details.doctor_title
 						},
-						doctor_photo: {
-							value: [
-								this.details.doctor_photo[0].url
-							]
-						},
+
 					}
 				}
 				if (this.isup1) {
@@ -272,6 +301,13 @@
 					obj.data.after = {
 						value: [
 							this.details.src2
+						]
+					}
+				}
+				if (this.isup3) {
+					obj.data.doctor_photo = {
+						value: [
+							this.details.doctor_photo
 						]
 					}
 				}

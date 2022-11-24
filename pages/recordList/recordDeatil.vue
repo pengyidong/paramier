@@ -1,5 +1,5 @@
 <template>
-	<view :class="show ? 'popupShow' :''">
+	<view class="pb88">
 		<u-navbar title="治疗档案详情" :autoBack="true" :placeholder='true'></u-navbar>
 		<charts :numAxis='numAxis' :tempAxis='tempAxis' :pulseWidthAxis='pulseWidthAxis'
 			:pulsesNumberAxis='pulsesNumberAxis' :energyAxis='energyAxis' :recordId='record_id' :model='model'
@@ -48,7 +48,6 @@
 		},
 		data() {
 			return {
-				show: false,
 				index: 0,
 				itemIndex: 0,
 				agency_name: '',
