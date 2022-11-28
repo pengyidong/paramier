@@ -9,7 +9,8 @@
 		<title title="品牌刀法"></title>
 		<view class="m-0-24">
 			<u-scroll-list :indicator="false">
-				<view class="brandItem borderRadius " v-for="(item, index) in brandList" :key="index">
+				<view class="brandItem borderRadius "
+					v-for="(item, index) in brandList" :key="index">
 					<image class="brandImg mb20" :src="item.img"></image>
 					<view class="co-666666 p-0-12 f26 text-ellipsis-2">
 						{{item.title}}
@@ -24,7 +25,7 @@
 
 		<title title="商机心法"></title>
 		<view class="d-r-c m-0-24">
-			<view class="business borderRadius mb20 d-s-c" :style="'width: '+ itemW +'px;height: '+ brandItemH +'px'"
+			<view class="business borderRadius mb20 d-s-c"  @click="goto(`/pages/business/list?index=${index}`)" :style="'width: '+ itemW +'px;height: '+ brandItemH +'px'"
 				v-for="(item, index) in businessList" :key="index">
 				<view class="co-FFFFFF d-b-c h100 ml30">
 					<view class="f26 d-b ">
@@ -84,6 +85,7 @@
 			tabbar,
 			showVideo
 		},
+
 		data() {
 			return {
 				// 头图地址
@@ -136,6 +138,13 @@
 						img: 'https://bianm.jinxiongsj.com/file/uploads/20221010/95e18f485b6367a3c825616c88a75c72.png'
 					}
 				]
+			}
+		},
+		methods: {
+			goto(url) {
+				uni.navigateTo({
+					url
+				})
 			}
 		}
 	}

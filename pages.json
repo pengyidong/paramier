@@ -108,6 +108,13 @@
 				"navigationBarTitleText": "耗材采购",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/business/list",
+			"style": {
+				"navigationBarTitleText": "商机详情",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

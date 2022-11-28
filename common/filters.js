@@ -11,6 +11,11 @@ export default {
 		let m = time.getMinutes();
 		let s = time.getSeconds();
 		return `${addZero(y)}-${addZero(M)}-${addZero(d)} ${addZero(h)}:${addZero(m)}:${addZero(s)}`
+	},
+	state(index) {
+		let _index =  parseFloat(index)
+		let list = ['已派单','已沟通','已到院','已成交']
+		return list[_index]
 	}
 }
 

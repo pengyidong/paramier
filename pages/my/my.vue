@@ -5,7 +5,7 @@
 				<view class="p-45-35 pr">
 					<view class="mb40">
 						<text class="f36 fb co-333333 mr30">序列号</text><text
-							class="f48 fb500 co-539DF9">M123564640</text>
+							class="f48 fb500 co-539DF9">M211009105</text>
 					</view>
 					<view class="d-c">
 						<image style="width:40rpx;height:40rpx" class="mr5"
