@@ -112,6 +112,13 @@
 		{
 			"path": "pages/business/list",
 			"style": {
+				"navigationBarTitleText": "商机列表",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/business/detail",
+			"style": {
 				"navigationBarTitleText": "商机详情",
 				"navigationStyle": "custom"
 			}

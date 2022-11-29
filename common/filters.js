@@ -14,7 +14,7 @@ export default {
 	},
 	state(index) {
 		let _index =  parseFloat(index)
-		let list = ['已派单','已沟通','已到院','已成交']
+		let list = ['已派单','已沟通','已到院','已成交','无效订单']
 		return list[_index]
 	}
 }

@@ -25,7 +25,7 @@
 
 		<title title="商机心法"></title>
 		<view class="d-r-c m-0-24">
-			<view class="business borderRadius mb20 d-s-c"  @click="goto(`/pages/business/list?index=${index}`)" :style="'width: '+ itemW +'px;height: '+ brandItemH +'px'"
+			<view class="business borderRadius mb20 d-s-c"  @click="goto(`/pages/business/list?index=${index + 1}`)" :style="'width: '+ itemW +'px;height: '+ brandItemH +'px'"
 				v-for="(item, index) in businessList" :key="index">
 				<view class="co-FFFFFF d-b-c h100 ml30">
 					<view class="f26 d-b ">
@@ -133,7 +133,7 @@
 						img: 'https://bianm.jinxiongsj.com/file/uploads/20221010/7f2ee60fe099fb395a8f0c1cadf0abd0.png'
 					},
 					{
-						name: '已完成',
+						name: '已成交',
 						num: 4444,
 						img: 'https://bianm.jinxiongsj.com/file/uploads/20221010/95e18f485b6367a3c825616c88a75c72.png'
 					}

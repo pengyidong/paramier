@@ -7,19 +7,15 @@
 			    color: '#5AA1F9'
 			}"></u-tabs>
 		</view>
-		<view class="m32 bg-FFFFFF boxShadow borderRadius co-333333 f28" v-for="(item, index) in list" :key="index">
+		<view class="m32 bg-FFFFFF boxShadow borderRadius co-333333 f28"
+			@click="goto(`/pages/business/detail?id=${index + 1}`)" v-for="(item, index) in list" :key="index">
 			<view class="list-item d-c">
 				<image style="width: 48rpx;height: 48rpx;" mode="widthFix"
-					src="https://bianm.jinxiongsj.com/file/uploads/20221128/6cf60abdc19cda77e12e8147f9636dda.png">
+					:src="`https://bianm.jinxiongsj.com/file/uploads/20221129/${iconList[item.state]}.png`">
 				</image>
 				<view class="ml15">
-					<view class="">
-						<span class='co-333333 f32 mr15'>{{item.name}}</span>
-						<span class='co-999999 f26'>{{item.phone}}</span>
-					</view>
-					<view class="co-333333 f26">
-						{{item.province}}-{{item.city}}-{{item.area}}
-					</view>
+					<span class='co-333333 f32 mr15'>{{item.name}}</span>
+					<span class='co-999999 f26'>{{item.phone}}</span>
 				</view>
 				<image v-if="item.valid" class="ml-a" style="width: 105rpx;height: 105rpx;"
 					src="https://bianm.jinxiongsj.com/file/uploads/20221128/9e375d41f3fbacee1bb14fe8315ae3f7.png"
@@ -42,8 +38,6 @@
 			return {
 				index: 0,
 				tabList: [{
-					name: '全部',
-				}, {
 					name: '已派单',
 				}, {
 					name: '已沟通',
@@ -51,9 +45,18 @@
 					name: '已到院',
 				}, {
 					name: '已成交',
-				}],
+				}, {
+					name: '无效单',
+				}, ],
 				statusBarHeight: uni.getStorageSync('statusBarHeight'),
-				list: []
+				list: [],
+				iconList: [
+					'19e0b038cf5465fac1b162687d9f441e', 
+					'348bd1dad925f4c991367b5187c990ae',
+					'69684a1ec59227f1db4a326abfc01da1', 
+					'fe1efb769373192de99b2697b78daae5', 
+					'307ed0c8168a128f15f076ad6731f491',
+				]
 			}
 		},
 		onLoad(options) {
@@ -61,11 +64,12 @@
 				let _index = decodeURIComponent(options.index) || 0;
 				this.index = parseFloat(_index)
 				this.list = mockList[this.index]
+			} else {
+				this.list = mockList[0]
 			}
 		},
 		methods: {
-			gotoDetail(item) {
-				let url = `/pages/recordList/recordDeatil?agency_name=${item.agency_name}&record_id=${item.record_id}`
+			goto(url) {
 				uni.navigateTo({
 					url
 				})
