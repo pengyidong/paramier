@@ -121,7 +121,7 @@
 							fontSize: 12,
 							title: this.list[this.index].unitMeasure,
 							titleFontSize: 12,
-							tofix: 1,
+							tofix: 2,
 						}]
 					},
 					extra: {

@@ -83,8 +83,8 @@
 				val.forEach((item, index) => {
 					// this.numAxis.push(this.initTime(Date.parse(val[0].createTime), Date.parse(item
 					// 	.createTime)))
-					_numAxis.push(index)
-					_tempAxis.push(parseFloat(item.temperature.toFixed(1)))
+					_numAxis.push(item.current_number)
+					_tempAxis.push(parseFloat(item.temperature.toFixed(2)))
 					_pulseWidthAxis.push(item.pulse_width)
 					_energyAxis.push(item.energy)
 					_pulsesNumberAxis.push(item.pulses_number)
@@ -127,22 +127,22 @@
 					filter: {
 						rel: "and",
 						cond: [{
-							field: "record_id",
-							method: "eq",
-							value: `${this.record_id}`
-						}, 
-						// {
-						// 	field: "model",
-						// 	method: "eq",
-						// 	model: `${this.model}`
-						// },
-						 ]
+								field: "record_id",
+								method: "eq",
+								value: `${this.record_id}`
+							},
+							// {
+							// 	field: "model",
+							// 	method: "eq",
+							// 	model: `${this.model}`
+							// },
+						]
 					}
 				}
 				const res = await recordRun(obj)
 				console.log("res: ", res);
 				if (res.statusCode == 200) {
-					this.lineList = res.data.data
+					this.lineList = res.data.data.reverse()
 					this.model = res?.data?.data[0]?.model || ''
 					this.current_number = res?.data?.data[0]?.current_number
 					this.loadingtext = '暂无数据'

@@ -25,7 +25,7 @@
 
 		<title title="商机心法"></title>
 		<view class="d-r-c m-0-24">
-			<view class="business borderRadius mb20 d-s-c"  @click="goto(`/pages/business/list?index=${index + 1}`)" :style="'width: '+ itemW +'px;height: '+ brandItemH +'px'"
+			<view class="business borderRadius mb20 d-s-c"  @click="goto(`/pages/business/list?index=${index}`)" :style="'width: '+ itemW +'px;height: '+ brandItemH +'px'"
 				v-for="(item, index) in businessList" :key="index">
 				<view class="co-FFFFFF d-b-c h100 ml30">
 					<view class="f26 d-b ">

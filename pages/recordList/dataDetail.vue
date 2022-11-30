@@ -90,11 +90,11 @@
 					let _pulseWidthAxis = []
 					let _energyAxis = []
 					let _pulsesNumberAxis = []
-					res.data.data.forEach((item, index) => {
+					res.data.data.reverse().forEach((item, index) => {
 						// this.numAxis.push(this.initTime(Date.parse(val[0].createTime), Date.parse(item
 						// 	.createTime)))
-						_numAxis.push(index)
-						_tempAxis.push(parseFloat(item.temperature.toFixed(1)))
+						_numAxis.push(index + 1)
+						_tempAxis.push(parseFloat(item.temperature.toFixed(2)))
 						_pulseWidthAxis.push(item.pulse_width)
 						_energyAxis.push(item.energy)
 						_pulsesNumberAxis.push(item.pulses_number)
@@ -159,7 +159,7 @@
 							fontSize: 12,
 							title: this.list[this.index].unitMeasure,
 							titleFontSize: 12,
-							tofix: 1,
+							tofix: 2,
 						}]
 					},
 					extra: {

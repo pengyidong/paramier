@@ -60,3 +60,19 @@ export const getDoctor = (data) => request({
 	data,
 	isUpload: false
 })
+
+// 获取商机列表
+export const getBusinessList = (data) => request({
+	url: '63857723fa0a710007b253d8/data',
+	method: 'post',
+	data,
+	isUpload: false
+})
+
+// 获取商机详情
+export const getBusinessDetail = (data) => request({
+	url: '63857723fa0a710007b253d8/data_retrieve',
+	method: 'post',
+	data,
+	isUpload: false
+})
