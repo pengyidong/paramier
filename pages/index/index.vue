@@ -46,7 +46,7 @@
 				<image class="mb30 borderRadius" :style="'width: '+ itemW +'px;height: '+ unpackItemH1 +'px'"
 					src="https://bianm.jinxiongsj.com/file/uploads/20220804/43eb16481a4dae8c40dbf9647ac961b5.jpg" alt=""
 					srcset=""></image>
-				<image class="mb30 borderRadius" :style="'width: '+ itemW +'px;height: '+ unpackItemH +'px'" :src='src'
+				<image class="mb30 borderRadius" @click="goto('/pages/qa/list')" :style="'width: '+ itemW +'px;height: '+ unpackItemH +'px'" :src='src'
 					alt="" srcset=""></image>
 			</view>
 			<view class="unpack">

@@ -122,6 +122,20 @@
 				"navigationBarTitleText": "商机详情",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/qa/list",
+			"style": {
+				"navigationBarTitleText": "话术QA",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/qa/search",
+			"style": {
+				"navigationBarTitleText": "话术QA",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {
