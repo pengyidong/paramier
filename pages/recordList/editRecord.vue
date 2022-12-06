@@ -114,7 +114,8 @@
 					doctor_title: '',
 					doctor_number: '',
 					src1: '',
-					src2: ''
+					src2: '',
+					progress: null
 				},
 				show: false
 			}
@@ -250,6 +251,43 @@
 			edit() {
 				this.update()
 			},
+			setProgress() {
+				let i = 0
+				let _detail = this.detail
+				if (_detail.record_id) {
+					i = i + 10
+				}
+				if (_detail.equipment_id) {
+					i = i + 10
+				}
+				if (_detail.serial_number) {
+					i = i + 10
+				}
+				if (_detail.model) {
+					i = i + 10
+				}
+				if (_detail.agency_name) {
+					i = i + 10
+				}
+				if (this.details.parts) {
+					i = i + 10
+				}
+				if (this.details.contact) {
+					i = i + 10
+				}
+				if (this.details.doctor_number) {
+					i = i + 10
+				}
+				if (this.details.src1) {
+					i = i + 10
+				}
+				if (this.details.src2) {
+					i = i + 10
+				}
+				i = (i / 100)
+				console.log("i % 10: ", i);
+				return i
+			},
 			async update() {
 				let obj = {
 					data_id: this.detail._id,
@@ -287,7 +325,15 @@
 						doctor_title: {
 							value: this.details.doctor_title
 						},
-
+						before_name: {
+							value: '1'
+						},
+						after_name: {
+							value: '2'
+						},
+						progress: {
+							value: this.setProgress()
+						},
 					}
 				}
 				if (this.isup1) {
@@ -339,6 +385,7 @@
 					this.details.wechat = res.data.data[0].wechat
 					this.details.symptoms = res.data.data[0].symptoms
 					this.details.gender = res.data.data[0].gender
+					this.details.progress = res.data.data[0].progress
 					this.details.doctor_photo = res.data.data[0]?.doctor_photo[0]?.url
 					this.details.doctor_title = res.data.data[0].doctor_title
 					this.details.doctor_name = res.data.data[0].doctor_name
