@@ -9,8 +9,7 @@
 		<title title="品牌刀法"></title>
 		<view class="m-0-24">
 			<u-scroll-list :indicator="false">
-				<view class="brandItem borderRadius "
-					v-for="(item, index) in brandList" :key="index">
+				<view class="brandItem borderRadius " v-for="(item, index) in brandList" :key="index">
 					<image class="brandImg mb20" :src="item.img"></image>
 					<view class="co-666666 p-0-12 f26 text-ellipsis-2">
 						{{item.title}}
@@ -25,8 +24,9 @@
 
 		<title title="商机心法"></title>
 		<view class="d-r-c m-0-24">
-			<view class="business borderRadius mb20 d-s-c"  @click="goto(`/pages/business/list?index=${index}`)" :style="'width: '+ itemW +'px;height: '+ brandItemH +'px'"
-				v-for="(item, index) in businessList" :key="index">
+			<view class="business borderRadius mb20 d-s-c" @click="goto(`/pages/business/list?index=${index}`)"
+				:style="'width: '+ itemW +'px;height: '+ brandItemH +'px'" v-for="(item, index) in businessList"
+				:key="index">
 				<view class="co-FFFFFF d-b-c h100 ml30">
 					<view class="f26 d-b ">
 						{{item.name}}
@@ -46,8 +46,8 @@
 				<image class="mb30 borderRadius" :style="'width: '+ itemW +'px;height: '+ unpackItemH1 +'px'"
 					src="https://bianm.jinxiongsj.com/file/uploads/20220804/43eb16481a4dae8c40dbf9647ac961b5.jpg" alt=""
 					srcset=""></image>
-				<image class="mb30 borderRadius" @click="goto('/pages/qa/list')" :style="'width: '+ itemW +'px;height: '+ unpackItemH +'px'" :src='src'
-					alt="" srcset=""></image>
+				<image class="mb30 borderRadius" @click="goto('/pages/qa/list')"
+					:style="'width: '+ itemW +'px;height: '+ unpackItemH +'px'" :src='src' alt="" srcset=""></image>
 			</view>
 			<view class="unpack">
 				<view class="">
@@ -85,7 +85,6 @@
 			tabbar,
 			showVideo
 		},
-
 		data() {
 			return {
 				// 头图地址
@@ -146,7 +145,14 @@
 					url
 				})
 			}
-		}
+		},
+		onShareAppMessage() {
+			let result = {
+				title: "paramier",
+				path: ``
+			}
+			return result
+		},
 	}
 </script>
 

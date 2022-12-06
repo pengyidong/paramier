@@ -18,7 +18,7 @@
 						mode="widthFix"></image>
 				</view>
 				<view class="p35 d-s-c">
-					<view class="d-c"  @click="goto('/pages/integral/detail')">
+					<view class="d-c" @click="goto('/pages_my/integral/detail')">
 						<image style="width:40rpx;height:40rpx" class="mr5"
 							src="https://bianm.jinxiongsj.com/file/uploads/20221012/de25cb71c28e4b050c8d76b782e5a95f.png"
 							mode=""></image>
@@ -26,7 +26,7 @@
 						<text class="fb f30 activeText mr5">112312</text>
 						<u-icon name="arrow-right" color="#333333" size="13"></u-icon>
 					</view>
-					<view class="useIntegralBtn borderRadius co-FFFFFF f30 "  @click="goto('/pages/integral/exchange')">
+					<view class="useIntegralBtn borderRadius co-FFFFFF f30 " @click="goto('/pages_my/integral/exchange')">
 						使用积分
 					</view>
 				</view>
@@ -34,14 +34,15 @@
 			</view>
 		</view>
 
-		<view class="m-0-24 mt150 mb30 bglg buy borderRadius d-c pr"  @click="goto('///pages/buy/buy')">
-			<image src="https://bianm.jinxiongsj.com/file/uploads/20221121/0b2922f09c4d0638803dbbcf112d8f2e.png" mode="widthFix" style="width: 140rpx;height: 140rpx;"></image>
+		<view class="m-0-24 mt150 mb30 bglg buy borderRadius d-c pr" @click="goto('/pages_my/buy/buy')">
+			<image src="https://bianm.jinxiongsj.com/file/uploads/20221121/0b2922f09c4d0638803dbbcf112d8f2e.png"
+				mode="widthFix" style="width: 140rpx;height: 140rpx;"></image>
 			<text class="fb co-FFFFFF f48 ml30 pa" goto>耗材采购</text>
 			<view class="buybtn d-c-c">立即采购</view>
 		</view>
 
-		<view class="d-s-c">
-			<view class="itemH m-0-24 bg-FFFFFF borderRadius p-25-30 d-s-c bgImg"
+		<view class="d-r-c m-0-24">
+			<view class="itemH  bg-FFFFFF borderRadius p-25-30 d-s-c bgImg"
 				:style="'background-image:url('+ item.icon+');background-color:'+item.bgColor+';'"
 				v-for="(item, index) in list" :key="index" @click="goto(item.url)">
 				<view class="d-c">
@@ -72,14 +73,20 @@
 					name: '认证医生',
 					linkUrl: '',
 					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221121/75680b296b8fe2564b8703405a795f80.png',
-					url: '/pages/doctor/doctor',
+					url: '/pages_my/doctor/doctor',
 					bgColor: 'rgba(217, 195, 255, 0.1)'
 				}, {
 					name: '任务列表',
 					linkUrl: '',
 					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221121/f893bf9f146a36e3667c9abbbc330ad3.png',
-					url: '/pages/integral/list',
+					url: '/pages_my/integral/list',
 					bgColor: 'rgba(254, 195, 146, 0.1)'
+				}, {
+					name: '扫码验真',
+					linkUrl: '',
+					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221121/f893bf9f146a36e3667c9abbbc330ad3.png',
+					url: '/pages_my/integral/list',
+					bgColor: 'rgba(96, 162, 244, 0.1)'
 				}]
 			}
 		},
@@ -95,7 +102,8 @@
 					url
 				})
 			}
-		}
+		},
+
 	}
 </script>
 
@@ -138,12 +146,12 @@
 
 	.p-25-30 {
 		padding: 25rpx 30rpx;
-		margin-bottom: 15rpx;
+		margin-bottom: 20rpx;
 	}
 
 	.itemH {
 		height: 170rpx;
-		width: 90%;
+		width: 40%;
 	}
 
 	.bgImg {
@@ -151,21 +159,21 @@
 		background-size: 120rpx 120rpx;
 		background-position: left 20rpx top 20rpx;
 	}
-	
-	.buy{
+
+	.buy {
 		height: 140rpx;
 		width: calc(100% - 48rpx);
 		background: linear-gradient(76deg, #DAB1C1, #9AAECF);
 	}
-	
-	.buybtn{
+
+	.buybtn {
 		font-size: 30rpx;
 		font-weight: bold;
 		color: #CFB0C3;
 		width: 152rpx;
 		height: 48rpx;
 		background: #FEFEFE;
-		box-shadow: 0rpx 5rpx 10rpx 0rpx rgba(167,175,204,0.35);
+		box-shadow: 0rpx 5rpx 10rpx 0rpx rgba(167, 175, 204, 0.35);
 		border-radius: 12rpx;
 		margin-left: auto;
 		margin-right: 35rpx;

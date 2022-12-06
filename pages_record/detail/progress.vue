@@ -70,7 +70,7 @@
 		},
 		methods: {
 			goto() {
-				let url = `/pages/recordList/editRecord?record_id=${this.detail.record_id}`
+				let url = `/pages_record/editRecord?record_id=${this.detail.record_id}`
 				uni.navigateTo({
 					url
 				})

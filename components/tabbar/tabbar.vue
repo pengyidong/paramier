@@ -27,21 +27,21 @@
 					{
 						active: 'https://bianm.jinxiongsj.com/file/uploads/20221009/ebd0a1e3713e963ac2d89f7eddc5350f.png',
 						inactive: 'https://bianm.jinxiongsj.com/file/uploads/20221009/4e4c33f6bdec4dc8025cbd689a07e416.png',
-						linkUrl: 'pages/found/found'
+						linkUrl: 'pages_found/found'
 					},
 					{
 						active: 'https://bianm.jinxiongsj.com/file/uploads/20221108/e206b24f5c3db69cebdc5bfb563ca175.png',
 						inactive: 'https://bianm.jinxiongsj.com/file/uploads/20221108/a2289de50844bae04d5b035012b6be27.png',
-						linkUrl: 'pages/recordList/recordList'
+						linkUrl: 'pages_record/recordList'
 					}, {
 						active: 'https://bianm.jinxiongsj.com/file/uploads/20221009/b91536fbd2531575959df72936d96c3a.png',
 						inactive: 'https://bianm.jinxiongsj.com/file/uploads/20221009/98028d8bb06362d0b83cb5d5c9ff4795.png',
-						linkUrl: 'pages/equipment/equipment'
+						linkUrl: 'pages_equipment/equipment'
 					},
 					{
 						active: 'https://bianm.jinxiongsj.com/file/uploads/20221009/d6c025e436221b5fac23757de2a64832.png',
 						inactive: 'https://bianm.jinxiongsj.com/file/uploads/20221009/61c3b4d35b3d8057e3b7d1f7e86e1b9d.png',
-						linkUrl: 'pages/my/my'
+						linkUrl: 'pages_my/my/my'
 					}
 				]
 			}

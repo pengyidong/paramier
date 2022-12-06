@@ -260,7 +260,7 @@
 		},
 		methods: {
 			gotoInfo() {
-				let url = `/pages/equipment/info`
+				let url = `/pages_equipment/info`
 				console.log(url);
 				uni.navigateTo({
 					url,
