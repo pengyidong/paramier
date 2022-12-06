@@ -74,11 +74,16 @@
 		},
 		{
 			"root": "pages_my",
-			"pages": [
-				{
+			"pages": [{
 					"path": "my/my",
 					"style": {
 						"navigationBarTitleText": "我的",
+						"navigationStyle": "custom"
+					}
+				}, {
+					"path": "antiFake/antiFake",
+					"style": {
+						"navigationBarTitleText": "扫码防伪",
 						"navigationStyle": "custom"
 					}
 				},
