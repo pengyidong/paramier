@@ -84,9 +84,9 @@
 				}, {
 					name: '扫码验真',
 					linkUrl: '',
-					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221121/f893bf9f146a36e3667c9abbbc330ad3.png',
+					icon: 'https://bianm.jinxiongsj.com/file/uploads/20221207/b183b8b3f39dccb01ddf6c05e8d3f024.png',
 					url: '/pages_my/antiFake/antiFake',
-					bgColor: 'rgba(96, 162, 244, 0.1)'
+					bgColor: 'rgba(192, 226, 255, 0.1)'
 				}]
 			}
 		},
