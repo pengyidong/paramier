@@ -2,8 +2,8 @@
 	<view>
 		<u-navbar title="扫码验真" :autoBack="true" :placeholder='true'></u-navbar>
 		<view class="m24 borderRadius boxShadow hidden">
-			<image style="width: 100%;"  :src="qrcode" mode="widthFix"
-				:show-menu-by-longpress="true"></image>
+			<!-- <image style="width: 100%;" :src="qrcode" mode="widthFix" :show-menu-by-longpress="true"></image> -->
+			<qrcode></qrcode>
 			<view class="d-s-c bg-FFFFFF p-20-30">
 				<view class="f32 co-333333">
 					广州变美日记体验中心
@@ -47,7 +47,11 @@
 </template>
 
 <script>
+	import qrcode from "./qrcode/qrcode.vue"
 	export default {
+		components: {
+			qrcode
+		},
 		data() {
 			return {
 				timeData: {},

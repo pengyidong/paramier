@@ -11,27 +11,27 @@
 			</view>
 			<view class="list-item">状态：{{current | state}}</view>
 			<view class="list-item">派单时间：{{detail.date | transformTime}}</view>
-			<view class="list-item">线索获取来源：{{detail.source}}</view>
+			<view class="list-item">线索获取来源：{{detail.source || '-'}}</view>
 		</view>
 
 		<title title="客户信息"></title>
 		<view class="m32 bg-FFFFFF boxShadow borderRadius co-333333 f28">
-			<view class="list-item">姓名：{{detail.name}}</view>
-			<view class="list-item" @click="makePhoneCall(detail.phone)">手机号：{{detail.phone}}</view>
-			<view class="list-item">变美需求：{{detail.demand}}</view>
+			<view class="list-item">姓名：{{detail.name || '-'}}</view>
+			<view class="list-item" @click="makePhoneCall(detail.phone)">手机号：{{detail.phone || '-'}}</view>
+			<view class="list-item">变美需求：{{detail.demand || '-'}}</view>
 		</view>
 
 		<title title="成交信息"></title>
 		<view class="m32 bg-FFFFFF boxShadow borderRadius co-333333 f28">
-			<view class="list-item">成交项目：{{detail.clinch_deal_project}}</view>
-			<view class="list-item">成交金额：{{detail.clinch_deal_amount}}元</view>
-			<view class="list-item">升单项目： {{detail.bill_raising_item}}</view>
-			<view class="list-item">升单金额：{{detail.amount_bill_upgrade}}元</view>
+			<view class="list-item">成交项目：{{detail.clinch_deal_project || '-'}}</view>
+			<view class="list-item">成交金额：{{detail.clinch_deal_amount || '-'}} 元</view>
+			<view class="list-item">升单项目： {{detail.bill_raising_item || '-'}}</view>
+			<view class="list-item">升单金额：{{detail.amount_bill_upgrade || '-'}} 元</view>
 		</view>
 
 		<title title="备注信息"></title>
 		<view class="m32 bg-FFFFFF boxShadow borderRadius co-333333 f28">
-			<view class="list-item tj">{{detail.note}}</view>
+			<view class="list-item tj">{{detail.note || '-'}}</view>
 		</view>
 
 		<title title="订单过程"></title>
