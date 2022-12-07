@@ -18,98 +18,6 @@
 			}
 		},
 		{
-			"path": "pages/equipment/equipment",
-			"style": {
-				"navigationBarTitleText": "设备",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/my/my",
-			"style": {
-				"navigationBarTitleText": "我的",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/found/found",
-			"style": {
-				"navigationBarTitleText": "发现",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/equipment/info",
-			"style": {
-				"navigationBarTitleText": "仪器基础信息",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/recordList/recordList",
-			"style": {
-				"navigationBarTitleText": "治疗档案列表",
-				"navigationStyle": "custom",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/recordList/recordDeatil",
-			"style": {
-				"navigationBarTitleText": "治疗档案详情",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/recordList/editRecord",
-			"style": {
-				"navigationBarTitleText": "编辑治疗档案",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/doctor/doctor",
-			"style": {
-				"navigationBarTitleText": "认证医生",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/recordList/dataDetail",
-			"style": {
-				"navigationBarTitleText": "图表",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/integral/detail",
-			"style": {
-				"navigationBarTitleText": "积分明细",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/integral/list",
-			"style": {
-				"navigationBarTitleText": "任务列表",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/integral/exchange",
-			"style": {
-				"navigationBarTitleText": "积分兑换",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/buy/buy",
-			"style": {
-				"navigationBarTitleText": "耗材采购",
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path": "pages/business/list",
 			"style": {
 				"navigationBarTitleText": "商机列表",
@@ -136,6 +44,116 @@
 				"navigationBarTitleText": "话术QA",
 				"navigationStyle": "custom"
 			}
+		}
+	],
+	"subPackages": [{
+			"root": "pages_equipment",
+			"pages": [{
+				"path": "equipment",
+				"style": {
+					"navigationBarTitleText": "设备",
+					"navigationStyle": "custom"
+				}
+			}, {
+				"path": "info",
+				"style": {
+					"navigationBarTitleText": "仪器基础信息",
+					"navigationStyle": "custom"
+				}
+			}]
+		},
+		{
+			"root": "pages_found",
+			"pages": [{
+				"path": "found",
+				"style": {
+					"navigationBarTitleText": "发现",
+					"navigationStyle": "custom"
+				}
+			}]
+		},
+		{
+			"root": "pages_my",
+			"pages": [{
+					"path": "my/my",
+					"style": {
+						"navigationBarTitleText": "我的",
+						"navigationStyle": "custom"
+					}
+				}, {
+					"path": "antiFake/antiFake",
+					"style": {
+						"navigationBarTitleText": "扫码防伪",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "integral/detail",
+					"style": {
+						"navigationBarTitleText": "积分明细",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "integral/list",
+					"style": {
+						"navigationBarTitleText": "任务列表",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "integral/exchange",
+					"style": {
+						"navigationBarTitleText": "积分兑换",
+						"navigationStyle": "custom"
+					}
+				}, {
+					"path": "doctor/doctor",
+					"style": {
+						"navigationBarTitleText": "认证医生",
+						"navigationStyle": "custom"
+					}
+				}, {
+					"path": "buy/buy",
+					"style": {
+						"navigationBarTitleText": "耗材采购",
+						"navigationStyle": "custom"
+					}
+				}
+			]
+		},
+		{
+			"root": "pages_record",
+			"pages": [{
+					"path": "recordList",
+					"style": {
+						"navigationBarTitleText": "治疗档案列表",
+						"navigationStyle": "custom",
+						"enablePullDownRefresh": true
+					}
+				},
+				{
+					"path": "recordDeatil",
+					"style": {
+						"navigationBarTitleText": "治疗档案详情",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "editRecord",
+					"style": {
+						"navigationBarTitleText": "编辑治疗档案",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "dataDetail",
+					"style": {
+						"navigationBarTitleText": "图表",
+						"navigationStyle": "custom"
+					}
+				}
+			]
 		}
 	],
 	"globalStyle": {
