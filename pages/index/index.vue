@@ -32,11 +32,10 @@
 						{{item.name}}
 						<u-icon name="arrow-right" color="#FFFFFF" size="13"></u-icon>
 					</view>
-					<view class="f48">{{item.num}}</view>
+					<view class="f48" v-if="item.num != 0">{{item.num}}</view>
 				</view>
-				<view class="">
-					<image style="width: 100rpx;height:100rpx;" :src="item.img" mode=""></image>
-				</view>
+				<image style="width: 100rpx;height:100rpx;"
+					:src="`https://bianm.jinxiongsj.com/file/uploads/20221010/${item.img}.png`" mode=""></image>
 			</view>
 		</view>
 
@@ -78,6 +77,9 @@
 	import operating from '@/components/operating/operating.vue';
 	import tabbar from '@/components/tabbar/tabbar.vue';
 	import showVideo from '@/components/showVideo/showVideo.vue';
+	import {
+		getBusinessStatistical
+	} from '@/common/api.js'
 	export default {
 		components: {
 			title,
@@ -118,32 +120,54 @@
 				// 商机心法
 				businessList: [{
 						name: '已派单',
-						num: 1111,
-						img: 'https://bianm.jinxiongsj.com/file/uploads/20221010/6f3ff3ab7d91189f246266aac678936b.png'
+						num: 0,
+						img: '6f3ff3ab7d91189f246266aac678936b'
 					},
 					{
 						name: '已沟通',
-						num: 2222,
-						img: 'https://bianm.jinxiongsj.com/file/uploads/20221010/6f3ff3ab7d91189f246266aac678936b.png'
+						num: 0,
+						img: '6f3ff3ab7d91189f246266aac678936b'
 					},
 					{
 						name: '已到院',
-						num: 3333,
-						img: 'https://bianm.jinxiongsj.com/file/uploads/20221010/7f2ee60fe099fb395a8f0c1cadf0abd0.png'
+						num: 0,
+						img: '7f2ee60fe099fb395a8f0c1cadf0abd0'
 					},
 					{
 						name: '已成交',
-						num: 4444,
-						img: 'https://bianm.jinxiongsj.com/file/uploads/20221010/95e18f485b6367a3c825616c88a75c72.png'
+						num: 0,
+						img: '95e18f485b6367a3c825616c88a75c72'
 					}
 				]
 			}
+		},
+		created() {
+			this.initBusiness()
 		},
 		methods: {
 			goto(url) {
 				uni.navigateTo({
 					url
 				})
+			},
+			async initBusiness() {
+				let obj = {
+					appId: "63413e3366ceda0008b4e512",
+					entryId: "6390250d2a75a0000a5a4668",
+					widgetId: "_widget_1670392169629",
+					fx_access_token: "wxaQh7C80x+1iI8Q5WZDATs5EaeBBjpYRfyCV4auOEA=",
+					fx_access_type: "dash_public"
+				}
+
+				const res = await getBusinessStatistical(obj)
+				let numList = res.data.data.val[0].data
+				if (res.statusCode == 200) {
+					this.businessList[0].num = numList[4]
+					this.businessList[1].num = numList[3]
+					this.businessList[2].num = numList[2]
+					this.businessList[3].num = numList[1]
+					
+				}
 			}
 		},
 		onShareAppMessage() {

@@ -1,11 +1,18 @@
 export const baseURL = 'https://api.jiandaoyun.com/api/'
-
+export const ybpURL = 'https://rfm.bmrjtech.cn'
 export const request = (options) => {
+	let url;
+	if (options.type != '0') {
+		url = `${baseURL}v${options.type}/app/63413e3366ceda0008b4e512/entry/${options.url}`
+	} else {
+		url = `${ybpURL}/_/${options.url}`
+	}
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url: `${baseURL}${options.isUpload ? 'v1' : 'v4'}/app/63413e3366ceda0008b4e512/entry/${options.url}`,
+			url,
 			method: options.method || 'POST',
 			data: options.data || {},
+			withCredentials: true,
 			header: {
 				'Authorization': 'Bearer SMlLFl0qf3setN6OWJl7henCSwnwfLaX'
 			},
