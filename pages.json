@@ -45,6 +45,13 @@
 				"navigationBarTitleText": "话术QA",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/qa/result",
+			"style": {
+				"navigationBarTitleText": "话术QA",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"subPackages": [{
@@ -69,6 +76,18 @@
 				"path": "found",
 				"style": {
 					"navigationBarTitleText": "发现",
+					"navigationStyle": "custom"
+				}
+			}, {
+				"path": "standby",
+				"style": {
+					"navigationBarTitleText": "发现",
+					"navigationStyle": "custom"
+				}
+			}, {
+				"path": "articleDetail",
+				"style": {
+					"navigationBarTitleText": "文章详情",
 					"navigationStyle": "custom"
 				}
 			}]

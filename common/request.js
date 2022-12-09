@@ -1,9 +1,16 @@
 export const baseURL = 'https://api.jiandaoyun.com/api/'
 export const ybpURL = 'https://rfm.bmrjtech.cn'
+export const bianmURL = 'https://bianm.jinxiongsj.com'
 export const request = (options) => {
 	let url;
-	if (options.type != '0') {
+	if (options.type == '1' || options.type == '4') {
 		url = `${baseURL}v${options.type}/app/63413e3366ceda0008b4e512/entry/${options.url}`
+	} else if (options.type == '-1') {
+		url = `${bianmURL}/index.php/api/${options.url}`
+		if(!options.data || Object.keys(options.data).length == 0) {
+			options.data = {}
+		}
+		options.data.app_id = 10019
 	} else {
 		url = `${ybpURL}/_/${options.url}`
 	}

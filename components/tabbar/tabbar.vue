@@ -27,7 +27,7 @@
 					{
 						active: 'https://bianm.jinxiongsj.com/file/uploads/20221009/ebd0a1e3713e963ac2d89f7eddc5350f.png',
 						inactive: 'https://bianm.jinxiongsj.com/file/uploads/20221009/4e4c33f6bdec4dc8025cbd689a07e416.png',
-						linkUrl: 'pages_found/found'
+						linkUrl: 'pages_found/standby'
 					},
 					{
 						active: 'https://bianm.jinxiongsj.com/file/uploads/20221108/e206b24f5c3db69cebdc5bfb563ca175.png',

@@ -6,6 +6,7 @@ import {
 // 1 => v1
 // 4 => v4
 // 0 => 仪表盘接口
+// -1 => 变美惊喜社接口
 
 
 // 设备实时数据 
@@ -88,4 +89,28 @@ export const getBusinessStatistical = (data) => request({
 	method: 'post',
 	data,
 	type: "0"
+})
+
+// 获取文章分类列表
+export const getCategory = (data) => request({
+	url: 'plus.article.article/category',
+	method: 'GET',
+	data,
+	type: "-1"
+})
+
+// 获取文章列表
+export const getCategoryList = (data) => request({
+	url: 'plus.article.Article/index',
+	method: 'GET',
+	data,
+	type: "-1"
+})
+
+// 获取文章详情
+export const getArticleDetail = (data) => request({
+	url: 'plus.article.article/detail',
+	method: 'GET',
+	data,
+	type: "-1"
 })

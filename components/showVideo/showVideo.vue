@@ -1,8 +1,7 @@
 <template>
 	<u-overlay :show="show" :opacity="1">
 		<view class="d-c-c h100 pr bgImg">
-			<video @play="play" :style="" @error="clogErr"
-				:style="'height:'+videoH+'px !important;'"
+			<video @play="play" :style="" @error="clogErr" :style="'height:'+videoH+'px !important;'"
 				:custom-cache="false" :src="src" :controls='false' :autoplay='true' :enable-progress-gesture='false'
 				:show-fullscreen-btn='false' :show-center-play-btn='false'>
 			</video>
@@ -25,11 +24,18 @@
 				src: 'https://bianm.jinxiongsj.com/file/uploads/20221018/3508992d07180a577cef624829174931.mp4'
 			}
 		},
+		created() {
+			let show = uni.getStorageSync('showVideo')
+			if (show == '1') {
+				this.show = false
+			}
+		},
 		methods: {
 			clogErr(e) {
 				console.error('视频错误信息:', e.detail.errMsg)
 			},
 			play() {
+				uni.setStorageSync('showVideo', '1')
 				this.verification()
 				setTimeout(() => {
 					this.videoPlay = true

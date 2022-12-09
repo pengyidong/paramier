@@ -62,10 +62,10 @@
 			searchStr(str) {
 				if (str) {
 					this.storageSet(str)
-					// let url = `/pages/qa/searchDetail?str=${str}`;
-					// uni.redirectTo({
-					// 	url,
-					// });
+					let url = `/pages/qa/result?str=${str}`;
+					uni.redirectTo({
+						url,
+					});
 				} else {
 					uni.showToast({
 						title: '请输入搜索的关键字',

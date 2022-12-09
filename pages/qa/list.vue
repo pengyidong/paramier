@@ -7,7 +7,7 @@
 		</view>
 
 		<view class="m24 d-r-c">
-			<view class="pr mb24" v-for="(item, index) in list" :key="index" :style="'width: '+ itemW +'px'">
+			<view class="pr mb24"  @click="goto('/pages/qa/result')" v-for="(item, index) in list" :key="index" :style="'width: '+ itemW +'px'">
 				<image style="width: 100%;"
 					:src=" `https://bianm.jinxiongsj.com/file/uploads/20221201/${item.image}.png`" mode="widthFix">
 				</image>
