@@ -34,7 +34,7 @@
 			</view>
 		</view>
 
-		<view class="m-0-24 mt150 mb30 bglg buy borderRadius d-c pr" @click="goto('/pages_my/buy/buy')">
+		<view class="m-0-24 mt150 mb30 bglg buy borderRadius d-c pr boxShadow" @click="goto('/pages_my/buy/buy')">
 			<image src="https://bianm.jinxiongsj.com/file/uploads/20221121/0b2922f09c4d0638803dbbcf112d8f2e.png"
 				mode="widthFix" style="width: 140rpx;height: 140rpx;"></image>
 			<text class="fb co-FFFFFF f48 ml30 pa" goto>耗材采购</text>
@@ -42,7 +42,7 @@
 		</view>
 
 		<view class="d-r-c m-0-24">
-			<view class="itemH  bg-FFFFFF borderRadius p-25-30 d-s-c bgImg"
+			<view class="itemH  bg-FFFFFF borderRadius p-25-30 d-s-c bgImg boxShadow"
 				:style="'background-image:url('+ item.icon+');background-color:'+item.bgColor+';'"
 				v-for="(item, index) in list" :key="index" @click="goto(item.url)">
 				<view class="d-c">
