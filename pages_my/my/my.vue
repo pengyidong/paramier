@@ -5,13 +5,13 @@
 				<view class="p-45-35 pr">
 					<view class="mb40">
 						<text class="f36 fb co-333333 mr30">序列号</text><text
-							class="f48 fb500 co-539DF9">M211009105</text>
+							class="f48 fb500 co-539DF9">{{instrument.serial_number}}</text>
 					</view>
 					<view class="d-c">
 						<image style="width:40rpx;height:40rpx" class="mr5"
 							src="https://bianm.jinxiongsj.com/file/uploads/20221012/1cf616d6c5c693714f228b8822fae6fb.png"
 							mode=""></image>
-						<text class="fb f30 co-333333">变美日记广州体验中心</text>
+						<text class="fb f30 co-333333">{{institutions.agency_name}}</text>
 					</view>
 					<image class="pa rfm" style="width: 120rpx;"
 						src="https://bianm.jinxiongsj.com/file/uploads/20221108/21a69a0de3ca4cfbaf8839a89fa8ffd3.png"
@@ -26,7 +26,8 @@
 						<text class="fb f30 activeText mr5">112312</text>
 						<u-icon name="arrow-right" color="#333333" size="13"></u-icon>
 					</view>
-					<view class="useIntegralBtn borderRadius co-FFFFFF f30 " @click="goto('/pages_my/integral/exchange')">
+					<view class="useIntegralBtn borderRadius co-FFFFFF f30 "
+						@click="goto('/pages_my/integral/exchange')">
 						使用积分
 					</view>
 				</view>
@@ -62,12 +63,18 @@
 
 <script>
 	import tabbar from '@/components/tabbar/tabbar.vue';
+	import {
+		getInstitutions,
+		getInstrument
+	} from '@/common/api.js'
 	export default {
 		components: {
 			tabbar,
 		},
 		data() {
 			return {
+				institutions: {},
+				instrument: {},
 				statusBarHeight: uni.getStorageSync('statusBarHeight'),
 				list: [{
 					name: '认证医生',
@@ -96,7 +103,32 @@
 				return (windowWidth * 410) / 750
 			}
 		},
+		created() {
+			this.getData()
+		},
 		methods: {
+			async getData() {
+				let obj = {
+					"data_id": "634f9e714b9f6a0008a6ee83"
+				}
+				const res = await getInstitutions(obj)
+				if (res.statusCode === 200) {
+					this.institutions = res.data.data
+					let object = {
+						limit: 1,
+						filter: {
+							rel: "and",
+							cond: [{
+								field: "agency_name",
+								method: "eq",
+								value: res.data.data.agency_name
+							}, ]
+						}
+					}
+					const data = await getInstrument(object)
+					this.instrument = data.data.data[0]
+				}
+			},
 			goto(url) {
 				uni.navigateTo({
 					url

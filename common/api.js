@@ -83,6 +83,22 @@ export const getBusinessDetail = (data) => request({
 	type: "1"
 })
 
+// 查询治疗档案信息
+export const getInstitutions = (data) => request({
+	url: '634e5efe3f89ef000ace2e94/data_retrieve',
+	method: 'post',
+	data,
+	type: "1"
+})
+
+// 查询仪器信息
+export const getInstrument = (data) => request({
+	url: '634e6363852454000af42f80/data',
+	method: 'post',
+	data,
+	type: "1"
+})
+
 // 获取商机统计
 export const getBusinessStatistical = (data) => request({
 	url: 'data_process/data/dash/combined_group',
