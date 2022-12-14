@@ -84,7 +84,7 @@
 	import {
 		recordDetail,
 		recordUpdate,
-		getUploadToken
+		getRecordUploadToken
 	} from '@/common/api.js'
 	export default {
 		components: {
@@ -173,7 +173,7 @@
 				this.show = !this.show
 			},
 			async getToken() {
-				const res = await getUploadToken()
+				const res = await getRecordUploadToken()
 				if (res.statusCode === 200) {
 					this.token_and_url_list = res.data.token_and_url_list
 				}

@@ -50,13 +50,23 @@ export const recordUpdate = (data) => request({
 })
 
 // 获取文件上传凭证和上传地址
-export const getUploadToken = () => request({
+export const getRecordUploadToken = () => request({
 	url: '634e763952cb33000a45e252/file/get_upload_token',
 	method: 'post',
 	data: {
 		transaction_id: "bmrj8888"
 	},
-	type: '4'
+	type: '1'
+})
+
+// 获取文件上传凭证和上传地址
+export const getDoctorUploadToken = () => request({
+	url: '634e619d3f89ef000acfe68f/file/get_upload_token',
+	method: 'post',
+	data: {
+		transaction_id: "bmrj8888"
+	},
+	type: '1'
 })
 
 // 获取认证医生列表
@@ -64,7 +74,7 @@ export const getDoctorList = (data) => request({
 	url: '634e619d3f89ef000acfe68f/data',
 	method: 'post',
 	data,
-	type: "1"
+	type: "4"
 })
 
 // 获取认证医生
@@ -72,8 +82,26 @@ export const getDoctor = (data) => request({
 	url: '634e619d3f89ef000acfe68f/data_retrieve',
 	method: 'post',
 	data,
+	type: "4"
+})
+
+// 编辑医生
+export const updateDoctor = (data) => request({
+	url: '634e619d3f89ef000acfe68f/data_update',
+	method: 'post',
+	data,
+	type: "4"
+})
+
+// 编辑医生
+export const deleteDoctor = (data) => request({
+	url: '634e619d3f89ef000acfe68f/data_delete',
+	method: 'post',
+	data,
 	type: "1"
 })
+
+
 
 // 获取商机列表
 export const getBusinessList = (data) => request({

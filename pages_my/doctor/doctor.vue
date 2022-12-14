@@ -40,7 +40,7 @@
 				list: []
 			}
 		},
-		created() {
+		onShow() {
 			this.getData()
 		},
 		methods: {

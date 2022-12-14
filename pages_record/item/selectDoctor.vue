@@ -26,7 +26,7 @@
 
 <script>
 	import {
-		getDoctor
+		getDoctorList
 	} from '@/common/api.js'
 	export default {
 		props: {
@@ -72,7 +72,7 @@
 						}, ]
 					}
 				}
-				const res = await getDoctor(obj)
+				const res = await getDoctorList(obj)
 				if (res.statusCode === 200) {
 					this.list = res.data.data
 				}
