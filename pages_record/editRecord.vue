@@ -403,8 +403,6 @@
 							src2: res.data.data[0]?.after[0]?.url || '',
 						}]
 					}
-
-
 				}
 			}
 		}

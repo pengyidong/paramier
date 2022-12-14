@@ -59,9 +59,17 @@ export const getUploadToken = () => request({
 	type: '4'
 })
 
+// 获取认证医生列表
+export const getDoctorList = (data) => request({
+	url: '634e619d3f89ef000acfe68f/data',
+	method: 'post',
+	data,
+	type: "1"
+})
+
 // 获取认证医生
 export const getDoctor = (data) => request({
-	url: '634e619d3f89ef000acfe68f/data',
+	url: '634e619d3f89ef000acfe68f/data_retrieve',
 	method: 'post',
 	data,
 	type: "1"

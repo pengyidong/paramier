@@ -133,6 +133,18 @@
 						"navigationBarTitleText": "认证医生",
 						"navigationStyle": "custom"
 					}
+				},{
+					"path": "doctor/addDoctor",
+					"style": {
+						"navigationBarTitleText": "添加医生",
+						"navigationStyle": "custom"
+					}
+				},{
+					"path": "doctor/editDoctor",
+					"style": {
+						"navigationBarTitleText": "编辑医生",
+						"navigationStyle": "custom"
+					}
 				}, {
 					"path": "buy/buy",
 					"style": {
