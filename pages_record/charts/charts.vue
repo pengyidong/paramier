@@ -24,19 +24,19 @@
 					:interval="interval" :duration="duration">
 					<swiper-item>
 						<itemCharts :loadingtext='loadingtext' :yAxis='tempAxis' :xAxis='numAxis' :index='0'
-							:recordId='recordId' :model='model' />
+							:dataId='dataId' />
 					</swiper-item>
 					<swiper-item>
 						<itemCharts :loadingtext='loadingtext' :yAxis='pulseWidthAxis' :xAxis='numAxis' :index='1'
-							:recordId='recordId' :model='model' />
+							:dataId='dataId' />
 					</swiper-item>
 					<swiper-item>
 						<itemCharts :loadingtext='loadingtext' :yAxis='pulsesNumberAxis' :xAxis='numAxis' :index='2'
-							:recordId='recordId' :model='model' />
+							:dataId='dataId' />
 					</swiper-item>
 					<swiper-item>
 						<itemCharts :loadingtext='loadingtext' :yAxis='energyAxis' :xAxis='numAxis' :index='3'
-							:recordId='recordId' :model='model' />
+							:dataId='dataId' />
 					</swiper-item>
 				</swiper>
 			</view>
@@ -81,7 +81,7 @@
 				value: String,
 				default: ''
 			},
-			recordId: {
+			dataId: {
 				value: String,
 				default: ''
 			},

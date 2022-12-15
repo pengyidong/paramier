@@ -2,7 +2,7 @@
 	<view class="pb88">
 		<u-navbar title="治疗档案详情" :autoBack="true" :placeholder='true'></u-navbar>
 		<charts :numAxis='numAxis' :tempAxis='tempAxis' :pulseWidthAxis='pulseWidthAxis'
-			:pulsesNumberAxis='pulsesNumberAxis' :energyAxis='energyAxis' :recordId='record_id' :model='model'
+			:pulsesNumberAxis='pulsesNumberAxis' :energyAxis='energyAxis' :dataId='id' :model='model'
 			:loadingtext='loadingtext' :currentnumber='current_number' :lineList='lineList'></charts>
 		<basicInfo :detail='detailData' :model='model' :currentnumber='current_number' :lineList='lineList'></basicInfo>
 		<progress :detail='detailData'></progress>
@@ -52,6 +52,7 @@
 				itemIndex: 0,
 				agency_name: '',
 				record_id: '',
+				id: '',
 				model: '',
 				current_number: '',
 				lineList: [],
@@ -99,9 +100,10 @@
 		onLoad(options) {
 			this.agency_name = decodeURIComponent(options.agency_name);
 			this.record_id = decodeURIComponent(options.record_id);
+			this.id = decodeURIComponent(options.id);
+			console.log("this.id: ", this.id);
 		},
 		onShow() {
-			this.getDeatilData()
 			this.getListData()
 		},
 		methods: {
@@ -127,15 +129,25 @@
 					filter: {
 						rel: "and",
 						cond: [{
-								field: "record_id",
+								field: "equipment_id",
 								method: "eq",
-								value: `${this.record_id}`
+								value: `${this.detailData.equipment_id}`
 							},
-							// {
-							// 	field: "model",
-							// 	method: "eq",
-							// 	model: `${this.model}`
-							// },
+							{
+								field: "serial_number",
+								method: "eq",
+								model: `${this.detailData.serial_number}`
+							},
+							{
+								field: "mode_startup_status",
+								method: "eq",
+								model: `启动`
+							},
+							{
+								field: "report_time",
+								method: "range",
+								model: [this.detailData.start_time, this.detailData.end_time]
+							},
 						]
 					}
 				}
@@ -153,19 +165,12 @@
 			// 项目详情
 			async getListData() {
 				let obj = {
-					limit: 100,
-					filter: {
-						rel: "and",
-						cond: [{
-							field: "record_id",
-							method: "eq",
-							value: `${this.record_id}`
-						}]
-					}
+					data_id: this.id
 				}
 				const res = await recordDetail(obj)
 				if (res.statusCode == 200) {
-					this.detailData = res.data.data[0]
+					this.detailData = res.data.data
+					this.getDeatilData()
 				}
 
 			}

@@ -96,6 +96,7 @@
 				detail: {},
 				token_and_url_list: [],
 				record_id: '',
+				id:'',
 				urls1: [],
 				urls2: [],
 				isup1: false,
@@ -121,7 +122,7 @@
 			}
 		},
 		onLoad(options) {
-			this.record_id = decodeURIComponent(options.record_id);
+			this.id = decodeURIComponent(options.id);
 			this.getListData()
 			this.getToken()
 		},
@@ -365,42 +366,34 @@
 			// 项目详情
 			async getListData() {
 				let obj = {
-					limit: 100,
-					filter: {
-						rel: "and",
-						cond: [{
-							field: "record_id",
-							method: "eq",
-							value: `${this.record_id}`
-						}]
-					}
+					data_id:this.id
 				}
 				const res = await recordDetail(obj)
 				if (res.statusCode == 200) {
-					this.detail = res.data.data[0]
-					this.details.parts = res.data.data[0]?.parts
-					this.details.project = res.data.data[0].project
-					this.details.customer_name = res.data.data[0].customer_name
-					this.details.contact = res.data.data[0].contact
-					this.details.wechat = res.data.data[0].wechat
-					this.details.symptoms = res.data.data[0].symptoms
-					this.details.gender = res.data.data[0].gender
-					this.details.progress = res.data.data[0].progress
-					this.details.doctor_photo = res.data.data[0]?.doctor_photo[0]?.url
-					this.details.doctor_title = res.data.data[0].doctor_title
-					this.details.doctor_name = res.data.data[0].doctor_name
-					this.details.doctor_number = res.data.data[0].doctor_number
-					this.details.src1 = res.data.data[0]?.before[0]?.url
-					this.details.src2 = res.data.data[0]?.after[0]?.url
-					if (res.data.data[0].before && res.data.data[0].before[0] && res.data.data[0].before[0].url) {
+					this.detail = res.data.data
+					this.details.parts = res.data.data?.parts
+					this.details.project = res.data.data.project
+					this.details.customer_name = res.data.data.customer_name
+					this.details.contact = res.data.data.contact
+					this.details.wechat = res.data.data.wechat
+					this.details.symptoms = res.data.data.symptoms
+					this.details.gender = res.data.data.gender
+					this.details.progress = res.data.data.progress
+					this.details.doctor_photo = res.data.data?.doctor_photo[0]?.url
+					this.details.doctor_title = res.data.data.doctor_title
+					this.details.doctor_name = res.data.data.doctor_name
+					this.details.doctor_number = res.data.data.doctor_number
+					this.details.src1 = res.data.data?.before[0]?.url
+					this.details.src2 = res.data.data?.after[0]?.url
+					if (res.data.data.before && res.data.data.before[0] && res.data.data.before[0].url) {
 						this.urls1 = [{
-							src1: res.data.data[0]?.before[0]?.url || '',
+							src1: res.data.data?.before[0]?.url || '',
 						}]
 					}
 
-					if (res.data.data[0].after && res.data.data[0].after[0] && res.data.data[0].after[0].url) {
+					if (res.data.data.after && res.data.data.after[0] && res.data.data.after[0].url) {
 						this.urls2 = [{
-							src2: res.data.data[0]?.after[0]?.url || '',
+							src2: res.data.data?.after[0]?.url || '',
 						}]
 					}
 				}

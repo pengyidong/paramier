@@ -27,7 +27,7 @@ export const record = (data) => request({
 
 // 治疗档案详情
 export const recordDetail = (data) => request({
-	url: '634e763952cb33000a45e252/data',
+	url: '634e763952cb33000a45e252/data_retrieve',
 	method: 'post',
 	data,
 	type: "1"
@@ -93,7 +93,7 @@ export const updateDoctor = (data) => request({
 	type: "4"
 })
 
-// 编辑医生
+// 删除医生
 export const deleteDoctor = (data) => request({
 	url: '634e619d3f89ef000acfe68f/data_delete',
 	method: 'post',
@@ -101,6 +101,13 @@ export const deleteDoctor = (data) => request({
 	type: "1"
 })
 
+// 删除医生
+export const createDoctor = (data) => request({
+	url: '634e619d3f89ef000acfe68f/data_create',
+	method: 'post',
+	data,
+	type: "4"
+})
 
 
 // 获取商机列表

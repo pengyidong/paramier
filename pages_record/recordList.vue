@@ -54,7 +54,7 @@
 		},
 		methods: {
 			gotoDetail(item) {
-				let url = `/pages_record/recordDeatil?agency_name=${item.agency_name}&record_id=${item.record_id}`
+				let url = `/pages_record/recordDeatil?agency_name=${item.agency_name}&id=${item._id}&record_id=${item.record_id}`
 				uni.navigateTo({
 					url
 				})

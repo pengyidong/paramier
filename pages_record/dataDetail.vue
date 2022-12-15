@@ -11,7 +11,8 @@
 
 <script>
 	import {
-		recordRun
+		recordRun,
+		recordDetail
 	} from '@/common/api.js'
 	import uCharts from '@/static/utils/u-charts.js';
 	var uChartsInstance = {};
@@ -21,8 +22,7 @@
 				numAxis: [],
 				pageH: '',
 				index: null,
-				record_id: null,
-				model: null,
+				data_id: null,
 				cStyle: {
 					width: '100%',
 					height: '100%'
@@ -58,32 +58,51 @@
 		onLoad(options) {
 			this.pageH = uni.getSystemInfoSync().windowHeight
 			this.index = decodeURIComponent(options.index);
-			this.model = decodeURIComponent(options.model);
-			this.record_id = decodeURIComponent(options.record_id);
-			this.getData()
+			this.data_id = decodeURIComponent(options.dataId);
+			this.getListData()
 		},
 		methods: {
-			async getData() {
+			async getListData() {
+				let obj = {
+					data_id: this.data_id
+				}
+				const res = await recordDetail(obj)
+				if (res.statusCode == 200) {
+					this.detailData = res.data.data
+					this.getDeatilData()
+				}
+			},
+			// 图表数据
+			async getDeatilData() {
 				let obj = {
 					limit: 100,
 					filter: {
 						rel: "and",
 						cond: [{
-							field: "record_id",
-							method: "eq",
-							value: `${this.record_id}`
-						}, {
-							field: "equipment_status",
-							method: "eq",
-							value: `运行中`
-						}, {
-							field: "model",
-							method: "eq",
-							model: `${this.model}`
-						}, ]
+								field: "equipment_id",
+								method: "eq",
+								value: `${this.detailData.equipment_id}`
+							},
+							{
+								field: "serial_number",
+								method: "eq",
+								model: `${this.detailData.serial_number}`
+							},
+							{
+								field: "mode_startup_status",
+								method: "eq",
+								model: `启动`
+							},
+							{
+								field: "report_time",
+								method: "range",
+								model: [this.detailData.start_time, this.detailData.end_time]
+							},
+						]
 					}
 				}
 				const res = await recordRun(obj)
+				console.log("res: ", res);
 				if (res.statusCode == 200) {
 					let _numAxis = []
 					let _tempAxis = []
@@ -106,6 +125,29 @@
 					this.list[3].data = _pulsesNumberAxis
 					this.getServerData()
 				}
+			},
+			async getData() {
+				let obj = {
+					limit: 100,
+					filter: {
+						rel: "and",
+						cond: [{
+							field: "record_id",
+							method: "eq",
+							value: `${this.record_id}`
+						}, {
+							field: "equipment_status",
+							method: "eq",
+							value: `运行中`
+						}, {
+							field: "model",
+							method: "eq",
+							model: `${this.model}`
+						}, ]
+					}
+				}
+				const res = await recordRun(obj)
+
 			},
 			getServerData() {
 				let res = {

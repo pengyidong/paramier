@@ -3,10 +3,10 @@
 		<canvas v-if="yAxis.length !== 0" :canvas-id="list[index].id" :id="list[index].id" class="charts" @tap="tap" />
 		<view class="h100 w100 d-c-c" v-else>
 			<view class="h100 w100 d-c-c" v-if="loadingtext==='数据加载中'">
-				<u-loading-icon size='48' color='#689bff' ></u-loading-icon>
+				<u-loading-icon size='48' color='#689bff'></u-loading-icon>
 			</view>
 			<view class="h100 w100 f48 co-999999 d-c-c" v-if="loadingtext==='暂无数据'">
-				<u-empty mode="data" text='暂无数据' ></u-empty>
+				<u-empty mode="data" text='暂无数据'></u-empty>
 			</view>
 		</view>
 	</view>
@@ -59,11 +59,7 @@
 				value: Array,
 				default: {}
 			},
-			model: {
-				value: String,
-				default: ''
-			},
-			recordId: {
+			dataId: {
 				value: String,
 				default: ''
 			},
@@ -149,7 +145,7 @@
 			},
 			tap(e) {
 				let url =
-					`/pages_record/dataDetail?index=${this.index}&model=${this.model}&record_id=${this.recordId}`
+					`/pages_record/dataDetail?index=${this.index}&dataId=${this.dataId}`
 				uni.navigateTo({
 					url
 				})

@@ -88,6 +88,9 @@
 			this.getData(id)
 		},
 		methods: {
+			cancel() {
+				this.show = false
+			},
 			async confirm() {
 				let obj = {
 					data_id: this.detail._id,
@@ -96,7 +99,14 @@
 				const res = await deleteDoctor(obj)
 				if (res.statusCode === 200) {
 					this.show = false
-					this.back()
+					uni.showToast({
+						title: '删除成功',
+						duration: 2000,
+						icon: 'none'
+					});
+					setTimeout(() => {
+						this.back()
+					}, 1800)
 				}
 			},
 			cancel() {

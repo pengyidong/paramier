@@ -252,24 +252,37 @@
 			}
 		},
 		created() {
-			let that = this;
-			this.testapi()
+			// let a = ['hair_removal', 'tender_skin', 'the_spot', 'capillary_blood_vessels']
+			// let b = ['total_number', 'current_number', 'pulses_number', 'pulses_interval', 'pulse_width', 'energy']
+			// a.forEach(i => {
+			// 	b.forEach(o => {
+			// 		console.log(`${i}_${o}`);
+			// 	})
+			// })
+			this.getData()
 			setInterval(() => {
-				this.testapi()
+				this.getData()
 			}, 5000)
 		},
 		methods: {
 			gotoInfo() {
 				let url = `/pages_equipment/info`
-				console.log(url);
 				uni.navigateTo({
-					url,
-					complete: function(res) {
-						console.log(res);
-					}
+					url
 				})
 			},
-			async testapi() {
+			// 脱毛 hair_removal
+			// 嫩肤 tender_skin
+			// 祛斑 the_spot
+			// 毛细血管 capillary_blood_vessels
+
+			// 总发数 total_number
+			// 当前发数 current_number
+			// 脉冲个数 pulses_number
+			// 脉冲间隔 pulses_interval
+			// 脉宽 pulse_width
+			// 能量大小 energy
+			async getData() {
 				let obj = {
 					limit: 1,
 					fields: [
