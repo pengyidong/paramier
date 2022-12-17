@@ -11,10 +11,10 @@ import {
 
 // 设备实时数据 
 export const equipment = (data) => request({
-	url: '6342711d9a0ac3000a44c761/data',
+	url: '6342711d9a0ac3000a44c761/data_retrieve',
 	method: 'post',
 	data,
-	type: "1"
+	type: "4"
 })
 
 // 治疗档案列表
@@ -172,4 +172,12 @@ export const getArticleDetail = (data) => request({
 	method: 'GET',
 	data,
 	type: "-1"
+})
+
+// 获取动态码
+export const getCode = (data) => request({
+	url: 'job/cloud/getCode',
+	method: 'GET',
+	data,
+	type: "-2"
 })

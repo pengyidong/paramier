@@ -10,7 +10,7 @@
 			<view class="d-s-c">
 				<view class="d-d-c mr30" v-for="(item, index) in statusList" :key="index">
 					<view class="mb10">
-						<image :src="status === index ? item.active : item.inactive"
+						<image :src="detail.status === item.name ? item.active : item.inactive"
 							style="width: 82rpx;height: 82rpx;"></image>
 					</view>
 					<view class="f28" :class="status === index ? 'activeText fb' : 'co-DDDDDD'">
@@ -23,23 +23,23 @@
 			</view>
 		</view>
 
-		<title v-if="status === 1" title="运行状态"></title>
-		<view class="card borderRadius bg-FFFFFF m-0-24" v-if="status === 1">
+		<title v-if="detail.status === '运行中'" title="运行状态"></title>
+		<view class="card borderRadius bg-FFFFFF m-0-24" v-if="detail.status === '运行中'">
 			<view class="f26 co-999999 mb20">模式</view>
 			<view class="d-s-c">
 				<view class="d-d-c flex-1" v-for="(item, index) in modelList" :key="index">
 					<view class="mb20">
-						<image :src="run.model === index ? item.active : item.inactive"
+						<image :src="detail.model === item.name ? item.active : item.inactive"
 							style="width: 107rpx;height: 107rpx"></image>
 					</view>
-					<view class="f28" :class="run.model === index ? 'activeText fb' : 'co-DDDDDD'">
+					<view class="f28" :class="detail.model === item.name ? 'activeText fb' : 'co-DDDDDD'">
 						{{item.name}}
 					</view>
 				</view>
 			</view>
 		</view>
 
-		<view class="m-0-24 d-r-c mb30" v-if="status === 1">
+		<view class="m-0-24 d-r-c mb30" v-if="detail.status === '运行中'">
 			<view class="borderRadius bg-FFFFFF mt30 d-b-c runStaImg"
 				:style="'width:'+statusItemW+'px;height:'+180+'rpx;background-image: url('+item.bgImg+');'"
 				v-for="(item, index) in RunStatusList" :key="index">
@@ -58,7 +58,7 @@
 					<view class="circle pa bg-FFFFFF d-c-c">
 						<view class="co-333333">
 							<text class="f48">52</text>
-							<text class="f24">/小时</text>
+							<text class="f24">小时</text>
 						</view>
 
 					</view>
@@ -73,7 +73,7 @@
 					<view class="circle pa bg-FFFFFF d-c-c">
 						<view class="co-333333">
 							<text class="f48">120</text>
-							<text class="f24">/次</text>
+							<text class="f24">次</text>
 						</view>
 					</view>
 				</view>
@@ -86,7 +86,7 @@
 					<view class="circle pa bg-FFFFFF d-c-c">
 						<view class="co-333333">
 							<text class="f48">52</text>
-							<text class="f24">/小时</text>
+							<text class="f24">小时</text>
 						</view>
 					</view>
 				</view>
@@ -126,7 +126,7 @@
 		data() {
 			return {
 				statusBarHeight: uni.getStorageSync('statusBarHeight'),
-				status: 2,
+				detail: {},
 				statusList: [{
 					name: '在线',
 					active: 'https://bianm.jinxiongsj.com/file/uploads/20221010/3e98f9a43815c9386b3b56731140cec4.png',
@@ -158,13 +158,13 @@
 					inactive: 'https://bianm.jinxiongsj.com/file/uploads/20221010/c3101bfee721b2e493314e8852cf491b.png'
 				}],
 				runStatus: [{
-						name: '当前发数',
-						key: 'theCurrent',
+						name: '总发数',
+						key: 'total_number',
 						value: '',
 						bgImg: 'https://bianm.jinxiongsj.com/file/uploads/20221011/97e313fb873d1b9af7e3c9a6c14a0f68.png'
 					},
 					{
-						name: '总发数',
+						name: '当前发数',
 						key: 'total',
 						value: '',
 						bgImg: 'https://bianm.jinxiongsj.com/file/uploads/20221011/bf4e38c0ee46443c87e80c527647a3ef.png'
@@ -176,40 +176,24 @@
 						bgImg: 'https://bianm.jinxiongsj.com/file/uploads/20221011/5e57acd31f497c191789607b4bccd1ec.png'
 					},
 					{
-						name: '温度(℃)',
+						name: '脉冲间隔',
 						key: 'temperature',
 						value: '',
 						bgImg: 'https://bianm.jinxiongsj.com/file/uploads/20221011/3b9f1c7e38ba9a3e2b8584e6967ad779.png'
 					},
 					{
-						name: '脉冲间隔(S)',
+						name: '脉宽',
 						key: 'interval',
 						value: '',
 						bgImg: 'https://bianm.jinxiongsj.com/file/uploads/20221011/cfab3b930588e7a7db0480c5915c43c2.png'
 					},
 					{
-						name: '脉宽',
+						name: '能量大小',
 						key: 'pulseWidth',
 						value: '',
 						bgImg: 'https://bianm.jinxiongsj.com/file/uploads/20221011/784b09218c1351c48354e873b956e35b.png'
 					}
 				],
-				run: {
-					// 模式
-					model: null,
-					// 当前发数
-					theCurrent: null,
-					// 总发数
-					total: null,
-					// 脉冲个数
-					pulse: null,
-					// 温度
-					temperature: null,
-					// 脉冲间隔
-					interval: null,
-					// 脉宽
-					pulseWidth: null
-				},
 				operationData: [{
 						name: '当月耗材消耗',
 						num: 9000
@@ -239,26 +223,24 @@
 				return (windowWidth * 212) / 750
 			},
 			RunStatusList() {
-				let _run = Object.entries(this.run)
 				let _runStatus = this.runStatus
-				_run.forEach(runItem => {
-					_runStatus.forEach(statusItem => {
-						if (runItem[0] === statusItem.key) {
-							statusItem.value = runItem[1]
-						}
-					})
+				let modelObj = {
+					'脱毛': 'hair_removal',
+					'嫩肤': 'tender_skin',
+					'祛斑': 'the_spot',
+					'毛细血管扩张': 'capillary_blood_vessels',
+				}
+				let afterList = ['total_number', 'current_number', 'pulses_number', 'pulses_interval', 'pulse_width',
+					'energy'
+				]
+				let before = modelObj[this.detail.model]
+				_runStatus.forEach((item, index) => {
+					item.value = this.detail[`${before}_${afterList[index]}`]
 				})
 				return _runStatus
 			}
 		},
 		created() {
-			// let a = ['hair_removal', 'tender_skin', 'the_spot', 'capillary_blood_vessels']
-			// let b = ['total_number', 'current_number', 'pulses_number', 'pulses_interval', 'pulse_width', 'energy']
-			// a.forEach(i => {
-			// 	b.forEach(o => {
-			// 		console.log(`${i}_${o}`);
-			// 	})
-			// })
 			this.getData()
 			setInterval(() => {
 				this.getData()
@@ -271,40 +253,9 @@
 					url
 				})
 			},
-			// 脱毛 hair_removal
-			// 嫩肤 tender_skin
-			// 祛斑 the_spot
-			// 毛细血管 capillary_blood_vessels
-
-			// 总发数 total_number
-			// 当前发数 current_number
-			// 脉冲个数 pulses_number
-			// 脉冲间隔 pulses_interval
-			// 脉宽 pulse_width
-			// 能量大小 energy
 			async getData() {
 				let obj = {
-					limit: 1,
-					fields: [
-						'_widget_1665298717874',
-						'_widget_1665371620223',
-						'_widget_1665371620378',
-						'_widget_1665371879853',
-						'_widget_1665384835839',
-						'_widget_1665384835857',
-						'_widget_1665384835893',
-						'_widget_1665384835929',
-						'_widget_1665384835948',
-						'_widget_1665384835967',
-					],
-					filter: {
-						rel: "and",
-						cond: [{
-							field: "_widget_1665298717874",
-							method: "eq",
-							value: 'grshKmF5YIY_device_no1'
-						}, ]
-					}
+					data_id: '63903b0580c117000a994815'
 				}
 				const res = await equipment(obj)
 				let statusObj = {
@@ -312,34 +263,10 @@
 					'运行中': 1,
 					'离线': 2
 				}
-				let modelObj = {
-					'脱毛': 0,
-					'嫩肤': 1,
-					'祛斑': 2,
-					'毛细血管扩张': 3,
-					'-': null
-				}
 				if (res.statusCode == 200) {
-					let data = res.data.data[0]
-					this.status = statusObj[data._widget_1665371620223]
-					if (this.status === 1) {
-						this.run.model = modelObj[data._widget_1665371620378]
-						// 当前发数
-						this.run.theCurrent = data._widget_1665384835893
-						// 总发数
-						this.run.total = data._widget_1665384835857
-						// 脉冲个数
-						this.run.pulse = data._widget_1665384835839
-						// 温度
-						this.run.temperature = data._widget_1665371879853.toFixed(1)
-						// 脉冲间隔
-						this.run.interval = data._widget_1665384835948
-						// 脉宽
-						this.run.pulseWidth = data._widget_1665384835929
-					}
+					this.detail = res.data.data
+					this.status = statusObj[res.data.data.status]
 				}
-
-
 			}
 		}
 	}

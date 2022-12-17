@@ -32,7 +32,7 @@
 		</view>
 		<view v-else>
 			<view class="d-c-c w100 mt400" v-if="loadingres==='0'">
-				<u-loading-icon size='48' color='#689bff'></u-loading-icon>
+				<u-loading-icon size='48' color='#c1c4cc'></u-loading-icon>
 			</view>
 			<view class="f48 co-999999 d-c-c w100 mt400" v-if="loadingres==='2' ">
 				<u-empty mode="list" text='暂无数据'></u-empty>
