@@ -90,7 +90,6 @@
 			async getData() {
 				this.lodingStatus = 0
 				const res = await getCode()
-				console.log("res: ", res);
 				if (res.data.code == 200) {
 					this.detail = res.data.data
 					this.lodingStatus = 1
