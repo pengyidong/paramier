@@ -134,19 +134,9 @@
 								value: `${this.detailData.equipment_id}`
 							},
 							{
-								field: "serial_number",
+								field: "record_id",
 								method: "eq",
-								model: `${this.detailData.serial_number}`
-							},
-							{
-								field: "mode_startup_status",
-								method: "eq",
-								model: `启动`
-							},
-							{
-								field: "report_time",
-								method: "range",
-								model: [this.detailData.start_time, this.detailData.end_time]
+								value: `${this.detailData.record_id}`
 							},
 						]
 					}
