@@ -11,8 +11,8 @@
 					<view>时长：{{durationTime || '-'}}</view>
 				</view>
 				<view class="flex-1 d-f-a">
-					<view>总发数：12000</view>
-					<view>剩余发数：{{currentnumber || '-'}}</view>
+					<view>总发数：1212</view>
+					<view>已打发数：{{currentnumber || '-'}}</view>
 				</view>
 
 
@@ -139,7 +139,8 @@
 			}
 		},
 		onReady() {},
-		methods: {}
+		methods: {
+		}
 	};
 </script>
 
