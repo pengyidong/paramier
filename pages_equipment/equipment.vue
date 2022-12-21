@@ -22,7 +22,6 @@
 				基础信息
 			</view>
 		</view>
-
 		<title v-if="detail.status === '运行中'" title="运行状态"></title>
 		<view class="card borderRadius bg-FFFFFF m-0-24" v-if="detail.status === '运行中'">
 			<view class="f26 co-999999 mb20">模式</view>
@@ -37,6 +36,19 @@
 					</view>
 				</view>
 			</view>
+		</view>
+		<view class="card borderRadius bg-FFFFFF m-0-24 d-c" v-if="detail.status === '运行中'">
+			<view class="">
+				<image style="width: 107rpx;height: 107rpx;"
+					src="https://bianm.jinxiongsj.com/file/uploads/20221221/12dc33eab738e594f51bc6cc91eb5ee5.png"
+					mode=""></image>
+			</view>
+			<view class="f28 co-666666 ml30 d-f-a" style="height: 107rpx;">
+				<view>实时温度：{{detail.temperature}}℃</view>
+				<view>警戒水温：{{detail.danger_temperature}}℃</view>
+			</view>
+
+
 		</view>
 
 		<view class="m-0-24 d-r-c mb30" v-if="detail.status === '运行中'">
@@ -57,8 +69,8 @@
 				<view class="ring1 ring pr mb15">
 					<view class="circle pa bg-FFFFFF d-c-c">
 						<view class="co-333333">
-							<text class="f48">52</text>
-							<text class="f24">小时</text>
+							<text class="f48">{{time}}</text>
+							<text class="f24">{{timeText}}</text>
 						</view>
 
 					</view>
@@ -72,21 +84,21 @@
 				<view class="ring2 ring pr mb15">
 					<view class="circle pa bg-FFFFFF d-c-c">
 						<view class="co-333333">
-							<text class="f48">120</text>
+							<text class="f48">{{statistical[1]}}</text>
 							<text class="f24">次</text>
 						</view>
 					</view>
 				</view>
 				<view class="co-666666 f24 fb500">
-					总运行次数
+					已使用发数
 				</view>
 			</view>
 			<view class="d-d-c">
 				<view class="ring3 ring pr mb15">
 					<view class="circle pa bg-FFFFFF d-c-c">
 						<view class="co-333333">
-							<text class="f48">52</text>
-							<text class="f24">小时</text>
+							<text class="f48">{{statistical[2]}}</text>
+							<text class="f24">次</text>
 						</view>
 					</view>
 				</view>
@@ -114,7 +126,8 @@
 
 <script>
 	import {
-		equipment
+		equipment,
+		getBusinessStatistical
 	} from '@/common/api.js'
 	import utils from '@/static/utils/calcImageWH.js';
 	import tabbar from '@/components/tabbar/tabbar.vue';
@@ -127,6 +140,7 @@
 			return {
 				statusBarHeight: uni.getStorageSync('statusBarHeight'),
 				detail: {},
+				statistical: [],
 				statusList: [{
 					name: '在线',
 					active: 'https://bianm.jinxiongsj.com/file/uploads/20221010/3e98f9a43815c9386b3b56731140cec4.png',
@@ -218,6 +232,28 @@
 			}
 		},
 		computed: {
+			time() {
+				let _time = this.statistical[0]
+				if (_time < 60) {
+					return _time
+
+				} else if (_time >= 60 && _time < 3600) {
+					return (_time / 60).toFixed()
+				} else {
+					return (_time / 3600).toFixed()
+				}
+			},
+			timeText() {
+				let _time = this.statistical[0]
+				if (_time < 60) {
+					return '秒'
+
+				} else if (_time >= 60 && _time < 3600) {
+					return '分钟'
+				} else {
+					return '小时'
+				}
+			},
 			statusItemW() {
 				let windowWidth = uni.getSystemInfoSync().windowWidth
 				return (windowWidth * 212) / 750
@@ -235,13 +271,14 @@
 				]
 				let before = modelObj[this.detail.model]
 				_runStatus.forEach((item, index) => {
-					item.value = this.detail[`${before}_${afterList[index]}`]
+					item.value = this.detail[`${before}_${afterList[index]}`] || '-'
 				})
 				return _runStatus
 			}
 		},
 		created() {
 			this.getData()
+			this.getStatistical()
 			setInterval(() => {
 				this.getData()
 			}, 5000)
@@ -252,6 +289,20 @@
 				uni.navigateTo({
 					url
 				})
+			},
+			async getStatistical() {
+				let obj = {
+					widgetId: "_widget_1671603967688",
+					appId: "63413e3366ceda0008b4e512",
+					entryId: "6390250d2a75a0000a5a4668",
+					fx_access_token: "wxaQh7C80x+1iI8Q5WZDATs5EaeBBjpYRfyCV4auOEA=",
+					fx_access_type: "dash_public"
+				}
+				const res = await getBusinessStatistical(obj)
+				console.log("res.data.data: ", res.data.data.val);
+				if (res.statusCode == 200) {
+					this.statistical = [res.data.data.val[2].sum, res.data.data.val[1].sum, res.data.data.val[0].sum]
+				}
 			},
 			async getData() {
 				let obj = {
@@ -318,17 +369,17 @@
 	}
 
 	.circle {
-		width: 136rpx;
-		height: 136rpx;
+		width: 156rpx;
+		height: 156rpx;
 		top: 12rpx;
 		left: 12rpx;
-		border-radius: 136rpx;
+		border-radius: 156rpx;
 	}
 
 	.ring {
-		border-radius: 160rpx;
-		width: 160rpx;
-		height: 160rpx;
+		border-radius: 180rpx;
+		width: 180rpx;
+		height: 180rpx;
 	}
 
 	.ring1 {

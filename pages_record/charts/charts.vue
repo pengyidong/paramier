@@ -11,8 +11,8 @@
 					<view>时长：{{durationTime || '-'}}</view>
 				</view>
 				<view class="flex-1 d-f-a">
-					<view>总发数：1212</view>
-					<view>已打发数：{{currentnumber || '-'}}</view>
+					<view>总发数：{{total || '-'}}</view>
+					<view>已打发数：{{numAxis.length || '-'}}</view>
 				</view>
 
 
@@ -46,8 +46,10 @@
 </template>
 
 <script>
+	import {
+		equipment
+	} from '@/common/api.js'
 	import itemCharts from "./itemCharts.vue"
-	var uChartsInstance = {};
 	export default {
 		components: {
 			itemCharts
@@ -92,7 +94,7 @@
 			lineList: {
 				value: Array,
 				default: ''
-			}
+			},
 		},
 		computed: {
 			durationTime() {
@@ -116,6 +118,7 @@
 				autoplay: true,
 				interval: 5000,
 				duration: 750,
+				total: null,
 				modelList: {
 					'脱毛': 'https://bianm.jinxiongsj.com/file/uploads/20221010/b5e4211be37f8978aff4e1355ba014e4.png',
 					'嫩肤': 'https://bianm.jinxiongsj.com/file/uploads/20221010/863ed068b4e9e313d85aef2e6f9d76d5.png',
@@ -125,21 +128,33 @@
 			};
 		},
 		watch: {
-			// lineList(val) {
-			// 	val.forEach((item, index) => {
-			// 		// this.timeAxis.push(this.initTime(Date.parse(val[0].createTime), Date.parse(item
-			// 		// 	.createTime)))
-			// 		this.timeAxis.push(index)
-			// 		this.tempAxis.push(parseFloat(item.temperature.toFixed(1)))
-			// 		this.pulseWidthAxis.push(item.pulse_width)
-			// 	})
-			// },
+			model(val) {
+				this.getData(val)
+			},
 			loadingtext(val) {
 				console.log("val: ", val);
 			}
 		},
-		onReady() {},
+		created() {
+			
+		},
 		methods: {
+			async getData(model) {
+				let obj = {
+					data_id: '63903b0580c117000a994815'
+				}
+				const res = await equipment(obj)
+				let modelObj = {
+					'脱毛': 'hair_removal_total_number',
+					'嫩肤': 'tender_skin_total_number',
+					'祛斑': 'the_spot_total_number',
+					'毛细血管扩张': 'capillary_blood_vessels_total_number',
+				}
+				if (res.statusCode == 200) {
+					this.detail = res.data.data
+					this.total = this.detail[`${modelObj[model]}`] || '-'
+				}
+			}
 		}
 	};
 </script>
