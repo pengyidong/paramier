@@ -198,6 +198,14 @@ export const getUserInfo = (data) => request({
 	type: "-2"
 })
 
+// 获取动态码
+export const checkCode = (data) => request({
+	url: 'iot/index/checkCode',
+	method: 'GET',
+	data,
+	type: "-2"
+})
+
 // 创建用户数据
 export const createUser = (data) => request({
 	url: '63a531c5e52b15000a86af3b/data_create',
@@ -209,6 +217,22 @@ export const createUser = (data) => request({
 // 查询用户手机号
 export const getUserIsPhone = (data) => request({
 	url: '63a531c5e52b15000a86af3b/data',
+	method: 'POST',
+	data,
+	type: "4"
+})
+
+// 创建验真卡片
+export const createVerifyTruth = (data) => request({
+	url: '63a530650bb10c000ad50160/data_create',
+	method: 'POST',
+	data,
+	type: "4"
+})
+
+// 创建验真卡片
+export const getVerifyTruth = (data) => request({
+	url: '63a530650bb10c000ad50160/data',
 	method: 'POST',
 	data,
 	type: "4"

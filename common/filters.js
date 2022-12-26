@@ -2,7 +2,7 @@
 
 export default {
 	transformTime(date) {
-		if (!date) return ''
+		if (!date) return '-'
 		let time = new Date(date);
 		let y = time.getFullYear();
 		let M = time.getMonth() + 1;
