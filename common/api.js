@@ -181,3 +181,35 @@ export const getCode = (data) => request({
 	data,
 	type: "-2"
 })
+
+// 获取动态码
+export const getUserPhone = (data) => request({
+	url: 'iot/index/getPhone',
+	method: 'GET',
+	data,
+	type: "-2"
+})
+
+// 获取动态码
+export const getUserInfo = (data) => request({
+	url: 'iot/index/getinfo',
+	method: 'GET',
+	data,
+	type: "-2"
+})
+
+// 创建用户数据
+export const createUser = (data) => request({
+	url: '63a531c5e52b15000a86af3b/data_create',
+	method: 'POST',
+	data,
+	type: "4"
+})
+
+// 查询用户手机号
+export const getUserIsPhone = (data) => request({
+	url: '63a531c5e52b15000a86af3b/data',
+	method: 'POST',
+	data,
+	type: "4"
+})

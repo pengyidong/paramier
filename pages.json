@@ -108,6 +108,19 @@
 					}
 				},
 				{
+					"path": "userVerification/getUserPhone",
+					"style": {
+						"navigationBarTitleText": "扫码防伪",
+						"navigationStyle": "custom"
+					}
+				},{
+					"path": "userVerification/verificationList",
+					"style": {
+						"navigationBarTitleText": "扫码防伪",
+						"navigationStyle": "custom"
+					}
+				},
+				{
 					"path": "integral/detail",
 					"style": {
 						"navigationBarTitleText": "积分明细",
