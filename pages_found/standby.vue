@@ -74,7 +74,6 @@
 		},
 		methods: {
 			wapperClick(item) {
-				console.log('单项点击事件', item)
 				let url = `/pages_found/articleDetail?article_id=${item.article_id}`
 				uni.navigateTo({
 					url
@@ -105,7 +104,6 @@
 				}
 			},
 			tabsChange(e) {
-				console.log("e: ", e);
 				this.index = e.index
 				this.getArticleList(e.category_id)
 			}

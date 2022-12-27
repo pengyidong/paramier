@@ -101,7 +101,6 @@
 			this.agency_name = decodeURIComponent(options.agency_name);
 			this.record_id = decodeURIComponent(options.record_id);
 			this.id = decodeURIComponent(options.id);
-			console.log("this.id: ", this.id);
 		},
 		onShow() {
 			this.getListData()
@@ -142,7 +141,6 @@
 					}
 				}
 				const res = await recordRun(obj)
-				console.log("res: ", res);
 				if (res.statusCode == 200) {
 					this.lineList = res.data.data
 					this.model = res?.data?.data[0]?.model || ''

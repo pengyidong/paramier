@@ -14,7 +14,6 @@
 		onLoad(e) {
 			// 获取传递过来的链接
 			let url = 'https://aitest.jinxiongsj.com'
-			console.log("e: ", e);
 		},
 	}
 </script>

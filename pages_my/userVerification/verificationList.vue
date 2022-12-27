@@ -47,7 +47,6 @@
 				}
 				const res = await getVerifyTruth(obj)
 				if (res.statusCode === 200) {
-					console.log("res.data.data: ",res.data.data);
 					this.list = res.data.data
 				}
 			},

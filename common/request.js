@@ -31,7 +31,6 @@ export const request = (options) => {
 					resolve(res)
 				} else if (res.data.code === -1) {
 					// 登录态失效, 重新登录
-					console.log('登录态失效, 重新登录');
 				}
 				// 如果不满足上述判断就输出数据
 			},

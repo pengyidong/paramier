@@ -299,7 +299,6 @@
 					fx_access_type: "dash_public"
 				}
 				const res = await getBusinessStatistical(obj)
-				console.log("res.data.data: ", res.data.data.val);
 				if (res.statusCode == 200) {
 					this.statistical = [res.data.data.val[2].sum, res.data.data.val[1].sum, res.data.data.val[0].sum]
 				}

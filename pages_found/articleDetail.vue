@@ -46,7 +46,6 @@
 					article_id,
 				}
 				const res = await getArticleDetail(obj)
-				console.log(res.data);
 				if (res.statusCode === 200) {
 					this.article = res.data.data
 				}

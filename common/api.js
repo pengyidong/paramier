@@ -46,7 +46,7 @@ export const recordUpdate = (data) => request({
 	url: '634e763952cb33000a45e252/data_update',
 	method: 'post',
 	data,
-	type: "1"
+	type: "4"
 })
 
 // 获取文件上传凭证和上传地址

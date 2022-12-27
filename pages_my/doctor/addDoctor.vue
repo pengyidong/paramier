@@ -184,14 +184,12 @@
 			},
 			async getToken() {
 				const res = await getDoctorUploadToken()
-				console.log("res: ", res);
 				if (res.statusCode === 200) {
 					this.token_and_url_list = res.data.token_and_url_list
 				}
 			},
 			async getData() {
 				const res = await getDoctorUploadToken()
-				console.log("res: ", res);
 				if (res.statusCode === 200) {
 					this.token_and_url_list = res.data.token_and_url_list
 				}

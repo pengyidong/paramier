@@ -132,7 +132,6 @@
 				this.getData(val)
 			},
 			loadingtext(val) {
-				console.log("val: ", val);
 			}
 		},
 		created() {

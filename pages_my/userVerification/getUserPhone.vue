@@ -64,7 +64,6 @@
 				}
 				const res = await getUserIsPhone(obj)
 				if (res.statusCode === 200) {
-					console.log("res.data.data: ", res.data.data);
 					if (res.data.data.length > 0) {
 
 					} else {
@@ -119,7 +118,6 @@
 				}
 				const res = await createUser(obj)
 				if (res.statusCode === 200) {
-					console.log("res: ", res);
 				}
 			},
 			getPhoneNumber(e) {

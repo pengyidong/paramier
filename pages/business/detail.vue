@@ -74,7 +74,6 @@
 			if (Object.keys(options).length !== 0) {
 				let id = decodeURIComponent(options.id);
 				this.current = decodeURIComponent(options.state);
-				console.log("this.current: ", this.current);
 				this.getData(id)
 			}
 

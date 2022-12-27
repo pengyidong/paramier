@@ -39,7 +39,6 @@
 		methods: {
 			async longtap(e) { //手指长按事件
 				const res = await this.$refs.qrcode.GetCodeImg()
-				// console.log(res)
 				// uni.previewImage({
 				// 	urls: [res.tempFilePath],
 				// 	longPressActions: {

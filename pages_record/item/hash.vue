@@ -25,7 +25,6 @@
 		},
 		methods: {
 			copyhash() {
-				console.log(123131);
 				uni.setClipboardData({
 					data: this.detail.hash,
 					success: () => {

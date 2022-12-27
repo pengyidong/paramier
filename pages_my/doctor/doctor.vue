@@ -62,7 +62,6 @@
 					}
 				}
 				const res = await getDoctorList(obj)
-				console.log(res.data);
 				if (res.statusCode === 200) {
 					this.list = res.data.data
 				}

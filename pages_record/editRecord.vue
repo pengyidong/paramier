@@ -96,7 +96,7 @@
 				detail: {},
 				token_and_url_list: [],
 				record_id: '',
-				id:'',
+				id: '',
 				urls1: [],
 				urls2: [],
 				isup1: false,
@@ -286,7 +286,6 @@
 					i = i + 10
 				}
 				i = (i / 100)
-				console.log("i % 10: ", i);
 				return i
 			},
 			async update() {
@@ -366,7 +365,7 @@
 			// 项目详情
 			async getListData() {
 				let obj = {
-					data_id:this.id
+					data_id: this.id
 				}
 				const res = await recordDetail(obj)
 				if (res.statusCode == 200) {

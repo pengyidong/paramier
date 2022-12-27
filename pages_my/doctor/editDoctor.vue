@@ -203,7 +203,6 @@
 			},
 			async getToken() {
 				const res = await getDoctorUploadToken()
-				console.log("res: ", res);
 				if (res.statusCode === 200) {
 					this.token_and_url_list = res.data.token_and_url_list
 				}
@@ -226,7 +225,6 @@
 					data_id: id
 				}
 				const res = await getDoctor(obj)
-				console.log(res.data.data);
 				if (res.statusCode === 200) {
 					this.detail = res.data.data
 					if (res.data.data.picture && res.data.data.picture && res.data.data.picture[0].url) {

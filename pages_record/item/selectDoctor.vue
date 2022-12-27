@@ -46,7 +46,6 @@
 		},
 		watch:{
 			show(val){
-				console.log("val: ",val);
 			}
 		},
 		methods: {
