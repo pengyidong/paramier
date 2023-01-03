@@ -11,7 +11,7 @@
 					<view class="list-item">机构：{{item.agency_name}}</view>
 					<view class="list-item">项目：{{item.parts}}</view>
 					<view class="list-item">部位：{{item.project}}</view>
-					<view class="list-item">资料完善度：{{item.progress * 100 }}%</view>
+					<view class="list-item">资料完善度：{{(item.progress * 100).toFixed(1) }}%</view>
 					<view class="list-item">创建时间：{{item.creation_time | transformTime}}</view>
 				</view>
 			</view>

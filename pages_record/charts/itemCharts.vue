@@ -107,6 +107,8 @@
 					color: [this.list[this.index].color],
 					fontSize: '12',
 					padding: [15, 10, 0, 10],
+					dataLabel: false,
+					dataPointShape: false,
 					legend: {
 						fontSize: '12',
 					},

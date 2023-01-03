@@ -12,7 +12,7 @@
 				</view>
 				<view class="flex-1 d-f-a">
 					<view>总发数：{{total || '-'}}</view>
-					<view>已打发数：{{numAxis.length || '-'}}</view>
+					<view>已打发数：{{passesUsed || '-'}}</view>
 				</view>
 
 
@@ -95,6 +95,10 @@
 				value: Array,
 				default: ''
 			},
+			passesUsed: {
+				value: String,
+				default: ''
+			}
 		},
 		computed: {
 			durationTime() {
@@ -131,11 +135,10 @@
 			model(val) {
 				this.getData(val)
 			},
-			loadingtext(val) {
-			}
+			loadingtext(val) {}
 		},
 		created() {
-			
+
 		},
 		methods: {
 			async getData(model) {

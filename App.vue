@@ -2,6 +2,7 @@
 	export default {
 		onLaunch: function() {
 			this.getSystemInfo();
+			this.getOpenid()
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -10,6 +11,13 @@
 			console.log('App Hide')
 		},
 		methods: {
+			getOpenid() {
+				wx.login({
+					success: loginRes => {
+						uni.setStorageSync('loginRes', loginRes.code)
+					}
+				});
+			},
 			/* 获取系统信息 */
 			getSystemInfo() {
 				uni.getSystemInfo({

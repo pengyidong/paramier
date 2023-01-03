@@ -3,7 +3,8 @@
 		<u-navbar title="治疗档案详情" :autoBack="true" :placeholder='true'></u-navbar>
 		<charts :numAxis='numAxis' :tempAxis='tempAxis' :pulseWidthAxis='pulseWidthAxis'
 			:pulsesNumberAxis='pulsesNumberAxis' :energyAxis='energyAxis' :dataId='id' :model='model'
-			:loadingtext='loadingtext' :currentnumber='current_number' :lineList='lineList'></charts>
+			:passesUsed='detailData.passes_used' :loadingtext='loadingtext' :currentnumber='current_number' :lineList='lineList'>
+		</charts>
 		<basicInfo :detail='detailData' :model='model' :currentnumber='current_number' :lineList='lineList'></basicInfo>
 		<progress :detail='detailData'></progress>
 		<view class="bg-FFFFFF pb30 m-0-24 bb-999999-2">
@@ -62,6 +63,7 @@
 				pulsesNumberAxis: [],
 				energyAxis: [],
 				detailData: {},
+				passesUsed: '',
 				list: [{
 					name: '项目信息',
 				}, {
@@ -90,11 +92,11 @@
 					_energyAxis.push(item.energy)
 					_pulsesNumberAxis.push(item.pulses_number)
 				})
-				this.numAxis = _numAxis
-				this.tempAxis = _tempAxis
-				this.pulseWidthAxis = _pulseWidthAxis
-				this.energyAxis = _energyAxis
-				this.pulsesNumberAxis = _pulsesNumberAxis
+				this.numAxis = _numAxis.slice(0, 15)
+				this.tempAxis = _tempAxis.slice(0, 15)
+				this.pulseWidthAxis = _pulseWidthAxis.slice(0, 15)
+				this.energyAxis = _energyAxis.slice(0, 15)
+				this.pulsesNumberAxis = _pulsesNumberAxis.slice(0, 15)
 			}
 		},
 		onLoad(options) {
@@ -143,6 +145,7 @@
 				const res = await recordRun(obj)
 				if (res.statusCode == 200) {
 					this.lineList = res.data.data
+					console.log("this.lineList: ", this.lineList);
 					this.model = res?.data?.data[0]?.model || ''
 					this.current_number = res?.data?.data[0]?.current_number
 					this.loadingtext = '暂无数据'

@@ -32,7 +32,7 @@
 				let res = {
 					series: [{
 						color: "#5D9AFF",
-						data: this.progress || 0
+						data: this.progress.toFixed(1) || 0
 					}]
 				};
 				this.drawCharts('arcbarCharts', res);
@@ -52,7 +52,7 @@
 					],
 					padding: undefined,
 					title: {
-						name: `${this.progress * 100}%` || 0,
+						name: `${(this.progress * 100).toFixed(1) }%` || 0,
 						fontSize: 18,
 						color: "#5D9AFF"
 					},
