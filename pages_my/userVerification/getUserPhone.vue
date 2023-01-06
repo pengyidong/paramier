@@ -1,13 +1,28 @@
 <template>
 	<view>
-		<u-navbar title="获取手机号" :autoBack="true" :placeholder='true'></u-navbar>
-		<view class="mt400  f32 fb co-333333">
-			<view class="tc">为了查询您的治疗档案</view>
-			<view class="tc">需要您提供手机号</view>
+		<u-navbar title="获取用户信息" :autoBack="true" :placeholder='true'></u-navbar>
+		<view class="mt24"></view>
+		<view class="card">
+			<view class="co-333333 f26 fb mb15">头像</view>
+			<button class="avatar-wrapper" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
+				<u-avatar :src="src" size='60'></u-avatar>
+			</button>
+
+			<view class="co-333333 f26 fb m-15-0">姓名</view>
+			<u--input placeholder="请输入内容" border="surround" :value='detail.parts' @change="change($event,0)"></u--input>
+			<view class="co-333333 f26 fb m-15-0">手机号</view>
+			<u--input placeholder="请输入内容" border="surround" :value='detail.project' @change="change($event,1)">
+			</u--input>
+			<view class="co-333333 f26 fb m-15-0">性别</view>
+			<u-radio-group v-model="gender" :borderBottom="true" placement="column"
+				iconPlacement="right">
+				<u-radio label="女" name="女" :labelDisabled='true' :customStyle="{marginBottom: '16px'}"></u-radio>
+				<u-radio label="男" name="男" :labelDisabled='true' :customStyle="{marginBottom: '16px'}"></u-radio>
+			</u-radio-group>
 		</view>
 		<view class="d-c-c mt50 wz">
 			<view class="flex-1 d-c-c">
-				<button open-type="getPhoneNumber" class="btn-normal" @getphonenumber="getPhoneNumber">获取手机号</button>
+				<button open-type="getPhoneNumber" class="btn-normal" @getphonenumber="getPhoneNumber">保存表单</button>
 			</view>
 		</view>
 	</view>
@@ -22,17 +37,26 @@
 		getInstrument,
 		createVerifyTruth
 	} from '@/common/api.js'
+	import title from '@/components/title/title.vue';
 	export default {
 		data() {
 			return {
 				phone: '',
-				detail: {}
+				detail: {},
+				src: '',
+				gender: '女'
 			}
 		},
 		created() {
 			this.getData()
 		},
 		methods: {
+			onChooseAvatar(e) {
+				const {
+					avatarUrl
+				} = e.detail
+				console.log("avatarUrl: ", avatarUrl);
+			},
 			async getData() {
 				let obj = {
 					limit: 1,
@@ -117,8 +141,7 @@
 					},
 				}
 				const res = await createUser(obj)
-				if (res.statusCode === 200) {
-				}
+				if (res.statusCode === 200) {}
 			},
 			getPhoneNumber(e) {
 				if (e.detail.errMsg !== 'getPhoneNumber:ok') {
@@ -140,7 +163,7 @@
 			}
 		}
 	}
-</script>
+</script>比价网
 
 <style lang="scss" scoped>
 	.wz {
@@ -164,5 +187,15 @@
 		min-width: 200rpx;
 		height: 60rpx;
 		color: #FFFFFF;
+	}
+
+	button {
+		border: none !important;
+		border-radius: 0 !important;
+	}
+
+	.avatar-wrapper {
+		border: none !important;
+		border-radius: 0 !important;
 	}
 </style>
