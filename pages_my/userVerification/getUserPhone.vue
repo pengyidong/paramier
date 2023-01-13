@@ -8,21 +8,24 @@
 				<u-avatar :src="src" size='60'></u-avatar>
 			</button>
 
-			<view class="co-333333 f26 fb m-15-0">姓名</view>
-			<u--input placeholder="请输入内容" border="surround" :value='detail.parts' @change="change($event,0)"></u--input>
+			<view class="co-333333 f26 fb m-15-0">昵称</view>
+			<input type="nickname" class="weui-input" placeholder="请输入昵称" />
 			<view class="co-333333 f26 fb m-15-0">手机号</view>
-			<u--input placeholder="请输入内容" border="surround" :value='detail.project' @change="change($event,1)">
-			</u--input>
+			<view class="d-c">
+				<view class="co-333333 f26">{{phone || '-'}}</view>
+				<button open-type="getPhoneNumber" class="maxW" @getphonenumber="getPhoneNumber">获取手机号</button>
+			</view>
+
+
 			<view class="co-333333 f26 fb m-15-0">性别</view>
-			<u-radio-group v-model="gender" :borderBottom="true" placement="column"
-				iconPlacement="right">
+			<u-radio-group v-model="gender" :borderBottom="true" placement="column" iconPlacement="right">
 				<u-radio label="女" name="女" :labelDisabled='true' :customStyle="{marginBottom: '16px'}"></u-radio>
 				<u-radio label="男" name="男" :labelDisabled='true' :customStyle="{marginBottom: '16px'}"></u-radio>
 			</u-radio-group>
 		</view>
 		<view class="d-c-c mt50 wz">
 			<view class="flex-1 d-c-c">
-				<button open-type="getPhoneNumber" class="btn-normal" @getphonenumber="getPhoneNumber">保存表单</button>
+				<button class="btn-normal" @click="save">保存表单</button>
 			</view>
 		</view>
 	</view>
@@ -35,27 +38,67 @@
 		createUser,
 		checkCode,
 		getInstrument,
-		createVerifyTruth
+		createVerifyTruth,
+		getUserInfoUploadToken
 	} from '@/common/api.js'
 	import title from '@/components/title/title.vue';
 	export default {
 		data() {
 			return {
+				info: {},
 				phone: '',
 				detail: {},
 				src: '',
-				gender: '女'
+				gender: '女',
+				openId: '',
+				token_and_url_list: [],
 			}
 		},
 		created() {
 			this.getData()
+			this.getToken()
+			this.getOpenId()
 		},
 		methods: {
+			getOpenId() {
+				this.openId = uni.getStorageSync('loginRes')
+			},
+			async getToken() {
+				const res = await getUserInfoUploadToken()
+				if (res.statusCode === 200) {
+					this.token_and_url_list = res.data.token_and_url_list
+				}
+			},
+			save() {
+
+			},
 			onChooseAvatar(e) {
 				const {
 					avatarUrl
 				} = e.detail
-				console.log("avatarUrl: ", avatarUrl);
+				this.src = avatarUrl
+				uni.showLoading({
+					title: '图片上传中'
+				});
+				uni.uploadFile({
+					url: this.token_and_url_list[0].url, //接口地址
+					header: {
+						'Authorization': 'Bearer SMlLFl0qf3setN6OWJl7henCSwnwfLaX'
+					}, //请求token
+					filePath: avatarUrl,
+					formData: {
+						"token": this.token_and_url_list[0].token,
+					},
+					name: 'file',
+					success: (uploadFileRes) => {
+						let key = JSON.parse(uploadFileRes.data).key
+						this.token_and_url_list.shift();
+						console.log("key: ", key);
+					},
+					complete: () => {
+						uni.hideLoading();
+					}
+				});
 			},
 			async getData() {
 				let obj = {
@@ -124,9 +167,6 @@
 						const checkRes = await createVerifyTruth(createObj)
 						if (checkRes.statusCode === 200) {
 							let url = `/pages_my/userVerification/verificationList?phone=${this.phone}`
-							uni.navigateTo({
-								url
-							})
 						}
 					}
 				}
@@ -189,13 +229,35 @@
 		color: #FFFFFF;
 	}
 
-	button {
-		border: none !important;
-		border-radius: 0 !important;
+	button::after {
+		border: none;
 	}
 
 	.avatar-wrapper {
-		border: none !important;
-		border-radius: 0 !important;
+		background: white;
+		padding: 0rpx;
+		margin: 0rpx;
+	}
+
+	.maxW {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex: 1;
+		padding: 10rpx 25rpx;
+		border: 1rpx solid #8B91C4;
+		background: linear-gradient(94deg, #A9B8D5, #D2C7D8);
+		border-radius: 12rpx;
+		height: 60rpx;
+		color: #FFFFFF;
+		max-width: 240rpx;
+		margin: 0;
+		margin-left: auto;
+	}
+
+	.weui-input {
+		border: #dadbde 1rpx solid;
+		border-radius: 8rpx;
+		padding: 8rpx 12rpx;
 	}
 </style>

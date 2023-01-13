@@ -69,6 +69,16 @@ export const getDoctorUploadToken = () => request({
 	type: '1'
 })
 
+// 获取文件上传凭证和上传地址
+export const getUserInfoUploadToken = () => request({
+	url: '63a531c5e52b15000a86af3b/file/get_upload_token',
+	method: 'post',
+	data: {
+		transaction_id: "bmrj8888"
+	},
+	type: '1'
+})
+
 // 获取认证医生列表
 export const getDoctorList = (data) => request({
 	url: '634e619d3f89ef000acfe68f/data',
@@ -233,6 +243,14 @@ export const createVerifyTruth = (data) => request({
 // 创建验真卡片
 export const getVerifyTruth = (data) => request({
 	url: '63a530650bb10c000ad50160/data',
+	method: 'POST',
+	data,
+	type: "4"
+})
+
+// 创建验真卡片
+export const getUserList = (data) => request({
+	url: '63a531c5e52b15000a86af3b/data',
 	method: 'POST',
 	data,
 	type: "4"

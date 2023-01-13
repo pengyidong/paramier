@@ -12,20 +12,17 @@
 
 		<title title="客户信息"></title>
 		<view class="card">
-			<view class="co-333333 f26 fb mb15">姓名</view>
-			<u--input placeholder="请输入内容" border="surround" :value='detail.customer_name' @change="change($event,2)">
-			</u--input>
-			<view class="co-333333 f26 fb m-15-0">性别</view>
-			<u-radio-group v-model="details.gender" placement="row">
-				<u-radio label="男" name='男' :customStyle="{marginRight: '16px'}"></u-radio>
-				<u-radio label="女" name='女'></u-radio>
-			</u-radio-group>
-			<view class="co-333333 f26 fb m-15-0">联系方式</view>
-			<u--input placeholder="请输入内容" border="surround" :value='detail.contact' @change="change($event,3)">
-			</u--input>
-			<view class="co-333333 f26 fb m-15-0">微信号</view>
-			<u--input placeholder="请输入内容" border="surround" :value='detail.wechat' @change="change($event,4)">
-			</u--input>
+			<view class="flex">
+				<view class="mr30">
+					<u-avatar :src="detail.user_photo[0].url" size='80'></u-avatar>
+				</view>
+				<view class="d-f-s">
+					<view>昵称：{{detail.customer_name || '-'}}</view>
+					<view>性别：{{detail.gender || '-'}}</view>
+					<view>手机号：{{detail.contact || '-'}}</view>
+				</view>
+				<view class="btn btnlt co-FFFFFF f26 fb" @click="userSelect">选择用户</view>
+			</view>
 			<view class="co-333333 f26 fb m-15-0">症状问题</view>
 			<u--textarea placeholder="请输入内容" autoHeight :value='detail.symptoms' @input="change($event,5)">
 			</u--textarea>
@@ -36,9 +33,9 @@
 				<u-avatar :src="detail.doctor_photo[0].url" size='80'></u-avatar>
 			</view>
 			<view class="d-f-s">
-				<view>姓名：{{detail.doctor_name || ''}}</view>
-				<view>职称：{{detail.doctor_title || ''}}</view>
-				<view>编号：{{detail.doctor_number || ''}}</view>
+				<view>姓名：{{detail.doctor_name || '-'}}</view>
+				<view>职称：{{detail.doctor_title || '-'}}</view>
+				<view>编号：{{detail.doctor_number || '-'}}</view>
 			</view>
 			<view class="btn btnlt co-FFFFFF f26 fb" @click="gotoDoctor">选择医生</view>
 		</view>
@@ -75,12 +72,14 @@
 			</view>
 		</view>
 		<selectDoctor :show='show' @close='close' @select='select'></selectDoctor>
+		<selectUser :show='showUser' @select='selectU'></selectUser>
 	</view>
 </template>
 
 <script>
 	import title from '@/components/title/title.vue';
 	import selectDoctor from './item/selectDoctor.vue';
+	import selectUser from './item/selectUser.vue';
 	import {
 		recordDetail,
 		recordUpdate,
@@ -89,7 +88,8 @@
 	export default {
 		components: {
 			title,
-			selectDoctor
+			selectDoctor,
+			selectUser
 		},
 		data() {
 			return {
@@ -102,9 +102,11 @@
 				isup1: false,
 				isup2: false,
 				isup3: false,
+				isup4: false,
 				details: {
 					parts: '',
 					project: '',
+					user_photo: '',
 					customer_name: '',
 					contact: '',
 					wechat: '',
@@ -118,7 +120,8 @@
 					src2: '',
 					progress: null
 				},
-				show: false
+				show: false,
+				showUser: false
 			}
 		},
 		onLoad(options) {
@@ -128,19 +131,38 @@
 		},
 		methods: {
 			select(e) {
+				console.log("e: ", e);
 				this.detail.doctor_name = e.doctor_name
-				this.detail.doctor_title = e.doctor_title
 				this.detail.doctor_number = e.doctor_id
 
 				this.details.doctor_name = e.doctor_name
 				this.details.doctor_number = e.doctor_id
 				this.details.doctor_title = e.doctor_title
-				this.getSelectImg(e.picture[0].url)
+				this.getSelectImg(e.picture[0].url, 1)
 			},
-			getSelectImg(url) {
-				this.detail.doctor_photo = [{
-					url
-				}]
+			selectU(e) {
+				console.log("e: ", e);
+				this.showUser = false
+				this.detail.customer_name = e.wxname
+				this.detail.gender = e.sex
+				this.detail.contact = e.phone
+
+				this.details.customer_name = e.wxname
+				this.details.gender = e.sex
+				this.details.contact = e.phone
+				this.getSelectImg(e.wxurl[0].url, 0)
+			},
+			getSelectImg(url, index) {
+				if (index === 1) {
+					this.detail.doctor_photo = [{
+						url
+					}]
+				} else if (index === 0) {
+					this.detail.user_photo = [{
+						url
+					}]
+				}
+
 				uni.downloadFile({
 					url,
 					success: (res) => {
@@ -158,8 +180,14 @@
 								success: (uploadFileRes) => {
 									let key = JSON.parse(uploadFileRes.data).key
 									this.token_and_url_list.shift();
-									this.details.doctor_photo = key
-									this.isup3 = true
+									if (index === 0) {
+										this.details.user_photo = key
+										this.isup4 = true
+									} else if (index === 1) {
+										this.details.doctor_photo = key
+										this.isup3 = true
+									}
+
 								}
 							});
 						}
@@ -169,6 +197,9 @@
 			},
 			close() {
 				this.show = !this.show
+			},
+			userSelect() {
+				this.showUser = !this.showUser
 			},
 			gotoDoctor() {
 				this.show = !this.show
@@ -237,9 +268,6 @@
 						break;
 					case 3:
 						this.details.contact = value;
-						break;
-					case 4:
-						this.details.wechat = value;
 						break;
 					case 5:
 						this.details.symptoms = value;
@@ -357,6 +385,14 @@
 						]
 					}
 				}
+				console.log("this.isup4: ", this.isup4);
+				if (this.isup4) {
+					obj.data.user_photo = {
+						value: [
+							this.details.user_photo
+						]
+					}
+				}
 				const res = await recordUpdate(obj)
 				if (res.statusCode === 200) {
 					this.back()
@@ -372,6 +408,7 @@
 					this.detail = res.data.data
 					this.details.parts = res.data.data?.parts
 					this.details.project = res.data.data.project
+					this.details.user_photo = res.data.data?.user_photo[0]?.url
 					this.details.customer_name = res.data.data.customer_name
 					this.details.contact = res.data.data.contact
 					this.details.wechat = res.data.data.wechat
