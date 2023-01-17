@@ -60,6 +60,14 @@
 			detail: {
 				value: Object,
 				default: {}
+			},
+			rid: {
+				value: String,
+				default: ''
+			},
+			record_id: {
+				value: String,
+				default: ''
 			}
 		},
 		watch: {
@@ -70,7 +78,7 @@
 		},
 		methods: {
 			goto() {
-				let url = `/pages_record/editRecord?id=${this.detail._id}`
+				let url = `/pages_record/editRecord?id=${this.detail._id}&rid=${this.rid}&record_id=${this.record_id}`
 				uni.navigateTo({
 					url
 				})

@@ -248,6 +248,14 @@ export const getVerifyTruth = (data) => request({
 	type: "4"
 })
 
+// 修改单条数据接口 验真卡片
+export const upadteVerifyTruth = (data) => request({
+	url: '63a530650bb10c000ad50160/data_update',
+	method: 'POST',
+	data,
+	type: "4"
+})
+
 // 创建验真卡片
 export const getUserList = (data) => request({
 	url: '63a531c5e52b15000a86af3b/data',

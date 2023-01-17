@@ -3,10 +3,11 @@
 		<u-navbar title="治疗档案详情" :autoBack="true" :placeholder='true'></u-navbar>
 		<charts :numAxis='numAxis' :tempAxis='tempAxis' :pulseWidthAxis='pulseWidthAxis'
 			:pulsesNumberAxis='pulsesNumberAxis' :energyAxis='energyAxis' :dataId='id' :model='model'
-			:passesUsed='detailData.passes_used' :loadingtext='loadingtext' :currentnumber='current_number' :lineList='lineList'>
+			:passesUsed='detailData.passes_used' :loadingtext='loadingtext' :currentnumber='current_number'
+			:lineList='lineList'>
 		</charts>
 		<basicInfo :detail='detailData' :model='model' :currentnumber='current_number' :lineList='lineList'></basicInfo>
-		<progress :detail='detailData'></progress>
+		<progress :detail='detailData' :record_id='record_id' :rid='id'></progress>
 		<view class="bg-FFFFFF pb30 m-0-24 bb-999999-2">
 			<u-tabs @change='tabsChange' :current='index' :scrollable='false' itemStyle="height: 30px;" :list="list"
 				:lineWidth='60' :lineHeight='2' lineColor="#5AA1F9" :activeStyle="{

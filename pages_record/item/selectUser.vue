@@ -24,13 +24,17 @@
 
 <script>
 	import {
-		getUserList
+		getVerifyTruth
 	} from '@/common/api.js'
 	export default {
 		props: {
 			show: {
 				value: Boolean,
 				default: false,
+			},
+			creationtime: {
+				value: String,
+				default: '',
 			}
 		},
 		data() {
@@ -39,11 +43,11 @@
 				maxHeight: uni.getSystemInfoSync().windowHeight * 0.75
 			}
 		},
-		created() {
-			this.getData()
-		},
 		watch: {
-			show(val) {}
+			show(val) {},
+			creationtime(val) {
+				this.getData()
+			}
 		},
 		methods: {
 			open() {
@@ -57,6 +61,7 @@
 				this.close()
 			},
 			async getData() {
+				if(!this.creationtime) return
 				let obj = {
 					limit: 100,
 					filter: {
@@ -65,13 +70,16 @@
 							field: "agency_name",
 							method: "eq",
 							value: '变美日记广州体验中心'
+						}, {
+							field: "date",
+							method: "eq",
+							value: this.creationtime.substring(0,10)
 						}, ]
 					}
 				}
-				const res = await getUserList(obj)
+				const res = await getVerifyTruth(obj)
 				if (res.statusCode === 200) {
 					this.list = res.data.data
-					console.log("this.list: ", this.list);
 				}
 			}
 		}

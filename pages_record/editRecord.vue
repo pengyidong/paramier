@@ -72,7 +72,7 @@
 			</view>
 		</view>
 		<selectDoctor :show='show' @close='close' @select='select'></selectDoctor>
-		<selectUser :show='showUser' @select='selectU'></selectUser>
+		<selectUser :show='showUser' :creationtime='detail.creation_time' @select='selectU'></selectUser>
 	</view>
 </template>
 
@@ -83,7 +83,8 @@
 	import {
 		recordDetail,
 		recordUpdate,
-		getRecordUploadToken
+		getRecordUploadToken,
+		upadteVerifyTruth
 	} from '@/common/api.js'
 	export default {
 		components: {
@@ -97,6 +98,7 @@
 				token_and_url_list: [],
 				record_id: '',
 				id: '',
+				rid: '',
 				urls1: [],
 				urls2: [],
 				isup1: false,
@@ -126,6 +128,8 @@
 		},
 		onLoad(options) {
 			this.id = decodeURIComponent(options.id);
+			this.record_id = decodeURIComponent(options.record_id);
+			this.rid = decodeURIComponent(options.rid);
 			this.getListData()
 			this.getToken()
 		},
@@ -135,13 +139,24 @@
 				this.detail.doctor_name = e.doctor_name
 				this.detail.doctor_number = e.doctor_id
 
-				this.details.doctor_name = e.doctor_name
+				this.details.doctor_name = e.doctor_namew
 				this.details.doctor_number = e.doctor_id
 				this.details.doctor_title = e.doctor_title
 				this.getSelectImg(e.picture[0].url, 1)
 			},
-			selectU(e) {
-				console.log("e: ", e);
+			async selectU(e) {
+				let obj = {
+					data_id: e._id,
+					data: {
+						rid: {
+							value: this.rid
+						},
+						record_id: {
+							value: this.record_id
+						}
+					},
+				}
+				const res = await upadteVerifyTruth(obj)
 				this.showUser = false
 				this.detail.customer_name = e.wxname
 				this.detail.gender = e.sex
@@ -385,7 +400,6 @@
 						]
 					}
 				}
-				console.log("this.isup4: ", this.isup4);
 				if (this.isup4) {
 					obj.data.user_photo = {
 						value: [
